@@ -11,8 +11,22 @@ config_version=5
 [application]
 
 config/name="Project StrangePlaces"
+run/main_scene="res://Assets/Scenes/level.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=860
+window/size/viewport_height=640
+window/stretch/mode="viewport"
+
+[file_customization]
+
+folder_colors={
+"res://Assets/": "green",
+"res://Scripts/": "orange"
+}
 
 [physics]
 
