@@ -1,13 +1,22 @@
 extends Panel
 
-var dragging : bool = false
-var drag_vector : Vector2 = Vector2.ZERO
+@export_category("CONTROLS")
+@export var min_pos : Vector2 = Vector2.ZERO
+@export var max_pos : Vector2 = Vector2.ZERO
 
+var dragging : bool = false
+var offset : Vector2 = Vector2.ZERO
 
 
 func _on_gui_input(event: InputEvent) -> void:
-	if event == InputEventMouseButton:
-		if (event as InputEventMouseButton).button_index == 0:
-			if (event as InputEventMouseButton).pressed
-		
-		
+	print("[AdminWindowBar] Input! Event = ", event)
+	if event is InputEventMouseButton:
+		if event.button_index == 1:
+			print("[AdminWindowBar] Mouse pressed on me!")
+			offset = global_position - get_global_mouse_position()
+		dragging = event.pressed
+
+func _process(delta: float) -> void:
+	if dragging:
+		print("[AdminWindowBar] Dragging...")
+		global_position = (get_global_mouse_position() + offset).clamp(min_pos, get_viewport_rect().size - size)
