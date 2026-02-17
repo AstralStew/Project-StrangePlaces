@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://cxsrss785mj1k"]
 
+[ext_resource type="Script" uid="uid://cbvwq5gqfdipg" path="res://Scripts/AdminWindowBar.gd" id="1_0f350"]
 [ext_resource type="Texture2D" uid="uid://dg2vb4mhb7bym" path="res://Assets/Sprites/roguelikeSheet_transparent.png" id="1_wqkje"]
 [ext_resource type="Script" uid="uid://dik7dj3oq3mn5" path="res://Scripts/MainCharacter.gd" id="2_0f350"]
 [ext_resource type="Texture2D" uid="uid://cnv6qakg8e5ow" path="res://Concept Art/GenericFantasyCharacterPixelTest.png" id="3_wqkje"]
@@ -1800,7 +1801,7 @@ bg_color = Color(0, 1, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
 
-[node name="WindowBar" type="Panel" parent="CanvasLayer" unique_id=1410604925]
+[node name="AdminWindowBar" type="Panel" parent="CanvasLayer" unique_id=1410604925]
 custom_minimum_size = Vector2(240, 20)
 anchors_preset = 8
 anchor_left = 0.5
@@ -1814,8 +1815,9 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wqkje")
+script = ExtResource("1_0f350")
 
-[node name="Window" type="Panel" parent="CanvasLayer/WindowBar" unique_id=638186814]
+[node name="AdminWindow" type="Panel" parent="CanvasLayer/AdminWindowBar" unique_id=638186814]
 custom_minimum_size = Vector2(240, 220)
 layout_mode = 1
 anchors_preset = 8
@@ -1977,3 +1979,5 @@ offset_top = -6.0
 offset_right = 6.0
 offset_bottom = 6.0
 color = Color(0, 1, 1, 1)
+
+[connection signal="gui_input" from="CanvasLayer/AdminWindowBar" to="CanvasLayer/AdminWindowBar" method="_on_gui_input"]

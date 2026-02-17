@@ -1,11 +1,13 @@
 extends Panel
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var dragging : bool = false
+var drag_vector : Vector2 = Vector2.ZERO
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event == InputEventMouseButton:
+		if (event as InputEventMouseButton).button_index == 0:
+			if (event as InputEventMouseButton).pressed
+		
+		
