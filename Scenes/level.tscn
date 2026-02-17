@@ -1800,16 +1800,33 @@ bg_color = Color(0, 1, 0, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
 
-[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=1410604925]
+[node name="WindowBar" type="Panel" parent="CanvasLayer" unique_id=1410604925]
+custom_minimum_size = Vector2(240, 20)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 23.0
-offset_top = -123.0
-offset_right = 263.0
-offset_bottom = 117.0
+offset_left = 20.0
+offset_top = -120.0
+offset_right = 260.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wqkje")
+
+[node name="Window" type="Panel" parent="CanvasLayer/WindowBar" unique_id=638186814]
+custom_minimum_size = Vector2(240, 220)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = 10.0
+offset_right = 120.0
+offset_bottom = 230.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wqkje")
