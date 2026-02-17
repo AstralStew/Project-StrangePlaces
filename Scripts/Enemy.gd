@@ -56,7 +56,6 @@ func reset() -> void:
 	awake = false
 	dir = Vector2.ZERO
 	
-	print("healthbar = ", healthbar, ", should be = ", $Healthbar)
 	healthbar.value = max_health
 	healthbar.max_value = max_health
 	
