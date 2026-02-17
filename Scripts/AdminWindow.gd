@@ -1,4 +1,4 @@
-extends Panel
+class_name AdminWindow extends PanelContainer
 
 @export_category("CONTROLS")
 @export var min_pos : Vector2 = Vector2.ZERO
