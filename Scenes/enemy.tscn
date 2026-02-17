@@ -8,6 +8,12 @@ size = Vector2(38.12503, 37.49997)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4t65"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1f0kj"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afpow"]
+bg_color = Color(0, 1, 0, 1)
+
 [node name="Enemy" type="CharacterBody2D" unique_id=1166851068]
 scale = Vector2(0.8, 0.8)
 collision_layer = 2
@@ -38,5 +44,24 @@ position = Vector2(0, -6.5)
 scale = Vector2(0.59380823, 0.6272561)
 shape = SubResource("RectangleShape2D_x4t65")
 
+[node name="Healthbar" type="ProgressBar" parent="." unique_id=1274332396]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.99998
+offset_top = -35.0
+offset_right = 147.08502
+offset_bottom = -8.0
+grow_horizontal = 2
+scale = Vector2(0.25, 0.25)
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_1f0kj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_afpow")
+value = 100.0
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_body_2d_body_entered"]
+

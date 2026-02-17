@@ -6,10 +6,10 @@ class_name MainCharacter extends CharacterBody2D
 
 @export_category("MOVEMENT")
 @export var speed : float = 5
-@export var moving_time : Vector2 = Vector2(3,10)
 @export var waiting_time : Vector2 = Vector2(1,4)
 @export_category("WEAPON")
 @export var weapon_time : float = 1
+@export var weapon_damage : float = 5
 @export var weapon_distance : float = 10
 
 
@@ -17,7 +17,11 @@ class_name MainCharacter extends CharacterBody2D
 
 @export var health : float = 100.0
 @export var direction : Vector2 = Vector2.ZERO
+@export var target : Node2D = null
+@export var moving : bool = false
 @export var attacking : bool = false
+
+signal target_reached
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,7 +32,7 @@ func _ready() -> void:
 
 func lose_health(amount:float) -> void:
 	health = maxi(health-amount,0)
-	print("[MainCharacter] Losing ",amount," health, new health = ",health)	
+	print("[MainCharacter] Losing ",amount," health, new health = ",health)
 	healthbar.value = health
 
 
@@ -39,23 +43,40 @@ func _process(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	velocity = direction * speed 
-	move_and_slide()
+	
+	if moving:
+		
+		direction = target.global_position - global_position
+		
+		if direction.length() < 1.0:
+			target_reached.emit()
+		
+		velocity = direction.normalized() * speed 
+		move_and_slide()
 
 
 func pick_direction() -> void:
 	
 	while (true):
 		
-		direction = Vector2(randf_range(-1,1),randf_range(-1,1)).normalized()
-		await get_tree().create_timer(randf_range(moving_time.x,moving_time.y)).timeout
+		target = get_tree().get_nodes_in_group("Waypoints")[randi() % get_tree().get_node_count_in_group("Waypoints")] as Node2D
+		
+		print("[MainCharacter] Chose a new target: ",target)
+		
+		moving = true
+		
+		await target_reached
+		print("[MainCharacter] Waypoint reached! Starting to wait...")
+		
 		direction = Vector2.ZERO
+		moving = false
+		
 		await get_tree().create_timer(randf_range(waiting_time.x,waiting_time.y)).timeout
 
 
 
 func attack() -> void:
-	attacking = true	
+	attacking = true
 	set_weapon(true)
 	await get_tree().create_timer(weapon_time).timeout
 	set_weapon(false)

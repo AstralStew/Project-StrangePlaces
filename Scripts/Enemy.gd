@@ -4,10 +4,12 @@ class_name Enemy extends CharacterBody2D
 
 @export var player : MainCharacter = null
 @export var timer : Timer = null
+@export var healthbar : ProgressBar = null
 
 @export_category("CONTROLS")
 
 @export var reset_on_start : bool = true
+@export var max_health : float = 1
 @export var speed : float = 5
 @export var activation_distance : float = 50
 @export var damage : float = 5
@@ -16,11 +18,13 @@ class_name Enemy extends CharacterBody2D
 
 @export var awake : bool = false
 @export var dir : Vector2 = Vector2.ZERO
+@export var health : float = 1
 
 
 # Called when the node enters the scene tree for the first time.
 func setup() -> void:
-	timer.timeout.connect(find_player)	
+	healthbar = $Healthbar
+	timer.timeout.connect(find_player)
 	if reset_on_start: reset()
 
 
@@ -51,7 +55,12 @@ func wake_up() -> void:
 func reset() -> void:
 	awake = false
 	dir = Vector2.ZERO
+	
+	healthbar.value = max_health
+	healthbar.max_value = max_health
+	
 	global_position = Vector2( randf_range(-100,1200),randf_range(-100,1000) )
+	
 
 
 ## NOT WORKING FOR SOME REASON
@@ -67,8 +76,28 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	print("[Enemy(",self,")] Area entered = ", area)
 	
 	if area.name.contains("Weapon"):
-		reset()
+		hit_by_weapon()
 	elif area.name.contains("Hurtbox"): 
-		reset()
-		player.lose_health(damage)
+		reached_player()
 	
+
+func reached_player() -> void:
+	print("[Enemy(",self,")] Default reached player (does nothing)")
+
+func hit_by_weapon() -> void:
+	print("[Enemy(",self,")] Default hit by weapon...")
+	lose_health(player.weapon_damage)
+
+func lose_health(amount:float) -> void:
+	health = maxi(health-amount,0)
+	print("[Enemy(",self,")] Lost ",amount," health, new health = ",health)
+	
+	# Check if they are dead
+	if health <= 0:
+		die()
+		return
+	
+	healthbar.value = health
+
+func die() -> void:
+	queue_free()
