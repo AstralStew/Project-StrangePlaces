@@ -35,11 +35,11 @@ func lose_health(amount:float) -> void:
 	print("[MainCharacter] Losing ",amount," health, new health = ",health)
 	healthbar.value = health
 
-
-
-func _process(delta: float) -> void:
-	if !attacking && Input.is_action_just_pressed("Attack"):
+func _unhandled_input(event: InputEvent) -> void:
+	if !attacking && event.is_action_pressed("Attack"):
 		attack()
+
+
 
 
 func _physics_process(delta: float) -> void:
