@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://crl06jibvlkr8"]
+
+[ext_resource type="Script" uid="uid://bbvxfrn4wa50o" path="res://Scripts/NPC.gd" id="1_xs5w8"]
+[ext_resource type="Texture2D" uid="uid://dglsj1hk7y67b" path="res://Assets/Sprites/QuestNPC1.png" id="2_7fgga"]
+[ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="3_faxwx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4t65"]
+size = Vector2(13, 37.74677)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1f0kj"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afpow"]
+bg_color = Color(0, 1, 0, 1)
+
+[node name="NPC" type="CharacterBody2D" unique_id=1166851068]
+collision_layer = 8
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_xs5w8")
+randomise_on_start = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1647531854]
+position = Vector2(-0.79999924, 0.20000076)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_7fgga")
+
+[node name="BodyCollider" type="CollisionShape2D" parent="." unique_id=888512686]
+position = Vector2(-0.5, 0.57338524)
+shape = SubResource("RectangleShape2D_x4t65")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Label" type="RichTextLabel" parent="." unique_id=2119694911]
+z_index = 1
+clip_contents = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -29.0
+offset_right = 48.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("3_faxwx")
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/normal_font_size = 6
+theme_override_font_sizes/italics_font_size = 6
+bbcode_enabled = true
+text = "Name Example [Blue Wizard]"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="Label" unique_id=172742760]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.5
+offset_top = -1.0
+offset_right = 1.5
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Healthbar" type="ProgressBar" parent="." unique_id=1274332396]
+visible = false
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -13.0
+offset_top = -23.0
+offset_right = 14.0
+offset_bottom = -20.0
+grow_horizontal = 2
+theme = ExtResource("3_faxwx")
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_1f0kj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_afpow")
+value = 100.0
+show_percentage = false

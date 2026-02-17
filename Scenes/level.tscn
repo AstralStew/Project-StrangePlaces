@@ -2,13 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cbvwq5gqfdipg" path="res://Scripts/AdminWindow.gd" id="1_0f350"]
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="1_8c0lf"]
+[ext_resource type="Script" uid="uid://r6d5lfr8t5me" path="res://Scripts/VirtualWindow.gd" id="1_oqgf2"]
 [ext_resource type="Texture2D" uid="uid://dg2vb4mhb7bym" path="res://Assets/Sprites/roguelikeSheet_transparent.png" id="1_wqkje"]
 [ext_resource type="Script" uid="uid://dik7dj3oq3mn5" path="res://Scripts/MainCharacter.gd" id="2_0f350"]
 [ext_resource type="FontFile" uid="uid://ct8m2j1ii34b1" path="res://Assets/Fonts/MedievalSharp-Regular.ttf" id="2_754fn"]
 [ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="4_bvt00"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="4_wqkje"]
 [ext_resource type="Script" uid="uid://cxx4eqmxkp6rd" path="res://Scripts/EnemyManager.gd" id="5_0f350"]
-[ext_resource type="FontFile" uid="uid://d3pkp4rxwt6xn" path="res://Assets/Fonts/W95font.otf" id="5_oqgf2"]
+[ext_resource type="Theme" uid="uid://crvl6pfk0nc20" path="res://Assets/Theme/system_theme.tres" id="6_oqgf2"]
+[ext_resource type="PackedScene" uid="uid://bjo1wss5f8osc" path="res://Scenes/slime.tscn" id="11_ha31o"]
+[ext_resource type="PackedScene" uid="uid://crl06jibvlkr8" path="res://Scenes/NPC.tscn" id="12_pa6b8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvt00"]
 bg_color = Color(0, 0, 0, 1)
@@ -33,13 +36,11 @@ border_width_bottom = 2
 border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0f350"]
-bg_color = Color(1, 1, 1, 1)
+bg_color = Color(0.79684955, 0.7968497, 0.7968497, 1)
 border_width_left = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ha31o"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8kw0n"]
 texture = ExtResource("1_wqkje")
@@ -1814,13 +1815,16 @@ navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_8kw0n")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ge02r"]
-size = Vector2(7.599106, 7.090065)
+size = Vector2(19.105103, 19.89502)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga1kr"]
-size = Vector2(9.603546, 13.351475)
+size = Vector2(12.609348, 37.800545)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ha31o"]
+radius = 96.0833
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jviae"]
-size = Vector2(20, 33)
+size = Vector2(9, 36)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0eeu"]
 bg_color = Color(1, 0, 0, 1)
@@ -1829,10 +1833,12 @@ bg_color = Color(1, 0, 0, 1)
 bg_color = Color(0, 1, 0, 1)
 
 [node name="Level" type="Node2D" unique_id=1454608919]
+metadata/_edit_vertical_guides_ = [0.0, 640.0, 1152.0]
+metadata/_edit_horizontal_guides_ = [240.0, 0.0, 657.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
 
-[node name="ChatWindow" type="PanelContainer" parent="CanvasLayer" unique_id=674060626]
+[node name="ChatWindow" type="PanelContainer" parent="CanvasLayer" unique_id=674060626 groups=["ChatWindow"]]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -1840,6 +1846,9 @@ offset_top = -120.0
 offset_right = 240.0
 grow_vertical = 0
 size_flags_vertical = 0
+script = ExtResource("1_oqgf2")
+min_pos = Vector2(0, 240)
+max_pos = Vector2(640, 240)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ChatWindow" unique_id=399651967]
 layout_mode = 2
@@ -1847,7 +1856,7 @@ size_flags_vertical = 0
 theme_override_constants/separation = 0
 
 [node name="ChatWindow" type="Panel" parent="CanvasLayer/ChatWindow/VBoxContainer" unique_id=1844206785]
-custom_minimum_size = Vector2(240, 120)
+custom_minimum_size = Vector2(300, 120)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -1886,13 +1895,14 @@ scroll_following_visible_characters = true
 autowrap_mode = 1
 vertical_alignment = 2
 
-[node name="AdminWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1626817112]
+[node name="AdminWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1626817112 groups=["AdminWindow"]]
 offset_left = 231.0
 offset_top = 19.0
 offset_right = 471.0
 offset_bottom = 259.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("1_0f350")
+max_pos = Vector2(640, 360)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AdminWindow" unique_id=1391892467]
 layout_mode = 2
@@ -1937,29 +1947,56 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 7
+theme_override_constants/margin_right = 7
+theme_override_constants/margin_bottom = 7
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer" unique_id=1974312600]
 layout_mode = 2
+size_flags_vertical = 0
 
-[node name="Button_CreateEnemy" type="Button" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer" unique_id=46504829]
-custom_minimum_size = Vector2(30, 20)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer" unique_id=450239665]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("5_oqgf2")
-theme_override_styles/normal = SubResource("StyleBoxFlat_ha31o")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+alignment = 1
 
-[node name="MenuButton" type="MenuButton" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer" unique_id=691616859]
+[node name="Label" type="Label" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1739107274]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("5_oqgf2")
-theme_override_font_sizes/font_size = 12
+size_flags_horizontal = 0
+theme = ExtResource("6_oqgf2")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Current tool:"
+
+[node name="MenuButton" type="MenuButton" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer/HBoxContainer" unique_id=691616859]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("6_oqgf2")
+text = "Create Enemy"
+alignment = 0
 item_count = 3
 popup/item_0/text = "Create Enemy"
 popup/item_0/id = 0
-popup/item_0/separator = true
 popup/item_1/text = "Create NPC"
+popup/item_1/id = 1
+popup/item_2/text = "Trigger Attack"
+popup/item_2/id = 2
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2025630075]
+custom_minimum_size = Vector2(120, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("6_oqgf2")
+theme_override_font_sizes/font_size = 12
+selected = 0
+item_count = 3
+popup/item_0/text = "Spawn Enemy"
+popup/item_0/id = 0
+popup/item_1/text = "Spawn NPC"
 popup/item_1/id = 1
 popup/item_2/text = "Trigger Attack"
 popup/item_2/id = 2
@@ -1972,23 +2009,28 @@ tile_set = SubResource("TileSet_yn0lr")
 position = Vector2(610, 322)
 motion_mode = 1
 script = ExtResource("2_0f350")
+max_health = 100.0
 speed = 50.0
-waiting_time = Vector2(1, 6)
+travel_end_distance = 40.0
+wander_range = Vector2(60, 120)
+wander_wait_time = Vector2(0.25, 3)
+npc_end_distance = 30.0
 weapon_time = 0.5
 weapon_distance = 20.0
 
 [node name="Sprite2D" type="Sprite2D" parent="MainCharacter" unique_id=1520521008]
+position = Vector2(-1.7999878, 0.2000122)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_wqkje")
 
 [node name="Weapon" type="Area2D" parent="MainCharacter" unique_id=60578948]
-scale = Vector2(2.5861917, 2.9056916)
+visible = false
 collision_layer = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MainCharacter/Weapon" unique_id=1431011471]
+[node name="WeaponCollider" type="CollisionShape2D" parent="MainCharacter/Weapon" unique_id=1431011471]
 scale = Vector2(1.0468398, 1.0052772)
 shape = SubResource("RectangleShape2D_ge02r")
-debug_color = Color(0.95175785, 0.2223135, 0, 0.41960785)
+debug_color = Color(0.9529412, 0.22352941, 0, 0)
 
 [node name="ColorRect" type="ColorRect" parent="MainCharacter/Weapon" unique_id=956954025]
 anchors_preset = 8
@@ -1996,24 +2038,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -3.4499998
-offset_top = -3.4499998
-offset_right = 3.4499998
-offset_bottom = 3.4499998
+offset_left = -9.999988
+offset_top = -9.999988
+offset_right = 10.000012
+offset_bottom = 9.000012
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Hurtbox" type="Area2D" parent="MainCharacter" unique_id=237269211]
-scale = Vector2(2.5861917, 2.9056916)
+[node name="HurtBox" type="Area2D" parent="MainCharacter" unique_id=237269211]
+position = Vector2(-1.7999878, 0.2000122)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MainCharacter/Hurtbox" unique_id=2078878325]
+[node name="HurtCollider" type="CollisionShape2D" parent="MainCharacter/HurtBox" unique_id=2078878325]
+position = Vector2(2.4000244, 0)
 scale = Vector2(1.0468398, 1.0052772)
 shape = SubResource("RectangleShape2D_ga1kr")
-debug_color = Color(0.95175785, 0.2223135, 0, 0.41960785)
+debug_color = Color(0.9529412, 0.22352941, 0, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MainCharacter" unique_id=255875722]
-scale = Vector2(0.25, 0.25)
+[node name="SearchCircle" type="Area2D" parent="MainCharacter" unique_id=1090057739]
+process_mode = 4
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainCharacter/SearchCircle" unique_id=560606081]
+shape = SubResource("CircleShape2D_ha31o")
+
+[node name="BodyCollider" type="CollisionShape2D" parent="MainCharacter" unique_id=255875722]
+position = Vector2(0.2000122, 0.2000122)
 shape = SubResource("RectangleShape2D_jviae")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Camera2D" type="Camera2D" parent="MainCharacter" unique_id=772863441]
 limit_left = 0
@@ -2033,15 +2085,16 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 
 [node name="Healthbar" type="ProgressBar" parent="MainCharacter" unique_id=825616948]
+custom_minimum_size = Vector2(18.85, 0)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.99998
-offset_top = -29.0
-offset_right = 147.08502
-offset_bottom = -2.0
+offset_left = -13.0
+offset_top = -23.0
+offset_right = 14.0
+offset_bottom = -20.0
 grow_horizontal = 2
-scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(1, 0)
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
@@ -2049,12 +2102,12 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/background = SubResource("StyleBoxFlat_w0eeu")
 theme_override_styles/fill = SubResource("StyleBoxFlat_x4t65")
 value = 100.0
+show_percentage = false
 
-[node name="Enemies" type="Node" parent="." unique_id=768241791]
+[node name="EnemyManager" type="Node" parent="." unique_id=768241791]
 script = ExtResource("5_0f350")
-number_of_enemies = 40
 
-[node name="EnemyAwakeTimer" type="Timer" parent="Enemies" unique_id=929365997]
+[node name="EnemyAwakeTimer" type="Timer" parent="EnemyManager" unique_id=929365997]
 autostart = true
 
 [node name="CharacterWaypoints" type="Node" parent="." unique_id=1562425428]
@@ -2119,4 +2172,17 @@ offset_right = 6.0
 offset_bottom = 6.0
 color = Color(0, 1, 1, 1)
 
+[node name="Slime" parent="." unique_id=1166851068 instance=ExtResource("11_ha31o")]
+process_mode = 4
+visible = false
+position = Vector2(662, 328)
+
+[node name="NPC" parent="." unique_id=1535630817 instance=ExtResource("12_pa6b8")]
+process_mode = 4
+visible = false
+position = Vector2(558, 326)
+
+[connection signal="gui_input" from="CanvasLayer/ChatWindow/VBoxContainer/ChatWindow/MarginContainer/ChatText" to="CanvasLayer/ChatWindow" method="_on_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/AdminWindow/VBoxContainer/TitleBar" to="CanvasLayer/AdminWindow" method="_on_gui_input"]
+[connection signal="item_selected" from="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer/HBoxContainer/OptionButton" to="CanvasLayer/AdminWindow" method="change_selected_tool"]
+[connection signal="body_entered" from="MainCharacter/SearchCircle" to="MainCharacter" method="_on_search_circle_body_entered"]

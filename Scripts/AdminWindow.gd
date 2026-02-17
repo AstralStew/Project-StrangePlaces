@@ -1,22 +1,23 @@
-class_name AdminWindow extends PanelContainer
+class_name AdminWindow extends VirtualWindow
 
-@export_category("CONTROLS")
-@export var min_pos : Vector2 = Vector2.ZERO
-@export var max_pos : Vector2 = Vector2.ZERO
+enum ToolNames {SPAWN_ENEMY,SPAWN_NPC,TRIGGER_ATTACK}
 
-var dragging : bool = false
-var offset : Vector2 = Vector2.ZERO
+@export_category("READ ONLY")
+@export var selected_tool : ToolNames = ToolNames.SPAWN_ENEMY
 
 
-func _on_gui_input(event: InputEvent) -> void:
-	print("[AdminWindowBar] Input! Event = ", event)
-	if event is InputEventMouseButton:
-		if event.button_index == 1:
-			print("[AdminWindowBar] Mouse pressed on me!")
-			offset = global_position - get_global_mouse_position()
-		dragging = event.pressed
-
-func _process(delta: float) -> void:
-	if dragging:
-		print("[AdminWindowBar] Dragging...")
-		global_position = (get_global_mouse_position() + offset).clamp(min_pos, get_viewport_rect().size - size)
+func change_selected_tool(tool:ToolNames) -> void:
+	
+	match tool:
+		ToolNames.SPAWN_ENEMY:
+			print("[AdminWindowBar] Spawning enemy...")
+		ToolNames.SPAWN_NPC:
+			print("[AdminWindowBar] Spawning NPC...")
+		ToolNames.TRIGGER_ATTACK:
+			print("[AdminWindowBar] Triggering attack...")
+		_:
+			push_error("[AdminWindowBar] ERROR -> Bad tool name! Ignoring :(")
+			return
+	
+	print("[AdminWindowBar] Selecting tool '",tool,"'")
+	selected_tool = tool

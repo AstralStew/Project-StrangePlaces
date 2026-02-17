@@ -1,5 +1,7 @@
 class_name Enemy extends CharacterBody2D
 
+@export var _debugging : bool = false
+
 @export_category("REFERENCES")
 
 @export var player : MainCharacter = null
@@ -47,7 +49,7 @@ func move_around() -> void:
 
 
 func wake_up() -> void:
-	print("[Enemy(",self,")] I am awake")
+	if _debugging: print("[Enemy(",self,")] I am awake")
 	awake = true
 
 
@@ -59,38 +61,36 @@ func reset() -> void:
 	healthbar.value = max_health
 	healthbar.max_value = max_health
 	
-	global_position = Vector2( randf_range(-100,1200),randf_range(-100,1000) )
-	
 
 
 ## NOT WORKING FOR SOME REASON
-func _on_body_2d_body_entered(body: Node2D) -> void:
-	print("[Enemy(",self,")] Body entered = ", body)
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if _debugging: print("[Enemy(",self,")] Body entered = ", body)
 	
 	if body == (player as Node2D):
 		reset()
 		player.lose_health(damage)
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("[Enemy(",self,")] Area entered = ", area)
+func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if _debugging: print("[Enemy(",self,")] Area entered = ", area)
 	
 	if area.name.contains("Weapon"):
 		hit_by_weapon()
-	elif area.name.contains("Hurtbox"): 
+	elif area.name.contains("HurtBox"): 
 		reached_player()
 	
 
 func reached_player() -> void:
-	print("[Enemy(",self,")] Default reached player (does nothing)")
+	if _debugging: print("[Enemy(",self,")] Default reached player (does nothing)")
 
 func hit_by_weapon() -> void:
-	print("[Enemy(",self,")] Default hit by weapon...")
+	if _debugging: print("[Enemy(",self,")] Default hit by weapon...")
 	lose_health(player.weapon_damage)
 
 func lose_health(amount:float) -> void:
 	health = maxi(health-amount,0)
-	print("[Enemy(",self,")] Lost ",amount," health, new health = ",health)
+	if _debugging: print("[Enemy(",self,")] Lost ",amount," health, new health = ",health)
 	
 	# Check if they are dead
 	if health <= 0:
@@ -100,4 +100,5 @@ func lose_health(amount:float) -> void:
 	healthbar.value = health
 
 func die() -> void:
+	if _debugging: print("[Enemy(",self,")] Dying.")
 	queue_free()

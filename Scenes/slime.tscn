@@ -1,0 +1,84 @@
+[gd_scene format=3 uid="uid://bjo1wss5f8osc"]
+
+[ext_resource type="Script" uid="uid://47y5rnogvsve" path="res://Scripts/Slime.gd" id="1_swwnm"]
+[ext_resource type="Texture2D" uid="uid://c4y1qfx8o1q40" path="res://Assets/Sprites/Slime.png" id="2_aiwxb"]
+[ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="3_aiwxb"]
+[ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="4_paq7w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0eeu"]
+size = Vector2(32.000015, 19.50001)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4t65"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1f0kj"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afpow"]
+bg_color = Color(0, 1, 0, 1)
+
+[node name="Slime" type="CharacterBody2D" unique_id=1166851068]
+collision_layer = 2
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_swwnm")
+speed = 40.0
+activation_distance = 175.0
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1647531854]
+position = Vector2(0, -6.5)
+scale = Vector2(0.23, 0.23)
+texture = ExtResource("2_aiwxb")
+
+[node name="HurtBox" type="Area2D" parent="." unique_id=2033038405]
+position = Vector2(-1.1920928e-06, -6.2499995)
+collision_layer = 2
+collision_mask = 5
+
+[node name="HurtCollider" type="CollisionShape2D" parent="HurtBox" unique_id=938505148]
+position = Vector2(1.9371505e-06, -4.7683716e-07)
+scale = Vector2(0.9999995, 0.9999995)
+shape = SubResource("RectangleShape2D_w0eeu")
+debug_color = Color(0.9999998, 0.00016917959, 0.10250912, 0.41960785)
+
+[node name="BodyCollider" type="CollisionShape2D" parent="." unique_id=888512686]
+position = Vector2(0, -6.5)
+scale = Vector2(0.59380823, 0.6272561)
+shape = SubResource("RectangleShape2D_x4t65")
+
+[node name="Healthbar" type="ProgressBar" parent="." unique_id=1274332396]
+z_index = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -13.0
+offset_top = -20.0
+offset_right = 14.0
+offset_bottom = -17.0
+grow_horizontal = 2
+theme = ExtResource("3_aiwxb")
+theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/background = SubResource("StyleBoxFlat_1f0kj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_afpow")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Healthbar" unique_id=1033975554]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("4_paq7w")
+theme_override_font_sizes/font_size = 22
+text = "3 / 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurtbox_body_entered"]
