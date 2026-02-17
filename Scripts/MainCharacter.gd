@@ -10,6 +10,7 @@ class_name MainCharacter extends CharacterBody2D
 @export var waiting_time : Vector2 = Vector2(1,4)
 @export_category("WEAPON")
 @export var weapon_time : float = 1
+@export var weapon_damage : float = 5
 @export var weapon_distance : float = 10
 
 

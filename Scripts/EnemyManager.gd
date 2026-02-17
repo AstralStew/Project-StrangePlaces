@@ -18,7 +18,7 @@ func _ready() -> void:
 		instance.player = player
 		instance.setup()
 		add_child(instance)
-		
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

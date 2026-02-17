@@ -2,10 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://dg2vb4mhb7bym" path="res://Assets/Sprites/roguelikeSheet_transparent.png" id="1_wqkje"]
 [ext_resource type="Script" uid="uid://dik7dj3oq3mn5" path="res://Scripts/MainCharacter.gd" id="2_0f350"]
-[ext_resource type="Texture2D" uid="uid://dtwh78dr2y15n" path="res://Concept Art/Character3.png" id="3_8c0lf"]
+[ext_resource type="Texture2D" uid="uid://cnv6qakg8e5ow" path="res://Concept Art/GenericFantasyCharacterPixelTest.png" id="3_wqkje"]
 [ext_resource type="Texture2D" uid="uid://ticdwjda07xh" path="res://icon.svg" id="4_754fn"]
 [ext_resource type="Script" uid="uid://cxx4eqmxkp6rd" path="res://Scripts/EnemyManager.gd" id="5_0f350"]
-[ext_resource type="PackedScene" uid="uid://bjo1wss5f8osc" path="res://Scenes/enemy.tscn" id="5_bvt00"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8kw0n"]
 texture = ExtResource("1_wqkje")
@@ -1811,7 +1810,7 @@ weapon_distance = 40.0
 
 [node name="Sprite2D" type="Sprite2D" parent="MainCharacter" unique_id=1520521008]
 scale = Vector2(0.0416906, 0.0416906)
-texture = ExtResource("3_8c0lf")
+texture = ExtResource("3_wqkje")
 
 [node name="Weapon" type="Area2D" parent="MainCharacter" unique_id=60578948]
 scale = Vector2(2.5861917, 2.9056916)
@@ -1840,7 +1839,6 @@ scale = Vector2(0.25, 0.25)
 shape = SubResource("RectangleShape2D_jviae")
 
 [node name="Camera2D" type="Camera2D" parent="MainCharacter" unique_id=772863441]
-zoom = Vector2(2, 2)
 
 [node name="Healthbar" type="ProgressBar" parent="MainCharacter" unique_id=825616948]
 anchors_preset = 5
@@ -1862,10 +1860,12 @@ value = 100.0
 
 [node name="Enemies" type="Node" parent="." unique_id=768241791]
 script = ExtResource("5_0f350")
+number_of_enemies = 40
 
 [node name="EnemyAwakeTimer" type="Timer" parent="Enemies" unique_id=929365997]
 autostart = true
 
-[node name="Enemy" parent="Enemies" unique_id=1166851068 instance=ExtResource("5_bvt00")]
-visible = false
-position = Vector2(506.99994, 340.99997)
+[node name="CharacterWaypoints" type="Node" parent="." unique_id=1562425428]
+
+[node name="Waypoint" type="Node2D" parent="CharacterWaypoints" unique_id=329412429]
+position = Vector2(104, 178)
