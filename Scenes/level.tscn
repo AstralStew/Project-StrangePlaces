@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dps57thgvvve3" path="res://Scripts/FrustrationManager.gd" id="9_pa6b8"]
 [ext_resource type="PackedScene" uid="uid://bjo1wss5f8osc" path="res://Scenes/slime.tscn" id="11_ha31o"]
 [ext_resource type="PackedScene" uid="uid://crl06jibvlkr8" path="res://Scenes/NPC.tscn" id="12_pa6b8"]
+[ext_resource type="Script" uid="uid://uvho0c56f1ui" path="res://Scripts/CharacterSprite.gd" id="13_2klc5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvt00"]
 bg_color = Color(0.14801627, 0.046543695, 0.016212488, 0.3882353)
@@ -2022,6 +2023,8 @@ script = ExtResource("9_pa6b8")
 position = Vector2(-1.7999878, 0.2000122)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_wqkje")
+script = ExtResource("13_2klc5")
+fade_colour_speed = 5.0
 
 [node name="Weapon" type="Area2D" parent="MainCharacter" unique_id=60578948]
 collision_layer = 4

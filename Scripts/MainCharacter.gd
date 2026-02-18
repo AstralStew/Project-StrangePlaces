@@ -3,6 +3,7 @@ class_name MainCharacter extends CharacterBody2D
 
 @onready var weapon = $Weapon
 @onready var sight_circle : Area2D = $SearchCircle
+@onready var sprite = $Sprite2D
 @onready var healthbar : ProgressBar = $Healthbar
 
 @export_category("STATS")
