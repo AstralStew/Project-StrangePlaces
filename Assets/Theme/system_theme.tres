@@ -1,7 +1,68 @@
 [gd_resource type="Theme" format=3 uid="uid://crvl6pfk0nc20"]
 
 [ext_resource type="FontFile" uid="uid://d3pkp4rxwt6xn" path="res://Assets/Fonts/W95font.otf" id="1_svwtx"]
+[ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="2_8xm50"]
 [ext_resource type="Texture2D" uid="uid://c4yhyv8aafm6e" path="res://Assets/Sprites/whitepixel.png" id="2_2704k"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2thm"]
+content_margin_left = 1.0
+content_margin_top = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 3.0
+bg_color = Color(0.79607844, 0.79607844, 0.79607844, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 2
+shadow_color = Color(0, 0, 0, 0.25490198)
+shadow_size = 1
+shadow_offset = Vector2(0, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0a4aa"]
+content_margin_left = 1.0
+content_margin_top = 3.0
+content_margin_right = 1.0
+content_margin_bottom = 3.0
+bg_color = Color(0.79607844, 0.79607844, 0.79607844, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 2
+shadow_color = Color(0, 0, 0, 0.25490198)
+shadow_size = 1
+shadow_offset = Vector2(0, 0.5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rotwg"]
+content_margin_left = 1.0
+content_margin_top = 4.0
+content_margin_right = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(0.7750634, 0.7750634, 0.7750634, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+corner_detail = 2
+shadow_color = Color(0, 0, 0, 0.25490198)
+shadow_size = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jg10e"]
 content_margin_left = 4.0
@@ -42,8 +103,16 @@ bg_color = Color(1, 1, 1, 1)
 
 [resource]
 default_font = ExtResource("1_svwtx")
-default_font_size = 12
+default_font_size = 10
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/fonts/font = ExtResource("1_svwtx")
+Button/styles/hover = SubResource("StyleBoxFlat_h2thm")
+Button/styles/normal = SubResource("StyleBoxFlat_0a4aa")
+Button/styles/pressed = SubResource("StyleBoxFlat_rotwg")
 Control/font_sizes/font_size = 16
+Control/fonts/bold_font = ExtResource("2_8xm50")
 Control/fonts/font = ExtResource("1_svwtx")
 OptionButton/colors/font_color = Color(0, 0, 0, 1)
 OptionButton/colors/font_hover_pressed_color = Color(0.07058824, 0.07058824, 0.07058824, 1)
@@ -51,7 +120,7 @@ OptionButton/colors/font_pressed_color = Color(0.07058824, 0.07058824, 0.0705882
 OptionButton/constants/arrow_margin = 0
 OptionButton/constants/h_separation = 0
 OptionButton/constants/icon_max_width = 1
-OptionButton/font_sizes/font_size = 12
+OptionButton/font_sizes/font_size = 10
 OptionButton/styles/disabled = SubResource("StyleBoxFlat_jg10e")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_8xm50")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_2704k")
@@ -62,7 +131,7 @@ PopupMenu/constants/h_separation = 0
 PopupMenu/constants/item_end_padding = 0
 PopupMenu/constants/item_start_padding = -10
 PopupMenu/constants/v_separation = 3
-PopupMenu/font_sizes/font_size = 12
+PopupMenu/font_sizes/font_size = 10
 PopupMenu/fonts/font = ExtResource("1_svwtx")
 PopupMenu/icons/radio_checked = ExtResource("2_2704k")
 PopupMenu/icons/radio_checked_disabled = ExtResource("2_2704k")
@@ -70,3 +139,5 @@ PopupMenu/icons/radio_unchecked = ExtResource("2_2704k")
 PopupMenu/icons/radio_unchecked_disabled = ExtResource("2_2704k")
 PopupMenu/styles/hover = SubResource("StyleBoxFlat_hmb7p")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_svwtx")
+RichTextLabel/fonts/bold_font = ExtResource("2_8xm50")
+RichTextLabel/fonts/normal_font = ExtResource("1_svwtx")

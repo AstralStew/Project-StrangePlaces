@@ -59,36 +59,25 @@ func random_msgs() -> void:
 		add_message(random_users[randi() % random_users.size()],random_msg(), true)
 
 func random_msg() -> String:
-	match randi() % 15:
-		0:
-			return "this is a test msg!"
-		1:
-			return "these places are pretty strange..."
-		2:
-			return "anyone see the latest Twin Peaks?"
-		3:
-			return "kilroy was here"
-		4:
-			return "dancing_baby.gif"
-		5:
-			return "how do u get potions??"
-		6:
-			return "Train to zone!"
-		7:
-			return "corpse run LOL"
-		8:
-			return "Ding!"
-		9:
-			return "can u stop campin pls :("
-		10:
-			return "WTB any rare drops, PST"
-		11:
-			return "going AFK"
-		12:
-			return "gotta bio lol brb"
-		13:
-			return "@all <><><> DO YOU WTT? JOIN [color=cyan]#MUDUnitedAU[/color] & GET FREE LOOT <><><>"
-		14:
-			return "aLL your base are belong to us"
-		_: 
-			return "[color=red]Oops, you shouldn't see this! ;) - Sean[/color]"
+	match randi() % 20:
+		0:return "i think so"
+		1:return "these places are pretty strange..."
+		2:return "anyone see the latest Twin Peaks?"
+		3:return "kilroy was here"
+		4:return "dancing_baby.gif"
+		5:return "how do u get potions??"
+		6:return "Train to zone!"
+		7:return "corpse run LOL"
+		8:return "Ding!"
+		9:return "can u stop campin pls :("
+		10:return "WTB any rare drops, PST"
+		11:return "afk"
+		12:return "gotta bio lol brb"
+		13:return "<~ WTT? JOIN [color=cyan]#MUDUnitedAU[/color] 4 FREE LOOT ~>"
+		14:return "aLL your base are belong to us"
+		15:return "the game zoot"
+		16:return "lfg need IW"
+		17:return "ummmm no"
+		18:return "are the devs in here??"
+		19:return "OTL OTL OTL OTL"
+		_:return "[color=red]Oops, you shouldn't see this! ;) - Sean[/color]"

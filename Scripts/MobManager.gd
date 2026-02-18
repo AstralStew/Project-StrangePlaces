@@ -1,4 +1,4 @@
-class_name EnemyManager extends Node
+class_name MobManager extends Node
 
 @onready var enemy_timer = $EnemyAwakeTimer
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
@@ -13,7 +13,6 @@ class_name EnemyManager extends Node
 var slimes_spawned = 0
 
 
-
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
 @export var spawn_slime_on_click : bool = false :
@@ -22,18 +21,21 @@ var slimes_spawned = 0
 @export var spawn_NPC_on_click : bool = false :
 	get: return admin_window.selected_tool == AdminWindow.ToolNames.SPAWN_NPC
 
+signal spawned_enemy
+signal spawned_NPC
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	setup()
 
 func setup() -> void:
-	print("[EnemyManager] Spawning ",number_of_start_slimes," slimes.")
+	print("[MobManager] Spawning ",number_of_start_slimes," slimes.")
 	for i in number_of_start_slimes:
 		var new_slime = spawn_slime()
 		new_slime.global_position = Vector2( randf_range(0,1152),randf_range(0,656) )
 		new_slime.name += " (startup)"
-		print("[EnemyManager] Spawned slime '",new_slime.name,"' during startup at ",new_slime.global_position)
+		print("[MobManager] Spawned slime '",new_slime.name,"' during startup at ",new_slime.global_position)
 		await get_tree().process_frame
 
 
@@ -42,22 +44,24 @@ func _unhandled_input(event: InputEvent) -> void:
 		var new_slime = spawn_slime()
 		if new_slime != null:
 			new_slime.global_position = $"..".get_local_mouse_position()
-			print("[EnemyManager] Spawned slime '",new_slime.name,"' via mouse at ",new_slime.global_position)
+			print("[MobManager] Spawned slime '",new_slime.name,"' via mouse at ",new_slime.global_position)
+		spawned_enemy.emit()
 	
 	elif spawn_NPC_on_click && event.is_action_pressed("Spawn NPC"):
 		var new_NPC = spawn_NPC()
 		if new_NPC != null:
 			new_NPC.global_position = $"..".get_local_mouse_position()
-			print("[EnemyManager] Spawned NPC '",new_NPC.name,"' via mouse at ",new_NPC.global_position)
+			print("[MobManager] Spawned NPC '",new_NPC.name,"' via mouse at ",new_NPC.global_position)
+		spawned_NPC.emit()
 
 
 func spawn_slime() -> Enemy:
-	var instance = slime_scene.instantiate() as Enemy
+	var instance : Enemy = slime_scene.instantiate()
 	if instance == null:
 		return null
 	
 	instance.timer = enemy_timer
-	instance.player = player
+	instance.main_character = player
 	instance.setup()
 	add_child(instance)
 	

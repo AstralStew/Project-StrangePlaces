@@ -22,6 +22,7 @@ class_name MainCharacter extends CharacterBody2D
 @export var weapon_time : float = 1
 @export var weapon_damage : float = 5
 @export var weapon_distance : float = 10
+@export var weapon_local_offset : Vector2 = Vector2(0,-16)
 
 
 @export_category("READ ONLY")
@@ -38,13 +39,15 @@ class_name MainCharacter extends CharacterBody2D
 @export var interacting : bool = false
 
 
+@export var is_dir_rightward : bool = false
+
 var wander_target_reached : bool = false
 
 signal target_reached
-
 signal npc_not_found
-
 signal took_damage
+signal saw_enemy
+
 
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
@@ -77,6 +80,11 @@ func _physics_process(delta: float) -> void:
 	if moving:
 		
 		direction = target - global_position
+		
+		if direction.x > 0:
+			is_dir_rightward = true
+		elif direction.x < 0:
+			is_dir_rightward = false
 		
 		if travelling && direction.length() < travel_end_distance:
 			target_reached.emit()
@@ -150,7 +158,7 @@ func wander() -> void:
 				time_waited = 0
 				chosen_wander_target = false
 				wander_target_reached = false
-				direction = Vector2.ZERO
+				target = global_position
 				moving = false
 				print("[MainCharacter] Wandering - Wander target reached! Starting to wait...")
 				
@@ -166,6 +174,7 @@ func wander() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	
 	if can_attack && !attacking && event.is_action_pressed("Attack"):
 		attack()
 
@@ -178,10 +187,9 @@ func attack() -> void:
 	attacking = false
 
 func set_weapon(enable:bool) -> void:
-	weapon.position = (get_global_mouse_position() - global_position).normalized() * weapon_distance if enable else Vector2.ZERO
+	weapon.position = ((get_global_mouse_position() - global_position).normalized() * weapon_distance) + weapon_local_offset if enable else weapon_local_offset
 	weapon.visible = enable
-	weapon.set_deferred("monitoring", enable) 
-	weapon.set_deferred("monitorable", enable) 
+	weapon.process_mode = Node.PROCESS_MODE_INHERIT if enable else Node.PROCESS_MODE_DISABLED
 
 
 
