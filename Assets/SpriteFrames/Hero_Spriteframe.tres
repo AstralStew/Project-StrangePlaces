@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://p2q533owys2g"]
+
+[ext_resource type="Texture2D" uid="uid://8d8j2mqw4ael" path="res://Assets/Sprites/HeroSprite/HeroWalk1.png" id="1_gl1xv"]
+[ext_resource type="Texture2D" uid="uid://btpmppe34h1mm" path="res://Assets/Sprites/HeroSprite/HeroWalk2.png" id="2_gvnym"]
+[ext_resource type="Texture2D" uid="uid://jvlrcaeqyu0x" path="res://Assets/Sprites/HeroSprite/HeroWalk3.png" id="3_a4ti1"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gl1xv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gvnym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a4ti1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gvnym")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
