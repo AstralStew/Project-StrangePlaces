@@ -2,19 +2,22 @@
 
 [ext_resource type="Script" uid="uid://cbvwq5gqfdipg" path="res://Scripts/AdminWindow.gd" id="1_0f350"]
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="1_8c0lf"]
-[ext_resource type="Script" uid="uid://r6d5lfr8t5me" path="res://Scripts/VirtualWindow.gd" id="1_oqgf2"]
+[ext_resource type="Script" uid="uid://2vupr66p2pq2" path="res://Scripts/ChatWindow.gd" id="1_ha31o"]
 [ext_resource type="Texture2D" uid="uid://dg2vb4mhb7bym" path="res://Assets/Sprites/roguelikeSheet_transparent.png" id="1_wqkje"]
 [ext_resource type="Script" uid="uid://dik7dj3oq3mn5" path="res://Scripts/MainCharacter.gd" id="2_0f350"]
-[ext_resource type="FontFile" uid="uid://ct8m2j1ii34b1" path="res://Assets/Fonts/MedievalSharp-Regular.ttf" id="2_754fn"]
+[ext_resource type="FontVariation" uid="uid://bd10vgmu4lyxc" path="res://Assets/Fonts/NotoSerif - Normal.tres" id="3_c7le1"]
+[ext_resource type="FontVariation" uid="uid://n5dju8eycpl7" path="res://Assets/Fonts/NotoSerif - Bold.tres" id="4_2klc5"]
 [ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="4_bvt00"]
+[ext_resource type="FontFile" uid="uid://dnb45ygx1gmmr" path="res://Assets/Fonts/NotoSerif-Italic-VariableFont_wdth,wght.ttf" id="4_c7le1"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="4_wqkje"]
 [ext_resource type="Script" uid="uid://cxx4eqmxkp6rd" path="res://Scripts/EnemyManager.gd" id="5_0f350"]
 [ext_resource type="Theme" uid="uid://crvl6pfk0nc20" path="res://Assets/Theme/system_theme.tres" id="6_oqgf2"]
+[ext_resource type="Script" uid="uid://dps57thgvvve3" path="res://Scripts/FrustrationManager.gd" id="9_pa6b8"]
 [ext_resource type="PackedScene" uid="uid://bjo1wss5f8osc" path="res://Scenes/slime.tscn" id="11_ha31o"]
 [ext_resource type="PackedScene" uid="uid://crl06jibvlkr8" path="res://Scenes/NPC.tscn" id="12_pa6b8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvt00"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(0.14801627, 0.046543695, 0.016212488, 0.3882353)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -1815,7 +1818,7 @@ navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_8kw0n")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ge02r"]
-size = Vector2(19.105103, 19.89502)
+size = Vector2(25, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga1kr"]
 size = Vector2(12.609348, 37.800545)
@@ -1846,7 +1849,7 @@ offset_top = -120.0
 offset_right = 240.0
 grow_vertical = 0
 size_flags_vertical = 0
-script = ExtResource("1_oqgf2")
+script = ExtResource("1_ha31o")
 min_pos = Vector2(0, 240)
 max_pos = Vector2(640, 240)
 
@@ -1874,22 +1877,16 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 3
 
-[node name="ChatText" type="RichTextLabel" parent="CanvasLayer/ChatWindow/VBoxContainer/ChatWindow/MarginContainer" unique_id=1545897705]
+[node name="ChatLog" type="RichTextLabel" parent="CanvasLayer/ChatWindow/VBoxContainer/ChatWindow/MarginContainer" unique_id=1545897705]
 layout_mode = 2
 theme = ExtResource("1_8c0lf")
 theme_override_colors/default_color = Color(0.7070725, 0.942342, 0.7986766, 1)
 theme_override_constants/line_separation = 0
 theme_override_constants/paragraph_separation = 2
-theme_override_fonts/normal_font = ExtResource("2_754fn")
-theme_override_font_sizes/normal_font_size = 10
-text = "[4:20] <Example>: chat chat chat chat chat chat chat chat chat chat chat
-[4:20] <Example>: chat chat chat chat chat chat 
-[4:20] <Example>: chat chat chat chat chat 
-[4:20] <Example>: chat chat chat chat chat chat 
-[4:20] <Example>: chat chat chat chat chat chat chat chat chat
-[4:20] <Example>: chat chat chat chat chat chat chat
-[4:20] <Example>: chat chat chat chat 
-[4:20] <Example>: chat chat chat chat chat "
+theme_override_fonts/normal_font = ExtResource("3_c7le1")
+theme_override_fonts/bold_font = ExtResource("4_2klc5")
+theme_override_fonts/italics_font = ExtResource("4_c7le1")
+bbcode_enabled = true
 scroll_following = true
 scroll_following_visible_characters = true
 autowrap_mode = 1
@@ -2018,17 +2015,18 @@ npc_end_distance = 30.0
 weapon_time = 0.5
 weapon_distance = 20.0
 
+[node name="FrustrationManager" type="Node2D" parent="MainCharacter" unique_id=1649549904]
+script = ExtResource("9_pa6b8")
+
 [node name="Sprite2D" type="Sprite2D" parent="MainCharacter" unique_id=1520521008]
 position = Vector2(-1.7999878, 0.2000122)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_wqkje")
 
 [node name="Weapon" type="Area2D" parent="MainCharacter" unique_id=60578948]
-visible = false
 collision_layer = 4
 
 [node name="WeaponCollider" type="CollisionShape2D" parent="MainCharacter/Weapon" unique_id=1431011471]
-scale = Vector2(1.0468398, 1.0052772)
 shape = SubResource("RectangleShape2D_ge02r")
 debug_color = Color(0.9529412, 0.22352941, 0, 0)
 
@@ -2038,10 +2036,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -9.999988
-offset_top = -9.999988
-offset_right = 10.000012
-offset_bottom = 9.000012
+offset_left = -12.5
+offset_top = -12.5
+offset_right = 12.5
+offset_bottom = 12.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -2055,9 +2053,10 @@ shape = SubResource("RectangleShape2D_ga1kr")
 debug_color = Color(0.9529412, 0.22352941, 0, 0)
 
 [node name="SearchCircle" type="Area2D" parent="MainCharacter" unique_id=1090057739]
-process_mode = 4
 collision_layer = 8
 collision_mask = 8
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainCharacter/SearchCircle" unique_id=560606081]
 shape = SubResource("CircleShape2D_ha31o")
@@ -2182,7 +2181,7 @@ process_mode = 4
 visible = false
 position = Vector2(558, 326)
 
-[connection signal="gui_input" from="CanvasLayer/ChatWindow/VBoxContainer/ChatWindow/MarginContainer/ChatText" to="CanvasLayer/ChatWindow" method="_on_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/ChatWindow/VBoxContainer/ChatWindow/MarginContainer/ChatLog" to="CanvasLayer/ChatWindow" method="_on_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/AdminWindow/VBoxContainer/TitleBar" to="CanvasLayer/AdminWindow" method="_on_gui_input"]
 [connection signal="item_selected" from="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer/HBoxContainer/OptionButton" to="CanvasLayer/AdminWindow" method="change_selected_tool"]
 [connection signal="body_entered" from="MainCharacter/SearchCircle" to="MainCharacter" method="_on_search_circle_body_entered"]

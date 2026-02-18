@@ -2,7 +2,7 @@ class_name MainCharacter extends CharacterBody2D
 
 
 @onready var weapon = $Weapon
-@onready var sight_circle = $SearchCircle
+@onready var sight_circle : Area2D = $SearchCircle
 @onready var healthbar : ProgressBar = $Healthbar
 
 @export_category("STATS")
@@ -41,8 +41,9 @@ var wander_target_reached : bool = false
 
 signal target_reached
 
+signal npc_not_found
 
-
+signal took_damage
 
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
@@ -54,6 +55,7 @@ signal target_reached
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_weapon(false)
+	set_sight_circle(false)
 	health = max_health
 	healthbar.value = health
 	
@@ -65,6 +67,8 @@ func lose_health(amount:float) -> void:
 	health = maxi(health-amount,0)
 	print("[MainCharacter] Losing ",amount," health, new health = ",health)
 	healthbar.value = health
+	
+	took_damage.emit()
 
 
 func _physics_process(delta: float) -> void:
@@ -148,6 +152,10 @@ func wander() -> void:
 				direction = Vector2.ZERO
 				moving = false
 				print("[MainCharacter] Wandering - Wander target reached! Starting to wait...")
+				
+				# Could not find the NPC
+				npc_not_found.emit()
+				
 	
 		# Wait a while for next search check
 		await get_tree().create_timer(search_frequency).timeout
@@ -169,10 +177,10 @@ func attack() -> void:
 	attacking = false
 
 func set_weapon(enable:bool) -> void:
-	var mouse_dir = (get_global_mouse_position() - global_position).normalized()
-	weapon.position = mouse_dir * weapon_distance if enable else Vector2.ZERO
+	weapon.position = (get_global_mouse_position() - global_position).normalized() * weapon_distance if enable else Vector2.ZERO
 	weapon.visible = enable
-	weapon.process_mode = Node.PROCESS_MODE_INHERIT if enable else Node.PROCESS_MODE_DISABLED
+	weapon.set_deferred("monitoring", enable) 
+	weapon.set_deferred("monitorable", enable) 
 
 
 
@@ -180,7 +188,8 @@ func set_weapon(enable:bool) -> void:
 
 func set_sight_circle(enable:bool) -> void:
 	sight_circle.visible = enable
-	sight_circle.process_mode = Node.PROCESS_MODE_INHERIT if enable else Node.PROCESS_MODE_DISABLED
+	sight_circle.set_deferred("monitoring", enable) 
+	sight_circle.set_deferred("monitorable", enable) 
 
 
 func _on_search_circle_body_entered(body: Node2D) -> void:
@@ -203,10 +212,9 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 	
 	
 	# Interact with the NPC
-	await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 	
+	await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
 	(body as NPC).complete_interaction()
 	interacting = false
 	print("[MainCharacter] Search Finish - Completed interaction with NPC '",body,"', time to travel")
-	
 	
 	travel()

@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" format=3 uid="uid://n5dju8eycpl7"]
+
+[ext_resource type="FontFile" uid="uid://dv1lmoa61sptt" path="res://Assets/Fonts/NotoSerif-VariableFont_wdth,wght.ttf" id="1_21pdo"]
+
+[resource]
+base_font = ExtResource("1_21pdo")
+variation_embolden = 0.6
