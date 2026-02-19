@@ -30,7 +30,6 @@ class_name MainCharacter extends CharacterBody2D
 @export var health : float = 100.0
 @export var direction : Vector2 = Vector2.ZERO
 @export var target : Vector2 = Vector2.ZERO
-@export var last_waypoint : Node2D = null
 
 @export var moving : bool = false
 @export var attacking : bool = false
@@ -55,6 +54,7 @@ signal saw_enemy
 	get: return admin_window.selected_tool == AdminWindow.ToolNames.TRIGGER_ATTACK
 
 
+@onready var quest_window : QuestWindow = get_tree().get_first_node_in_group("QuestWindow")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -103,12 +103,13 @@ func _physics_process(delta: float) -> void:
 
 func travel() -> void:
 	
+	await get_tree().process_frame
+	
 	travelling = true
 	
-	last_waypoint = get_tree().get_nodes_in_group("Waypoints")[randi() % get_tree().get_node_count_in_group("Waypoints")] as Node2D
-	target = last_waypoint.global_position
+	target = quest_window.waypoint.global_position
 	
-	print("[MainCharacter] Travelling - Moving towards '",last_waypoint,"' at ",target)
+	print("[MainCharacter] Travelling - Moving towards '",quest_window.waypoint,"' at ",target)
 	
 	moving = true
 	await target_reached
@@ -147,7 +148,7 @@ func wander() -> void:
 			# Pick a location near the waypoint to wander to
 			if !chosen_wander_target:
 				var randv = Vector2(randf_range(-1,1),randf_range(-1,1)).normalized() * randf_range(wander_range.x, wander_range.y)
-				target = last_waypoint.global_position + randv
+				target = quest_window.waypoint.global_position + randv
 				moving = true
 				print("[MainCharacter] Wandering - Wandering towards ",target,"...")
 				chosen_wander_target = true
@@ -202,6 +203,7 @@ func set_sight_circle(enable:bool) -> void:
 
 
 func _on_search_circle_body_entered(body: Node2D) -> void:
+	if interacting: return
 	print("[MainCharacter(",self,")] Search circle entered = ", body)
 	
 	# Stop searching for NPC
@@ -222,8 +224,15 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 	
 	# Interact with the NPC
 	await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
-	(body as NPC).complete_interaction()
+	if body != null:
+		if Helpers.compare_npcs((body as NPC).npconfig,quest_window.active_quest.target):
+			(body as NPC).complete_interaction()
+			print("[MainCharacter] Search Complete! - Successful interaction with NPC '",body,"'!")
+		else:
+			print("[MainCharacter] Search Complete! - Failure! NPC '",body,"'!")			
+	else: 
+		push_warning("[MainCharacter] Body not found! What's that about?")
 	interacting = false
-	print("[MainCharacter] Search Finish - Completed interaction with NPC '",body,"', time to travel")
+	
 	
 	travel()

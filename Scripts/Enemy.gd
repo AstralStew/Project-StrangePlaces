@@ -18,12 +18,20 @@ class_name Enemy extends CharacterBody2D
 @export var reset_on_start : bool = true
 @export var max_health : float = 1
 @export var speed : float = 5
+@export var damage : float = 5
 @export var activation_distance : float = 50
+
+@export_category("MOVEMENT")
+
+@export var moving_rotation_speed : float = 18
+@export var moving_rotation_amount : float = 0.05
+@export var moving_position_speed : float = 5
+@export var moving_position_amount : Vector2 = Vector2(0,0.5)
 @export var reached_distance : float = 1
 @export var reached_leave_margin : float = 1
-@export var damage : float = 5
-@export var awake_rotation_speed : float = 18
-@export var awake_rotation_amount : float = 0.05
+
+@export_category("DEATH")
+
 @export var death_speed : float = 1.0
 @export var death_rotation_speed : float = 0.3
 @export var death_rotation_amount : float = 1.0
@@ -78,8 +86,12 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 
 func _sprite_effects_on_move(delta) -> void:
-	var new_rotation = sin(sprite_moving_timer * awake_rotation_speed) * awake_rotation_amount
-	sprite.rotation = 0 + new_rotation
+	if moving_rotation_amount != 0:
+		var new_rotation = sin(sprite_moving_timer * moving_rotation_speed) * moving_rotation_amount
+		sprite.rotation = 0 + new_rotation
+	if moving_position_amount != Vector2.ZERO:
+		var new_position = sin(sprite_moving_timer * moving_position_speed) * moving_position_amount
+		sprite.position = initial_sprite_pos + new_position
 
 func move_to_player() -> void:
 	find_player()
@@ -110,6 +122,7 @@ func find_player() -> void:
 
 
 func wake_up() -> void:
+	if dying: return
 	if _debugging: print("[Enemy(",self,")] I am awake")
 	awake = true
 	moving = true
@@ -131,6 +144,7 @@ func reached_character() -> void:
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
+	if dying: return
 	if _debugging: print("[Enemy(",self,")] Area entered = ", area)
 	
 	if area.name.contains("Weapon"):
@@ -143,6 +157,7 @@ func hit_by_weapon() -> void:
 	lose_health(main_character.weapon_damage)
 
 func lose_health(amount:float) -> void:
+	if dying: return
 	health = maxi(health-amount,0)
 	if _debugging: print("[Enemy(",self,")] Lost ",amount," health, new health = ",health)
 	
@@ -156,6 +171,7 @@ func lose_health(amount:float) -> void:
 	healthbar.value = health	
 
 func die() -> void:
+	if dying: return
 	if _debugging: print("[Enemy(",self,")] Dying.")
 	dying = true
 	awake = false

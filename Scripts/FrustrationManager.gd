@@ -24,7 +24,7 @@ func _ready() -> void:
 	chat_window = get_tree().get_first_node_in_group("ChatWindow") as ChatWindow
 	
 	mob_manager = get_tree().get_first_node_in_group("MobManager") as MobManager
-	mob_manager.spawned_enemy.connect(check_spawn_position)
+	mob_manager.spawned_slime.connect(check_spawn_position)
 	mob_manager.spawned_NPC.connect(check_spawn_position)
 	
 	main_character = get_parent() as MainCharacter

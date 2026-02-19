@@ -2,7 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bbvxfrn4wa50o" path="res://Scripts/NPC.gd" id="1_xs5w8"]
 [ext_resource type="Texture2D" uid="uid://dglsj1hk7y67b" path="res://Assets/Sprites/QuestNPC1.png" id="2_7fgga"]
+[ext_resource type="Script" uid="uid://2oqhs56kdawl" path="res://Scripts/NPConfig.gd" id="2_17t5b"]
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="3_faxwx"]
+
+[sub_resource type="Resource" id="Resource_faxwx"]
+script = ExtResource("2_17t5b")
+metadata/_custom_type_script = "uid://2oqhs56kdawl"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4t65"]
 size = Vector2(13, 37.74677)
@@ -19,6 +24,7 @@ collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_xs5w8")
 randomise_on_start = true
+npconfig = SubResource("Resource_faxwx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1647531854]
 position = Vector2(-0.79999924, 0.20000076)

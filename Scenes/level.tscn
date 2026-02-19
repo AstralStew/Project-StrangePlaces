@@ -10,10 +10,12 @@
 [ext_resource type="FontFile" uid="uid://dnb45ygx1gmmr" path="res://Assets/Fonts/NotoSerif-Italic-VariableFont_wdth,wght.ttf" id="4_c7le1"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="4_wqkje"]
 [ext_resource type="Script" uid="uid://cxx4eqmxkp6rd" path="res://Scripts/MobManager.gd" id="5_0f350"]
+[ext_resource type="Script" uid="uid://r6d5lfr8t5me" path="res://Scripts/VirtualWindow.gd" id="6_3a44l"]
 [ext_resource type="Theme" uid="uid://crvl6pfk0nc20" path="res://Assets/Theme/system_theme.tres" id="6_oqgf2"]
 [ext_resource type="Script" uid="uid://dps57thgvvve3" path="res://Scripts/FrustrationManager.gd" id="9_pa6b8"]
 [ext_resource type="Script" uid="uid://b01j2fjlf4t7k" path="res://Scripts/ServerWindow.gd" id="9_vofx3"]
 [ext_resource type="TileSet" uid="uid://bmetawryfq67m" path="res://test_tile_set.tres" id="10_00k4y"]
+[ext_resource type="Script" uid="uid://bjlfej1tqupsk" path="res://Scripts/QuestWindow.gd" id="11_0cmrb"]
 [ext_resource type="PackedScene" uid="uid://bjo1wss5f8osc" path="res://Scenes/slime.tscn" id="11_ha31o"]
 [ext_resource type="SpriteFrames" uid="uid://p2q533owys2g" path="res://Assets/SpriteFrames/Hero_Spriteframe.tres" id="12_nngtn"]
 [ext_resource type="PackedScene" uid="uid://crl06jibvlkr8" path="res://Scenes/NPC.tscn" id="12_pa6b8"]
@@ -26,7 +28,17 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.8807741, 0.76572716, 1.540184e-06, 1)
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cmrb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pnhnk"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.88235295, 0.7647059, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxfql"]
 corner_detail = 3
@@ -72,6 +84,54 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_24uko"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0.98333335, 0.8, 1)
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.90588236, 0.90588236, 0.90588236, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf56v"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 1.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0.98333335, 0.8, 1)
+border_width_bottom = 1
+border_color = Color(0.90588236, 0.90588236, 0.90588236, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6y3s5"]
+content_margin_left = 2.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+draw_center = false
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.904839, 0.904839, 0.90483874, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0did"]
+content_margin_left = 2.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+draw_center = false
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.90588236, 0.90588236, 0.90588236, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_53r2q"]
+content_margin_left = 2.0
+content_margin_top = 0.0
+content_margin_right = 1.0
+content_margin_bottom = 0.0
+draw_center = false
+border_width_bottom = 1
+border_color = Color(0.90588236, 0.90588236, 0.90588236, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nngtn"]
 size = Vector2(24, 24)
 
@@ -111,7 +171,7 @@ border_color = Color(1, 0, 1, 0.47058824)
 
 [node name="Level" type="Node2D" unique_id=1454608919]
 metadata/_edit_vertical_guides_ = [0.0, 640.0, 1152.0]
-metadata/_edit_horizontal_guides_ = [240.0, 0.0, 657.0]
+metadata/_edit_horizontal_guides_ = [360.0, 0.0, 657.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
 
@@ -166,10 +226,99 @@ scroll_following_visible_characters = true
 autowrap_mode = 1
 vertical_alignment = 2
 
+[node name="SelectionWindow" type="PanelContainer" parent="CanvasLayer" unique_id=638016967]
+visible = false
+offset_right = 180.0
+offset_bottom = 200.0
+size_flags_vertical = 0
+script = ExtResource("6_3a44l")
+max_pos = Vector2(640, 360)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SelectionWindow" unique_id=1606332106]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="SelectionPanel" type="Panel" parent="CanvasLayer/SelectionWindow/VBoxContainer" unique_id=2136749576]
+custom_minimum_size = Vector2(180, 200)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bvt00")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel" unique_id=1769387263]
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 200.0
+theme_override_constants/separation = 0
+
+[node name="Header" type="RichTextLabel" parent="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel/VBoxContainer" unique_id=244407257]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+mouse_filter = 1
+theme = ExtResource("1_8c0lf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0cmrb")
+text = "MainCharacter"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TitlesAndLevel" type="HBoxContainer" parent="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel/VBoxContainer" unique_id=768014581]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Titles" type="RichTextLabel" parent="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel/VBoxContainer/TitlesAndLevel" unique_id=1254249193]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.51
+mouse_filter = 1
+theme = ExtResource("1_8c0lf")
+theme_override_font_sizes/normal_font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_0cmrb")
+text = "Male Anuran
+Knight
+Champion of the Slums"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelContainer" type="VBoxContainer" parent="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel/VBoxContainer/TitlesAndLevel" unique_id=1327112863]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="CharacterLevel" type="RichTextLabel" parent="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel/VBoxContainer/TitlesAndLevel/LevelContainer" unique_id=1485830981]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.45
+mouse_filter = 1
+theme = ExtResource("1_8c0lf")
+theme_override_font_sizes/normal_font_size = 6
+theme_override_styles/normal = SubResource("StyleBoxFlat_pnhnk")
+text = "Character Level"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Level" type="RichTextLabel" parent="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel/VBoxContainer/TitlesAndLevel/LevelContainer" unique_id=26873749]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.89
+mouse_filter = 1
+theme = ExtResource("1_8c0lf")
+theme_override_font_sizes/normal_font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_0cmrb")
+text = "1"
+scroll_active = false
+horizontal_alignment = 1
+
 [node name="AdminWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1626817112 groups=["AdminWindow"]]
-offset_left = 231.0
+offset_left = 454.0
 offset_top = 19.0
-offset_right = 411.0
+offset_right = 634.0
 offset_bottom = 239.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("1_0f350")
@@ -271,16 +420,20 @@ popup/item_1/id = 1
 popup/item_2/text = "Trigger Attack"
 popup/item_2/id = 2
 
-[node name="ServerWindow" type="PanelContainer" parent="CanvasLayer" unique_id=245114579 groups=["AdminWindow"]]
-offset_left = 36.0
-offset_top = 49.0
-offset_right = 256.0
-offset_bottom = 219.0
+[node name="ServerWindow" type="PanelContainer" parent="CanvasLayer" unique_id=245114579 groups=["ServerWindow"]]
+offset_left = 14.0
+offset_top = 9.0
+offset_right = 234.0
+offset_bottom = 179.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("9_vofx3")
 number_of_data_cubes = 100
 healthy_colour = Color(0.18039216, 0.5882353, 1, 1)
 corrupted_colour = Color(0.9372549, 0, 0.9411765, 1)
+spawn_slime_spread_chance = 0.1
+spawn_slime_spread_amount = Vector2i(1, 1)
+spawn_NPC_spread_chance = 0.2
+spawn_NPC_spread_amount = Vector2i(1, 3)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ServerWindow" unique_id=1797434869]
 layout_mode = 2
@@ -425,6 +578,487 @@ text = "Restart drive..."
 autowrap_mode = 2
 clip_text = true
 
+[node name="QuestWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1469930672 groups=["QuestWindow"]]
+offset_left = 278.0
+offset_top = 143.0
+offset_right = 498.0
+offset_bottom = 292.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
+script = ExtResource("11_0cmrb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/QuestWindow" unique_id=667713648]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TitleBar" type="Panel" parent="CanvasLayer/QuestWindow/VBoxContainer" unique_id=1762009120]
+custom_minimum_size = Vector2(220, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_wqkje")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/TitleBar" unique_id=359389299]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 0
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/QuestWindow/VBoxContainer/TitleBar/MarginContainer" unique_id=927236421]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_bvt00")
+theme_override_font_sizes/font_size = 10
+text = "PlayerTrackerAC - [maincharacter.char]"
+vertical_alignment = 1
+
+[node name="QuestWindow" type="Panel" parent="CanvasLayer/QuestWindow/VBoxContainer" unique_id=1769275654]
+custom_minimum_size = Vector2(220, 129.725)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0f350")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow" unique_id=1144161058]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+offset_bottom = 0.0900116
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer" unique_id=72996972]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer" unique_id=1229654697]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 11
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer" unique_id=78959352]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="XPContainer" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=503804348]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="XPLabel" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/XPContainer" unique_id=178594467]
+custom_minimum_size = Vector2(58.485, 0)
+layout_mode = 2
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[b]Current XP:[/b]"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="XP" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/XPContainer" unique_id=177400077]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[color=dim_gray]< [b][color=dark_goldenrod]182 / 290[/color][/b] [color=dim_gray]> {20%}"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="CurrentContainer" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1495322062]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="ActiveLabel" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/CurrentContainer" unique_id=253314219]
+custom_minimum_size = Vector2(69.18, 0)
+layout_mode = 2
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[b]Current quest:[/b]"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="ActiveQuest" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/CurrentContainer" unique_id=1146816309]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "[color=dim_gray]wp3_black.darkness_[color=slate_blue]a4cjd3"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="QuestListPanel" type="Panel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer" unique_id=1400913578]
+custom_minimum_size = Vector2(204, 86)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_vofx3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel" unique_id=1999190623]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="QuestList" type="VBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer" unique_id=1135900907]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="ListHeaders" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList" unique_id=877984828]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Quest ID" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListHeaders" unique_id=1648918490]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_24uko")
+bbcode_enabled = true
+text = "Quest ID"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Location" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListHeaders" unique_id=353509750]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.69
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_24uko")
+bbcode_enabled = true
+text = "Location"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Target" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListHeaders" unique_id=1136592625]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_gf56v")
+bbcode_enabled = true
+text = "Quest Target"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="ListEntry0" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList" unique_id=1979799747]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Quest ID" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry0" unique_id=845541056]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y3s5")
+bbcode_enabled = true
+text = "a4cjd3"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Location" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry0" unique_id=1046268291]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.69
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_u0did")
+bbcode_enabled = true
+text = "Waypoint3"
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Target" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry0" unique_id=2010068612]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_53r2q")
+bbcode_enabled = true
+text = "Blue Wizard"
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ListEntry1" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList" unique_id=737733516]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Quest ID" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry1" unique_id=407913010]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y3s5")
+bbcode_enabled = true
+text = " "
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Location" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry1" unique_id=449716287]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.69
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_u0did")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Target" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry1" unique_id=1987307141]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_53r2q")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ListEntry2" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList" unique_id=1431763470]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Quest ID" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry2" unique_id=2107844732]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y3s5")
+bbcode_enabled = true
+text = " "
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Location" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry2" unique_id=974265149]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.69
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_u0did")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Target" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry2" unique_id=68338427]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_53r2q")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ListEntry3" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList" unique_id=1154412819]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Quest ID" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry3" unique_id=1702074066]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y3s5")
+bbcode_enabled = true
+text = " "
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Location" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry3" unique_id=366759456]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.69
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_u0did")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Target" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry3" unique_id=9844781]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_53r2q")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ListEntry4" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList" unique_id=833423411]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Quest ID" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry4" unique_id=823622419]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y3s5")
+bbcode_enabled = true
+text = " "
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Location" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry4" unique_id=1754114891]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.69
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_u0did")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Target" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry4" unique_id=710616502]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_53r2q")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="ListEntry5" type="HBoxContainer" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList" unique_id=1465062573]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Quest ID" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry5" unique_id=1636575681]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_6y3s5")
+bbcode_enabled = true
+text = " "
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Location" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry5" unique_id=460854841]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.69
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_u0did")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
+[node name="Target" type="RichTextLabel" parent="CanvasLayer/QuestWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/QuestListPanel/HBoxContainer/QuestList/ListEntry5" unique_id=535434731]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_53r2q")
+bbcode_enabled = true
+text = " "
+scroll_active = false
+autowrap_mode = 0
+vertical_alignment = 1
+
 [node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=838471672]
 visible = false
 modulate = Color(1, 0, 1, 1)
@@ -433,6 +1067,7 @@ tile_map_data = PackedByteArray("AAAZACkAAAAIABAAAAAaACkAAAAIABAAAAAbACkAAAAIABA
 tile_set = ExtResource("10_00k4y")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1260515912]
+visible = false
 tile_map_data = PackedByteArray("AAAAAAAAAAAIAAoAAAAAAAEAAAAIAAoAAAAAAAIAAAAIAAoAAAAAAAMAAAAIAAoAAAAAAAQAAAAIAAoAAAAAAAUAAAAIAAoAAAAAAAYAAAALABEAAAAAAAcAAAAIAAoAAAAAAAgAAAAIAAoAAAAAAAkAAAAIAAoAAAAAAAoAAAAIAAoAAAAAAAsAAAAIAAoAAAAAAAwAAAAIAAoAAAAAAA0AAAAIAAoAAAAAAA4AAAAIAAoAAAAAAA8AAAAIAAoAAAAAABAAAAAIAAoAAAAAABEAAAAIAAoAAAAAABIAAAAIAAoAAAAAABMAAAAIAAoAAAAAABQAAAAIAAoAAAAAABUAAAAIAAoAAAAAABYAAAAIAAoAAAAAABcAAAAIAAoAAAAAABgAAAAIAAoAAAAAABkAAAAIAAoAAAAAABoAAAAIAAoAAAAAABsAAAAIAAoAAAAAABwAAAAIAAoAAAAAAB0AAAAIAAoAAAAAAB4AAAAIAAoAAAAAAB8AAAAIAAoAAAAAACAAAAAIAAoAAAAAACEAAAAIAAoAAAAAACIAAAAIAAoAAAAAACMAAAAIAAoAAAAAACQAAAAIAAoAAAAAACUAAAAIAAoAAAAAACYAAAAIAAoAAAAAACcAAAAIAAoAAAAAACgAAAAIAAoAAAABAAAAAAAIAAoAAAABAAEAAAAIAAoAAAABAAIAAAAIAAoAAAABAAMAAAAIAAoAAAABAAQAAAAIAAoAAAABAAUAAAAIAAoAAAABAAYAAAAIAAoAAAABAAcAAAALABEAAAABAAgAAAAIAAoAAAABAAkAAAAIAAoAAAABAAoAAAAIAAoAAAABAAsAAAAIAAoAAAABAAwAAAAIAAoAAAABAA0AAAAIAAoAAAABAA4AAAAIAAoAAAABAA8AAAAIAAoAAAABABAAAAAIAAoAAAABABEAAAAIAAoAAAABABIAAAAIAAoAAAABABMAAAAIAAoAAAABABQAAAAIAAoAAAABABUAAAAIAAoAAAABABYAAAAIAAoAAAABABcAAAAIAAoAAAABABgAAAAIAAoAAAABABkAAAAIAAoAAAABABoAAAAIAAoAAAABABsAAAAIAAoAAAABABwAAAAIAAoAAAABAB0AAAAIAAoAAAABAB4AAAAIAAoAAAABAB8AAAAIAAoAAAABACAAAAAIAAoAAAABACEAAAAIAAoAAAABACIAAAAIAAoAAAABACMAAAAIAAoAAAABACQAAAAIAAoAAAABACUAAAAIAAoAAAABACYAAAAIAAoAAAABACcAAAAIAAoAAAABACgAAAAIAAoAAAACAAAAAAAIAAoAAAACAAEAAAAIAAoAAAACAAIAAAAIAAoAAAACAAMAAAAIAAoAAAACAAQAAAAIAAoAAAACAAUAAAAIAAoAAAACAAYAAAAIAAoAAAACAAcAAAALABEAAAACAAgAAAAIAAoAAAACAAkAAAAIAAoAAAACAAoAAAAIAAoAAAACAAsAAAAIAAoAAAACAAwAAAAIAAoAAAACAA0AAAAIAAoAAAACAA4AAAAIAAoAAAACAA8AAAAIAAoAAAACABAAAAAIAAoAAAACABEAAAAIAAoAAAACABIAAAAIAAoAAAACABMAAAAIAAoAAAACABQAAAAIAAoAAAACABUAAAAIAAoAAAACABYAAAAIAAoAAAACABcAAAAIAAoAAAACABgAAAAIAAoAAAACABkAAAAIAAoAAAACABoAAAAIAAoAAAACABsAAAAIAAoAAAACABwAAAAIAAoAAAACAB0AAAAIAAoAAAACAB4AAAAIAAoAAAACAB8AAAAIAAoAAAACACAAAAAIAAoAAAACACEAAAAIAAoAAAACACIAAAAIAAoAAAACACMAAAAIAAoAAAACACQAAAAIAAoAAAACACUAAAAIAAoAAAACACYAAAAIAAoAAAACACcAAAAIAAoAAAACACgAAAAIAAoAAAADAAAAAAAIAAoAAAADAAEAAAAIAAoAAAADAAIAAAAIAAoAAAADAAMAAAAIAAoAAAADAAQAAAAIAAoAAAADAAUAAAAIAAoAAAADAAYAAAAIAAoAAAADAAcAAAALABEAAAADAAgAAAAIAAoAAAADAAkAAAAIAAoAAAADAAoAAAAIAAoAAAADAAsAAAAIAAoAAAADAAwAAAAIAAoAAAADAA0AAAAIAAoAAAADAA4AAAAIAAoAAAADAA8AAAAIAAoAAAADABAAAAAIAAoAAAADABEAAAAIAAoAAAADABIAAAAIAAoAAAADABMAAAAIAAoAAAADABQAAAAIAAoAAAADABUAAAAIAAoAAAADABYAAAAIAAoAAAADABcAAAAIAAoAAAADABgAAAAIABAAAAADABkAAAAIAAoAAAADABoAAAAIAAoAAAADABsAAAAIAAoAAAADABwAAAAIAAoAAAADAB0AAAAIAAoAAAADAB4AAAALABEAAAADAB8AAAAIAAoAAAADACAAAAAIAAoAAAADACEAAAAIAAoAAAADACIAAAAIAAoAAAADACMAAAAIAAoAAAADACQAAAAIAAoAAAADACUAAAAIAAoAAAADACYAAAAIAAoAAAADACcAAAAIAAoAAAADACgAAAAIAAoAAAAEAAAAAAAIAAoAAAAEAAEAAAAIAAoAAAAEAAIAAAAIAAoAAAAEAAMAAAAIAAoAAAAEAAQAAAAIAAoAAAAEAAUAAAAIAAoAAAAEAAYAAAALABEAAAAEAAcAAAALABEAAAAEAAgAAAAIAAoAAAAEAAkAAAAIAAoAAAAEAAoAAAAIAAoAAAAEAAsAAAAIAAoAAAAEAAwAAAAIAAoAAAAEAA0AAAAIAAoAAAAEAA4AAAAIAAoAAAAEAA8AAAAIAAoAAAAEABAAAAAIAAoAAAAEABEAAAAIAAoAAAAEABIAAAAIAAoAAAAEABMAAAAIAAoAAAAEABQAAAAIAAoAAAAEABUAAAAIAAoAAAAEABYAAAAIABAAAAAEABcAAAAIABAAAAAEABgAAAAIABAAAAAEABkAAAAIAAoAAAAEABoAAAAIAAoAAAAEABsAAAAIAAoAAAAEABwAAAAIAAoAAAAEAB0AAAALABEAAAAEAB4AAAAIAAoAAAAEAB8AAAAIAAoAAAAEACAAAAAIAAoAAAAEACEAAAAIAAoAAAAEACIAAAAIAAoAAAAEACMAAAAIAAoAAAAEACQAAAAIAAoAAAAEACUAAAAIAAoAAAAEACYAAAAIAAoAAAAEACcAAAAIAAoAAAAEACgAAAAIAAoAAAAFAAAAAAAIAAoAAAAFAAEAAAAIAAoAAAAFAAIAAAAIAAoAAAAFAAMAAAAIAAoAAAAFAAQAAAAIAAoAAAAFAAUAAAALABEAAAAFAAYAAAAIAAoAAAAFAAcAAAAIAAoAAAAFAAgAAAAIAAoAAAAFAAkAAAAIAAoAAAAFAAoAAAAIAAoAAAAFAAsAAAAIAAoAAAAFAAwAAAAIAAoAAAAFAA0AAAAIAAoAAAAFAA4AAAAIAAoAAAAFAA8AAAAIAAoAAAAFABAAAAAIAAoAAAAFABEAAAAIAAoAAAAFABIAAAAIAAoAAAAFABMAAAAIAAoAAAAFABQAAAAIABAAAAAFABUAAAAIABAAAAAFABYAAAAIAAoAAAAFABcAAAAIAAoAAAAFABgAAAAIABAAAAAFABkAAAAIAAoAAAAFABoAAAAIAAoAAAAFABsAAAAIAAoAAAAFABwAAAALABEAAAAFAB0AAAAIAAoAAAAFAB4AAAAIAAoAAAAFAB8AAAAIAAoAAAAFACAAAAAIAAoAAAAFACEAAAAIAAoAAAAFACIAAAAIAAoAAAAFACMAAAAIAAoAAAAFACQAAAAIAAoAAAAFACUAAAAIAAoAAAAFACYAAAAIAAoAAAAFACcAAAAIAAoAAAAFACgAAAAIAAoAAAAGAAAAAAAIAAoAAAAGAAEAAAAIAAoAAAAGAAIAAAAIAAoAAAAGAAMAAAAIAAoAAAAGAAQAAAALABEAAAAGAAUAAAALABEAAAAGAAYAAAAIAAoAAAAGAAcAAAAIAAoAAAAGAAgAAAAIAAoAAAAGAAkAAAAIAAoAAAAGAAoAAAAIAAoAAAAGAAsAAAAIAAoAAAAGAAwAAAAIAAoAAAAGAA0AAAAIAAoAAAAGAA4AAAAIAAoAAAAGAA8AAAAIAAoAAAAGABAAAAAIAAoAAAAGABEAAAAIAAoAAAAGABIAAAAIABAAAAAGABMAAAAIABAAAAAGABQAAAAIAAoAAAAGABUAAAAIAAoAAAAGABYAAAAIAAoAAAAGABcAAAAIAAoAAAAGABgAAAAIABAAAAAGABkAAAAIAAoAAAAGABoAAAAIAAoAAAAGABsAAAAIAAoAAAAGABwAAAALABEAAAAGAB0AAAAIAAoAAAAGAB4AAAAIAAoAAAAGAB8AAAAIAAoAAAAGACAAAAAIAAoAAAAGACEAAAAIAAoAAAAGACIAAAAIAAoAAAAGACMAAAAIAAoAAAAGACQAAAAIAAoAAAAGACUAAAAIAAoAAAAGACYAAAAIAAoAAAAGACcAAAAIAAoAAAAGACgAAAAIAAoAAAAHAAAAAAAIAAoAAAAHAAEAAAAIAAoAAAAHAAIAAAAIAAoAAAAHAAMAAAALABEAAAAHAAQAAAAIAAoAAAAHAAUAAAAIAAoAAAAHAAYAAAAIAAoAAAAHAAcAAAAIAAoAAAAHAAgAAAAIAAoAAAAHAAkAAAAIAAoAAAAHAAoAAAAIAAoAAAAHAAsAAAAIAAoAAAAHAAwAAAAIAAoAAAAHAA0AAAAIAAoAAAAHAA4AAAAIAAoAAAAHAA8AAAAIAAoAAAAHABAAAAAIABAAAAAHABEAAAAIABAAAAAHABIAAAAIAAoAAAAHABMAAAAIAAoAAAAHABQAAAAIAAoAAAAHABUAAAAIAAoAAAAHABYAAAAIAAoAAAAHABcAAAAIAAoAAAAHABgAAAAIABAAAAAHABkAAAAIAAoAAAAHABoAAAAIAAoAAAAHABsAAAAIAAoAAAAHABwAAAALABEAAAAHAB0AAAAIAAoAAAAHAB4AAAAIAAoAAAAHAB8AAAAIAAoAAAAHACAAAAAIAAoAAAAHACEAAAAIAAoAAAAHACIAAAAIAAoAAAAHACMAAAAIAAoAAAAHACQAAAAIAAoAAAAHACUAAAAIAAoAAAAHACYAAAAIAAoAAAAHACcAAAAIAAoAAAAHACgAAAAIAAoAAAAIAAAAAAAIAAoAAAAIAAEAAAAIAAoAAAAIAAIAAAAIAAoAAAAIAAMAAAALABEAAAAIAAQAAAAIAAoAAAAIAAUAAAAIAAoAAAAIAAYAAAAIAAoAAAAIAAcAAAAIAAoAAAAIAAgAAAAIAAoAAAAIAAkAAAAIAAoAAAAIAAoAAAAIAAoAAAAIAAsAAAADABAAAAAIAAwAAAADABAAAAAIAA0AAAADABAAAAAIAA4AAAADABAAAAAIAA8AAAAIAAoAAAAIABAAAAAIAAoAAAAIABEAAAAIAAoAAAAIABIAAAAIAAoAAAAIABMAAAAIAAoAAAAIABQAAAAIAAoAAAAIABUAAAAIAAoAAAAIABYAAAAIAAoAAAAIABcAAAAIAAoAAAAIABgAAAAIABAAAAAIABkAAAAIAAoAAAAIABoAAAAIAAoAAAAIABsAAAALABEAAAAIABwAAAAIAAoAAAAIAB0AAAAIAAoAAAAIAB4AAAAIAAoAAAAIAB8AAAAIAAoAAAAIACAAAAAIAAoAAAAIACEAAAAIAAoAAAAIACIAAAAIAAoAAAAIACMAAAAIAAoAAAAIACQAAAAIAAoAAAAIACUAAAAIAAoAAAAIACYAAAAIAAoAAAAIACcAAAAIAAoAAAAIACgAAAAIAAoAAAAJAAAAAAAIAAoAAAAJAAEAAAAIAAoAAAAJAAIAAAALABEAAAAJAAMAAAAIAAoAAAAJAAQAAAAIAAoAAAAJAAUAAAAIAAoAAAAJAAYAAAAIAAoAAAAJAAcAAAAIAAoAAAAJAAgAAAAIAAoAAAAJAAkAAAADABAAAAAJAAoAAAADABAAAAAJAAsAAAAIAAoAAAAJAAwAAAAIAAoAAAAJAA0AAAAIAAoAAAAJAA4AAAAIAAoAAAAJAA8AAAADABAAAAAJABAAAAAIAAoAAAAJABEAAAAIAAoAAAAJABIAAAAIAAoAAAAJABMAAAAIAAoAAAAJABQAAAAIAAoAAAAJABUAAAAIAAoAAAAJABYAAAAIAAoAAAAJABcAAAAIABAAAAAJABgAAAAIAAoAAAAJABkAAAAIAAoAAAAJABoAAAAIAAoAAAAJABsAAAALABEAAAAJABwAAAAIAAoAAAAJAB0AAAAIAAoAAAAJAB4AAAAIAAoAAAAJAB8AAAAIAAoAAAAJACAAAAAIAAoAAAAJACEAAAAIAAoAAAAJACIAAAAIAAoAAAAJACMAAAAIAAoAAAAJACQAAAAIAAoAAAAJACUAAAAIAAoAAAAJACYAAAAIAAoAAAAJACcAAAAIAAoAAAAJACgAAAAIAAoAAAAKAAAAAAAIAAoAAAAKAAEAAAAIAAoAAAAKAAIAAAALABEAAAAKAAMAAAAIAAoAAAAKAAQAAAAIAAoAAAAKAAUAAAAIAAoAAAAKAAYAAAAIAAoAAAAKAAcAAAAIAAoAAAAKAAgAAAADABAAAAAKAAkAAAAIAAoAAAAKAAoAAAAIAAoAAAAKAAsAAAAIAAoAAAAKAAwAAAAIAAoAAAAKAA0AAAAIAAoAAAAKAA4AAAAIAAoAAAAKAA8AAAAIAAoAAAAKABAAAAADABAAAAAKABEAAAAIAAoAAAAKABIAAAAIAAoAAAAKABMAAAAIAAoAAAAKABQAAAAIAAoAAAAKABUAAAAIAAoAAAAKABYAAAAIAAoAAAAKABcAAAAIABAAAAAKABgAAAAIAAoAAAAKABkAAAAIAAoAAAAKABoAAAAIAAoAAAAKABsAAAALABEAAAAKABwAAAAIAAoAAAAKAB0AAAAIAAoAAAAKAB4AAAAIAAoAAAAKAB8AAAAIAAoAAAAKACAAAAAIAAoAAAAKACEAAAAIAAoAAAAKACIAAAAIAAoAAAAKACMAAAALABEAAAAKACQAAAAIAAoAAAAKACUAAAAIAAoAAAAKACYAAAAIAAoAAAAKACcAAAAIAAoAAAAKACgAAAAIAAoAAAALAAAAAAAIAAoAAAALAAEAAAAIAAoAAAALAAIAAAALABEAAAALAAMAAAAIAAoAAAALAAQAAAAIAAoAAAALAAUAAAAIAAoAAAALAAYAAAAIAAoAAAALAAcAAAAIAAoAAAALAAgAAAADABAAAAALAAkAAAAIAAoAAAALAAoAAAAIAAoAAAALAAsAAAAIAAoAAAALAAwAAAAIAAoAAAALAA0AAAAIAAoAAAALAA4AAAAIAAoAAAALAA8AAAAIAAoAAAALABAAAAADABAAAAALABEAAAAIAAoAAAALABIAAAAIAAoAAAALABMAAAAIAAoAAAALABQAAAAIAAoAAAALABUAAAAIAAoAAAALABYAAAAIAAoAAAALABcAAAAIABAAAAALABgAAAAIAAoAAAALABkAAAAIAAoAAAALABoAAAAIAAoAAAALABsAAAALABEAAAALABwAAAAIAAoAAAALAB0AAAAIAAoAAAALAB4AAAAIAAoAAAALAB8AAAAIAAoAAAALACAAAAAIAAoAAAALACEAAAALABEAAAALACIAAAALABEAAAALACMAAAAIAAoAAAALACQAAAAIAAoAAAALACUAAAAIAAoAAAALACYAAAAIAAoAAAALACcAAAAIAAoAAAALACgAAAAIAAoAAAAMAAAAAAAIAAoAAAAMAAEAAAAIAAoAAAAMAAIAAAALABEAAAAMAAMAAAAIAAoAAAAMAAQAAAAIAAoAAAAMAAUAAAAIAAoAAAAMAAYAAAAIAAoAAAAMAAcAAAADABAAAAAMAAgAAAAIAAoAAAAMAAkAAAAIAAoAAAAMAAoAAAAIAAoAAAAMAAsAAAAIAAoAAAAMAAwAAAAIAAoAAAAMAA0AAAAIAAoAAAAMAA4AAAAIAAoAAAAMAA8AAAAIAAoAAAAMABAAAAADABAAAAAMABEAAAAIAAoAAAAMABIAAAAIAAoAAAAMABMAAAAIAAoAAAAMABQAAAAIAAoAAAAMABUAAAAIAAoAAAAMABYAAAAIAAoAAAAMABcAAAAIABAAAAAMABgAAAAIAAoAAAAMABkAAAAIAAoAAAAMABoAAAAIAAoAAAAMABsAAAALABEAAAAMABwAAAAIAAoAAAAMAB0AAAAIAAoAAAAMAB4AAAAIAAoAAAAMAB8AAAAIAAoAAAAMACAAAAAIAAoAAAAMACEAAAALABEAAAAMACIAAAAIAAoAAAAMACMAAAAIAAoAAAAMACQAAAAIAAoAAAAMACUAAAAIAAoAAAAMACYAAAAIAAoAAAAMACcAAAAIAAoAAAAMACgAAAAIAAoAAAANAAAAAAAIAAoAAAANAAEAAAAIAAoAAAANAAIAAAALABEAAAANAAMAAAAIAAoAAAANAAQAAAAIAAoAAAANAAUAAAAIAAoAAAANAAYAAAAIAAoAAAANAAcAAAADABAAAAANAAgAAAAIAAoAAAANAAkAAAAIAAoAAAANAAoAAAAIAAoAAAANAAsAAAAIAAoAAAANAAwAAAAIAAoAAAANAA0AAAAIAAoAAAANAA4AAAAIAAoAAAANAA8AAAADABAAAAANABAAAAAIAAoAAAANABEAAAAIAAoAAAANABIAAAAIAAoAAAANABMAAAAIAAoAAAANABQAAAAIAAoAAAANABUAAAAIAAoAAAANABYAAAAIABAAAAANABcAAAAIAAoAAAANABgAAAAIAAoAAAANABkAAAAIAAoAAAANABoAAAALABEAAAANABsAAAAIAAoAAAANABwAAQAAAAAAAQANAB0AAAAIAAoAAAANAB4AAAAIAAoAAAANAB8AAAAIAAoAAAANACAAAAAIAAoAAAANACEAAAALABEAAAANACIAAAAIAAoAAAANACMAAAAIAAoAAAANACQAAAAIAAoAAAANACUAAAAIAAoAAAANACYAAAAIAAoAAAANACcAAAAIAAoAAAANACgAAAAIAAoAAAAOAAAAAAAIAAoAAAAOAAEAAAAIAAoAAAAOAAIAAAALABEAAAAOAAMAAAAIAAoAAAAOAAQAAAAIAAoAAAAOAAUAAAAIAAoAAAAOAAYAAAAIAAoAAAAOAAcAAAADABAAAAAOAAgAAAAIAAoAAAAOAAkAAAAIAAoAAAAOAAoAAAAIAAoAAAAOAAsAAAAIAAoAAAAOAAwAAAAIAAoAAAAOAA0AAAAIAAoAAAAOAA4AAAAIAAoAAAAOAA8AAAADABAAAAAOABAAAAAIAAoAAAAOABEAAAAIAAoAAAAOABIAAAAIAAoAAAAOABMAAAAIAAoAAAAOABQAAAAIAAoAAAAOABUAAAAIAAoAAAAOABYAAAAIABAAAAAOABcAAAAIAAoAAAAOABgAAAAIAAoAAAAOABkAAAAIAAoAAAAOABoAAAALABEAAAAOABsAAAAIAAoAAAAOABwAAAAIAAoAAAAOAB0AAAAIAAoAAAAOAB4AAAALABEAAAAOAB8AAAALABEAAAAOACAAAAALABEAAAAOACEAAAAIAAoAAAAOACIAAAAIAAoAAAAOACMAAAAIAAoAAAAOACQAAAAIAAoAAAAOACUAAAAIAAoAAAAOACYAAAAIAAoAAAAOACcAAAAIAAoAAAAOACgAAAAIAAoAAAAPAAAAAAAIAAoAAAAPAAEAAAAIAAoAAAAPAAIAAAALABEAAAAPAAMAAAAIAAoAAAAPAAQAAAAIAAoAAAAPAAUAAAAIAAoAAAAPAAYAAAAIAAoAAAAPAAcAAAADABAAAAAPAAgAAAAIAAoAAAAPAAkAAAAIAAoAAAAPAAoAAAAIAAoAAAAPAAsAAAAIAAoAAAAPAAwAAAAIAAoAAAAPAA0AAAAIAAoAAAAPAA4AAAAIAAoAAAAPAA8AAAADABAAAAAPABAAAAAIAAoAAAAPABEAAAAIAAoAAAAPABIAAAAIAAoAAAAPABMAAAAIAAoAAAAPABQAAAAIAAoAAAAPABUAAAAIABAAAAAPABYAAAAIAAoAAAAPABcAAAAIAAoAAAAPABgAAAAIAAoAAAAPABkAAAAIAAoAAAAPABoAAAAIAAoAAAAPABsAAAALABEAAAAPABwAAAALABEAAAAPAB0AAAALABEAAAAPAB4AAAALABEAAAAPAB8AAAAIAAoAAAAPACAAAAAIAAoAAAAPACEAAAAIAAoAAAAPACIAAAAIAAoAAAAPACMAAAAIAAoAAAAPACQAAAAIAAoAAAAPACUAAAAIAAoAAAAPACYAAAAIAAoAAAAPACcAAAAIAAoAAAAPACgAAAAIAAoAAAAQAAAAAAAIAAoAAAAQAAEAAAAIAAoAAAAQAAIAAAAIAAoAAAAQAAMAAAALABEAAAAQAAQAAAAIAAoAAAAQAAUAAAAIAAoAAAAQAAYAAAAIAAoAAAAQAAcAAAAIAAoAAAAQAAgAAAAIAAoAAAAQAAkAAAAIAAoAAAAQAAoAAAAIAAoAAAAQAAsAAAAIAAoAAAAQAAwAAAAIAAoAAAAQAA0AAAAIAAoAAAAQAA4AAAAIAAoAAAAQAA8AAAADABAAAAAQABAAAAAIAAoAAAAQABEAAAAIAAoAAAAQABIAAAAIAAoAAAAQABMAAAAIAAoAAAAQABQAAAAIAAoAAAAQABUAAAAIABAAAAAQABYAAAAIAAoAAAAQABcAAAAIAAoAAAAQABgAAAAIAAoAAAAQABkAAAAIAAoAAAAQABoAAAAIAAoAAAAQABsAAAAIAAoAAAAQABwAAAAIAAoAAAAQAB0AAAAIAAoAAAAQAB4AAAAIAAoAAAAQAB8AAAAIAAoAAAAQACAAAAAIAAoAAAAQACEAAAAIAAoAAAAQACIAAAAIAAoAAAAQACMAAAAIAAoAAAAQACQAAAAIAAoAAAAQACUAAAAIAAoAAAAQACYAAAAIAAoAAAAQACcAAAAIAAoAAAAQACgAAAAIAAoAAAARAAAAAAAIAAoAAAARAAEAAAAIAAoAAAARAAIAAAAIAAoAAAARAAMAAAALABEAAAARAAQAAAAIAAoAAAARAAUAAAAIAAoAAAARAAYAAAAIAAoAAAARAAcAAAAIAAoAAAARAAgAAAAIAAoAAAARAAkAAAAIAAoAAAARAAoAAAAIAAoAAAARAAsAAAAIAAoAAAARAAwAAAAIAAoAAAARAA0AAAAIAAoAAAARAA4AAAAIAAoAAAARAA8AAAADABAAAAARABAAAAAIAAoAAAARABEAAAAIAAoAAAARABIAAAAIAAoAAAARABMAAAAIAAoAAAARABQAAAAIABAAAAARABUAAAAIAAoAAAARABYAAAAIAAoAAAARABcAAAAIAAoAAAARABgAAAADABAAAAARABkAAAADABAAAAARABoAAAAIAAoAAAARABsAAAAIAAoAAAARABwAAAAIABAAAAARAB0AAAAIABAAAAARAB4AAQAAAAAAAQARAB8AAAAIABAAAAARACAAAAAIABAAAAARACEAAAAIAAoAAAARACIAAAAIAAoAAAARACMAAAAIAAoAAAARACQAAAAIAAoAAAARACUAAAAIAAoAAAARACYAAAAIAAoAAAARACcAAAAIAAoAAAARACgAAAAIAAoAAAASAAAAAAAIAAoAAAASAAEAAAAIAAoAAAASAAIAAAAIAAoAAAASAAMAAAAIAAoAAAASAAQAAAALABEAAAASAAUAAAAIAAoAAAASAAYAAAAIAAoAAAASAAcAAAAIAAoAAAASAAgAAAAIAAoAAAASAAkAAAAIAAoAAAASAAoAAAAIAAoAAAASAAsAAAAIAAoAAAASAAwAAAAIAAoAAAASAA0AAAAIAAoAAAASAA4AAAADABAAAAASAA8AAAAIAAoAAAASABAAAAAIAAoAAAASABEAAAAIAAoAAAASABIAAAAIAAoAAAASABMAAAAIABAAAAASABQAAAAIAAoAAAASABUAAAAIAAoAAAASABYAAAAIAAoAAAASABcAAAAIAAoAAAASABgAAAADABAAAAASABkAAAAIAAoAAAASABoAAAADABAAAAASABsAAAAIABAAAAASABwAAAAIAAoAAAASAB0AAAAIAAoAAAASAB4AAAAIAAoAAAASAB8AAAAIAAoAAAASACAAAAAIAAoAAAASACEAAAAIABAAAAASACIAAAAIABAAAAASACMAAAAIAAoAAAASACQAAAAIAAoAAAASACUAAAAIAAoAAAASACYAAAAIAAoAAAASACcAAAAIAAoAAAASACgAAAAIAAoAAAATAAAAAAAIAAoAAAATAAEAAAAIAAoAAAATAAIAAAAIAAoAAAATAAMAAAAIAAoAAAATAAQAAAALABEAAAATAAUAAAAIAAoAAAATAAYAAAAIAAoAAAATAAcAAAAIAAoAAAATAAgAAAAIAAoAAAATAAkAAAAIAAoAAAATAAoAAAAIAAoAAAATAAsAAAAIAAoAAAATAAwAAAAIAAoAAAATAA0AAAAIAAoAAAATAA4AAAADABAAAAATAA8AAAAIAAoAAAATABAAAAAIAAoAAAATABEAAAAIAAoAAAATABIAAAAIAAoAAAATABMAAAAIABAAAAATABQAAAAIAAoAAAATABUAAAAIAAoAAAATABYAAAAIAAoAAAATABcAAAAIAAoAAAATABgAAAADABAAAAATABkAAQAAAAAAAQATABoAAAAIABAAAAATABsAAAADABAAAAATABwAAAADABAAAAATAB0AAAAIAAoAAAATAB4AAAAIAAoAAAATAB8AAAAIAAoAAAATACAAAAAIAAoAAAATACEAAAAIAAoAAAATACIAAAAIAAoAAAATACMAAAAIABAAAAATACQAAAAIABAAAAATACUAAAAIAAoAAAATACYAAAAIAAoAAAATACcAAAAIAAoAAAATACgAAAAIAAoAAAAUAAAAAAAIAAoAAAAUAAEAAAAIAAoAAAAUAAIAAAAIAAoAAAAUAAMAAAAIAAoAAAAUAAQAAAALABEAAAAUAAUAAAALABEAAAAUAAYAAAALABEAAAAUAAcAAAAIAAoAAAAUAAgAAAAIAAoAAAAUAAkAAAAIAAoAAAAUAAoAAAAIAAoAAAAUAAsAAAAIAAoAAAAUAAwAAAAIAAoAAAAUAA0AAAADABAAAAAUAA4AAAAIAAoAAAAUAA8AAAAIAAoAAAAUABAAAAAIAAoAAAAUABEAAAAIAAoAAAAUABIAAAAIABAAAAAUABMAAAAIAAoAAAAUABQAAAAIAAoAAAAUABUAAAAIAAoAAAAUABYAAAAIAAoAAAAUABcAAAAIAAoAAAAUABgAAAADABAAAAAUABkAAAAIABAAAAAUABoAAAAIAAoAAAAUABsAAAAIAAoAAAAUABwAAAAIAAoAAAAUAB0AAAADABAAAAAUAB4AAAADABAAAAAUAB8AAAAIAAoAAAAUACAAAAAIAAoAAAAUACEAAAAIAAoAAAAUACIAAAAIAAoAAAAUACMAAAAIAAoAAAAUACQAAAAIAAoAAAAUACUAAAAIABAAAAAUACYAAAAIAAoAAAAUACcAAAAIAAoAAAAUACgAAAAIAAoAAAAVAAAAAAAIAAoAAAAVAAEAAAAIAAoAAAAVAAIAAAAIAAoAAAAVAAMAAAAIAAoAAAAVAAQAAAAIAAoAAAAVAAUAAAAIAAoAAAAVAAYAAAAIAAoAAAAVAAcAAAAIAAoAAAAVAAgAAAAIAAoAAAAVAAkAAAAIAAoAAAAVAAoAAAAIAAoAAAAVAAsAAAAIAAoAAAAVAAwAAAAIAAoAAAAVAA0AAAADABAAAAAVAA4AAAAIAAoAAAAVAA8AAAAIAAoAAAAVABAAAAAIAAoAAAAVABEAAAAIABAAAAAVABIAAAAIAAoAAAAVABMAAAAIAAoAAAAVABQAAAAIAAoAAAAVABUAAAAIAAoAAAAVABYAAAAIAAoAAAAVABcAAAAIABAAAAAVABgAAAAIABAAAAAVABkAAAAIAAoAAAAVABoAAAAIAAoAAAAVABsAAAAIAAoAAAAVABwAAAAIAAoAAAAVAB0AAAAIAAoAAAAVAB4AAAAIAAoAAAAVAB8AAAADABAAAAAVACAAAAAIAAoAAAAVACEAAAAIAAoAAAAVACIAAAAIAAoAAAAVACMAAAAIAAoAAAAVACQAAAAIAAoAAAAVACUAAAAIABAAAAAVACYAAAAIAAoAAAAVACcAAAAIAAoAAAAVACgAAAAIAAoAAAAWAAAAAAAIAAoAAAAWAAEAAAAIAAoAAAAWAAIAAAAIAAoAAAAWAAMAAAAIAAoAAAAWAAQAAAAIAAoAAAAWAAUAAAAIAAoAAAAWAAYAAAAIAAoAAAAWAAcAAAAIAAoAAAAWAAgAAAAIAAoAAAAWAAkAAAAIAAoAAAAWAAoAAAAIAAoAAAAWAAsAAAAIAAoAAAAWAAwAAAAIAAoAAAAWAA0AAAADABAAAAAWAA4AAAAIAAoAAAAWAA8AAAAIABAAAAAWABAAAAAIABAAAAAWABEAAAAIAAoAAAAWABIAAAAIAAoAAAAWABMAAAAIAAoAAAAWABQAAAAIAAoAAAAWABUAAAAIAAoAAAAWABYAAAAIABAAAAAWABcAAAAIABAAAAAWABgAAAADABAAAAAWABkAAAAIAAoAAAAWABoAAAAIAAoAAAAWABsAAAAIAAoAAAAWABwAAAAIAAoAAAAWAB0AAAAIAAoAAAAWAB4AAAAIAAoAAAAWAB8AAAADABAAAAAWACAAAAAIAAoAAAAWACEAAAAIAAoAAAAWACIAAAAIAAoAAAAWACMAAAAIAAoAAAAWACQAAAAIAAoAAAAWACUAAAAIAAoAAAAWACYAAAAIABAAAAAWACcAAAAIABAAAAAWACgAAAAIAAoAAAAXAAAAAAAIAAoAAAAXAAEAAAAIAAoAAAAXAAIAAAAIAAoAAAAXAAMAAAAIAAoAAAAXAAQAAAAIABAAAAAXAAUAAAAIABAAAAAXAAYAAAAIABAAAAAXAAcAAAAIAAoAAAAXAAgAAAAIAAoAAAAXAAkAAAAIAAoAAAAXAAoAAAAIAAoAAAAXAAsAAAAIAAoAAAAXAAwAAAAIAAoAAAAXAA0AAAAIABAAAAAXAA4AAAAIABAAAAAXAA8AAAAIAAoAAAAXABAAAAAIAAoAAAAXABEAAAAIAAoAAAAXABIAAAAIAAoAAAAXABMAAAAIAAoAAAAXABQAAAAIAAoAAAAXABUAAAAIABAAAAAXABYAAAAIAAoAAAAXABcAAAAIAAoAAAAXABgAAAADABAAAAAXABkAAAAIAAoAAAAXABoAAAAIAAoAAAAXABsAAAAIAAoAAAAXABwAAAAIAAoAAAAXAB0AAAAIAAoAAAAXAB4AAAAIAAoAAAAXAB8AAAAIAAoAAAAXACAAAAADABAAAAAXACEAAAAIAAoAAAAXACIAAAAIAAoAAAAXACMAAAAIAAoAAAAXACQAAAAIAAoAAAAXACUAAAAIAAoAAAAXACYAAAAIAAoAAAAXACcAAAAIABAAAAAXACgAAAAIAAoAAAAYAAAAAAAIAAoAAAAYAAEAAAAIAAoAAAAYAAIAAAAIAAoAAAAYAAMAAAAIAAoAAAAYAAQAAAAIABAAAAAYAAUAAAAIABAAAAAYAAYAAAAIAAoAAAAYAAcAAAAIABAAAAAYAAgAAAAIABAAAAAYAAkAAAAIABAAAAAYAAoAAAAIABAAAAAYAAsAAAAIABAAAAAYAAwAAAAIABAAAAAYAA0AAAAIAAoAAAAYAA4AAAAIAAoAAAAYAA8AAAAIAAoAAAAYABAAAAAIAAoAAAAYABEAAAAIAAoAAAAYABIAAAAIAAoAAAAYABMAAAAIAAoAAAAYABQAAAAIABAAAAAYABUAAAAIAAoAAAAYABYAAAAIAAoAAAAYABcAAAAIAAoAAAAYABgAAAADABAAAAAYABkAAAAIAAoAAAAYABoAAAAIAAoAAAAYABsAAAAIAAoAAAAYABwAAAAIAAoAAAAYAB0AAAAIAAoAAAAYAB4AAAAIAAoAAAAYAB8AAAAIAAoAAAAYACAAAAADABAAAAAYACEAAAAIAAoAAAAYACIAAAAIAAoAAAAYACMAAAAIAAoAAAAYACQAAAAIAAoAAAAYACUAAAAIAAoAAAAYACYAAAAIAAoAAAAYACcAAAAIAAoAAAAYACgAAAAIABAAAAAZAAAAAAAIAAoAAAAZAAEAAAAIAAoAAAAZAAIAAAAIAAoAAAAZAAMAAAAIAAoAAAAZAAQAAAAIAAoAAAAZAAUAAAAIABAAAAAZAAYAAAAIAAoAAAAZAAcAAAAIAAoAAAAZAAgAAAAIAAoAAAAZAAkAAAAIAAoAAAAZAAoAAAAIAAoAAAAZAAsAAAAIAAoAAAAZAAwAAAADABAAAAAZAA0AAAAIAAoAAAAZAA4AAAAIAAoAAAAZAA8AAAAIAAoAAAAZABAAAAAIAAoAAAAZABEAAAAIAAoAAAAZABIAAAAIAAoAAAAZABMAAAAIAAoAAAAZABQAAAAIABAAAAAZABUAAAAIAAoAAAAZABYAAAAIAAoAAAAZABcAAAAIAAoAAAAZABgAAAADABAAAAAZABkAAAAIAAoAAAAZABoAAAAIAAoAAAAZABsAAAAIAAoAAAAZABwAAAAIAAoAAAAZAB0AAAAIAAoAAAAZAB4AAAAIAAoAAAAZAB8AAAAIAAoAAAAZACAAAAAIAAoAAAAZACEAAAADABAAAAAZACIAAAAIAAoAAAAZACMAAAAIAAoAAAAZACQAAAAIAAoAAAAZACUAAAAIAAoAAAAZACYAAAAIAAoAAAAZACcAAAAIAAoAAAAZACgAAAAIAAoAAAAaAAAAAAAIAAoAAAAaAAEAAAAIAAoAAAAaAAIAAAAIAAoAAAAaAAMAAAAIAAoAAAAaAAQAAAAIAAoAAAAaAAUAAAAIAAoAAAAaAAYAAAAIABAAAAAaAAcAAAAIAAoAAAAaAAgAAAAIAAoAAAAaAAkAAAAIAAoAAAAaAAoAAAAIAAoAAAAaAAsAAAADABAAAAAaAAwAAAAIAAoAAAAaAA0AAAAIAAoAAAAaAA4AAAAIAAoAAAAaAA8AAAAIAAoAAAAaABAAAAAIAAoAAAAaABEAAAAIAAoAAAAaABIAAAAIAAoAAAAaABMAAAAIABAAAAAaABQAAAAIAAoAAAAaABUAAAAIAAoAAAAaABYAAAAIAAoAAAAaABcAAAAIAAoAAAAaABgAAAADABAAAAAaABkAAAAIAAoAAAAaABoAAAAIAAoAAAAaABsAAAAIAAoAAAAaABwAAAAIAAoAAAAaAB0AAAAIAAoAAAAaAB4AAAAIAAoAAAAaAB8AAAAIAAoAAAAaACAAAAAIAAoAAAAaACEAAAADABAAAAAaACIAAAAIAAoAAAAaACMAAAAIAAoAAAAaACQAAAAIAAoAAAAaACUAAAAIAAoAAAAaACYAAAAIAAoAAAAaACcAAAAIAAoAAAAaACgAAAAIAAoAAAAbAAAAAAAIAAoAAAAbAAEAAAAIAAoAAAAbAAIAAAAIAAoAAAAbAAMAAAAIAAoAAAAbAAQAAAAIAAoAAAAbAAUAAAAIAAoAAAAbAAYAAAAIABAAAAAbAAcAAAAIAAoAAAAbAAgAAAAIAAoAAAAbAAkAAAAIAAoAAAAbAAoAAAAIAAoAAAAbAAsAAAADABAAAAAbAAwAAAADABAAAAAbAA0AAAAIAAoAAAAbAA4AAAAIAAoAAAAbAA8AAAAIAAoAAAAbABAAAAAIAAoAAAAbABEAAAAIAAoAAAAbABIAAAAIAAoAAAAbABMAAAAIABAAAAAbABQAAAAIAAoAAAAbABUAAAAIAAoAAAAbABYAAAAIAAoAAAAbABcAAAAIAAoAAAAbABgAAAADABAAAAAbABkAAAAIAAoAAAAbABoAAAAIAAoAAAAbABsAAAAIAAoAAAAbABwAAAAIAAoAAAAbAB0AAAAIAAoAAAAbAB4AAAAIAAoAAAAbAB8AAAAIAAoAAAAbACAAAAAIAAoAAAAbACEAAAADABAAAAAbACIAAAAIAAoAAAAbACMAAAAIAAoAAAAbACQAAAAIAAoAAAAbACUAAAAIAAoAAAAbACYAAAAIAAoAAAAbACcAAAAIAAoAAAAbACgAAAAIAAoAAAAcAAAAAAAIAAoAAAAcAAEAAAAIAAoAAAAcAAIAAAAIAAoAAAAcAAMAAAAIAAoAAAAcAAQAAAAIAAoAAAAcAAUAAAAIAAoAAAAcAAYAAAAIABAAAAAcAAcAAAAIAAoAAAAcAAgAAAAIAAoAAAAcAAkAAAAIAAoAAAAcAAoAAAAIAAoAAAAcAAsAAAAIAAoAAAAcAAwAAAAIAAoAAAAcAA0AAAADABAAAAAcAA4AAAADABAAAAAcAA8AAAAIAAoAAAAcABAAAAAIAAoAAAAcABEAAAAIAAoAAAAcABIAAAAIABAAAAAcABMAAAAIAAoAAAAcABQAAAAIAAoAAAAcABUAAAAIAAoAAAAcABYAAAAIAAoAAAAcABcAAAAIAAoAAAAcABgAAAADABAAAAAcABkAAAAIAAoAAAAcABoAAAAIAAoAAAAcABsAAAAIAAoAAAAcABwAAAAIAAoAAAAcAB0AAAAIAAoAAAAcAB4AAAAIAAoAAAAcAB8AAAAIAAoAAAAcACAAAAAIAAoAAAAcACEAAAADABAAAAAcACIAAAAIAAoAAAAcACMAAAAIAAoAAAAcACQAAAAIAAoAAAAcACUAAAAIAAoAAAAcACYAAAAIAAoAAAAcACcAAAAIAAoAAAAcACgAAAAIAAoAAAAdAAAAAAAIAAoAAAAdAAEAAAAIAAoAAAAdAAIAAAAIAAoAAAAdAAMAAAAIAAoAAAAdAAQAAAAIAAoAAAAdAAUAAAAIAAoAAAAdAAYAAAAIAAoAAAAdAAcAAAAIABAAAAAdAAgAAAAIAAoAAAAdAAkAAAAIAAoAAAAdAAoAAAAIAAoAAAAdAAsAAAAIAAoAAAAdAAwAAAAIAAoAAAAdAA0AAAAIAAoAAAAdAA4AAAAIAAoAAAAdAA8AAAADABAAAAAdABAAAAAIABAAAAAdABEAAAAIABAAAAAdABIAAAAIAAoAAAAdABMAAAAIAAoAAAAdABQAAAAIAAoAAAAdABUAAAAIAAoAAAAdABYAAAAIAAoAAAAdABcAAAAIAAoAAAAdABgAAAADABAAAAAdABkAAAAIAAoAAAAdABoAAAAIAAoAAAAdABsAAAAIAAoAAAAdABwAAAAIAAoAAAAdAB0AAAAIAAoAAAAdAB4AAAAIAAoAAAAdAB8AAAAIAAoAAAAdACAAAAAIAAoAAAAdACEAAAADABAAAAAdACIAAAAIAAoAAAAdACMAAAAIAAoAAAAdACQAAAAIAAoAAAAdACUAAAAIAAoAAAAdACYAAAAIAAoAAAAdACcAAAAIAAoAAAAdACgAAAAIAAoAAAAeAAAAAAAIAAoAAAAeAAEAAAAIAAoAAAAeAAIAAAAIAAoAAAAeAAMAAAAIAAoAAAAeAAQAAAAIAAoAAAAeAAUAAAAIAAoAAAAeAAYAAAAIAAoAAAAeAAcAAAAIABAAAAAeAAgAAAAIAAoAAAAeAAkAAAAIAAoAAAAeAAoAAAAIAAoAAAAeAAsAAAAIAAoAAAAeAAwAAAAIAAoAAAAeAA0AAAAIAAoAAAAeAA4AAAAIAAoAAAAeAA8AAAAIABAAAAAeABAAAAADABAAAAAeABEAAAAIAAoAAAAeABIAAAAIAAoAAAAeABMAAAAIAAoAAAAeABQAAAAIAAoAAAAeABUAAAAIAAoAAAAeABYAAAAIAAoAAAAeABcAAAAIAAoAAAAeABgAAAADABAAAAAeABkAAAAIAAoAAAAeABoAAAAIAAoAAAAeABsAAAAIAAoAAAAeABwAAAAIAAoAAAAeAB0AAAAIAAoAAAAeAB4AAAAIAAoAAAAeAB8AAAAIAAoAAAAeACAAAAAIAAoAAAAeACEAAAADABAAAAAeACIAAAAIAAoAAAAeACMAAAAIAAoAAAAeACQAAAAIAAoAAAAeACUAAAAIAAoAAAAeACYAAAAIAAoAAAAeACcAAAAIAAoAAAAeACgAAAAIAAoAAAAfAAAAAAAIAAoAAAAfAAEAAAAIAAoAAAAfAAIAAAAIAAoAAAAfAAMAAAAIAAoAAAAfAAQAAAAIAAoAAAAfAAUAAAAIAAoAAAAfAAYAAAAIAAoAAAAfAAcAAAAIAAoAAAAfAAgAAAAIABAAAAAfAAkAAAAIAAoAAAAfAAoAAAAIAAoAAAAfAAsAAAAIAAoAAAAfAAwAAAAIAAoAAAAfAA0AAAAIAAoAAAAfAA4AAAAIABAAAAAfAA8AAAAIABAAAAAfABAAAAAIAAoAAAAfABEAAAADABAAAAAfABIAAAADABAAAAAfABMAAAADABAAAAAfABQAAAAIAAoAAAAfABUAAAAIAAoAAAAfABYAAAAIAAoAAAAfABcAAAAIAAoAAAAfABgAAAADABAAAAAfABkAAAAIAAoAAAAfABoAAAAIAAoAAAAfABsAAAAIAAoAAAAfABwAAAAIAAoAAAAfAB0AAAAIAAoAAAAfAB4AAAAIAAoAAAAfAB8AAAAIAAoAAAAfACAAAAAIAAoAAAAfACEAAAADABAAAAAfACIAAAAIAAoAAAAfACMAAAAIAAoAAAAfACQAAAAIAAoAAAAfACUAAAAIAAoAAAAfACYAAAAIAAoAAAAfACcAAAAIAAoAAAAfACgAAAAIAAoAAAAgAAAAAAAIAAoAAAAgAAEAAAAIAAoAAAAgAAIAAAAIAAoAAAAgAAMAAAAIAAoAAAAgAAQAAAAIAAoAAAAgAAUAAAAIAAoAAAAgAAYAAAAIAAoAAAAgAAcAAAAIAAoAAAAgAAgAAAAIAAoAAAAgAAkAAAAIABAAAAAgAAoAAAAIAAoAAAAgAAsAAAAIAAoAAAAgAAwAAAAIAAoAAAAgAA0AAAAIABAAAAAgAA4AAAAIAAoAAAAgAA8AAAAIAAoAAAAgABAAAAAIAAoAAAAgABEAAAAIAAoAAAAgABIAAAAIAAoAAAAgABMAAAAIAAoAAAAgABQAAAADABAAAAAgABUAAAADABAAAAAgABYAAAAIAAoAAAAgABcAAAADABAAAAAgABgAAAAIAAoAAAAgABkAAAAIAAoAAAAgABoAAAAIAAoAAAAgABsAAAALABEAAAAgABwAAAAIAAoAAAAgAB0AAAAIAAoAAAAgAB4AAAAIAAoAAAAgAB8AAAAIAAoAAAAgACAAAAAIAAoAAAAgACEAAAADABAAAAAgACIAAAAIAAoAAAAgACMAAAAIAAoAAAAgACQAAAAIAAoAAAAgACUAAAAIAAoAAAAgACYAAAAIAAoAAAAgACcAAAAIAAoAAAAgACgAAAAIAAoAAAAhAAAAAAAIAAoAAAAhAAEAAAAIAAoAAAAhAAIAAAAIAAoAAAAhAAMAAAAIAAoAAAAhAAQAAAAIAAoAAAAhAAUAAAAIAAoAAAAhAAYAAAAIAAoAAAAhAAcAAAAIAAoAAAAhAAgAAAAIAAoAAAAhAAkAAAAIAAoAAAAhAAoAAAAIABAAAAAhAAsAAAAIABAAAAAhAAwAAAAIABAAAAAhAA0AAAAIABAAAAAhAA4AAAAIAAoAAAAhAA8AAAAIAAoAAAAhABAAAAAIAAoAAAAhABEAAAAIAAoAAAAhABIAAAAIAAoAAAAhABMAAAAIAAoAAAAhABQAAAAIAAoAAAAhABUAAAAIAAoAAAAhABYAAAADABAAAAAhABcAAAADABAAAAAhABgAAAAIAAoAAAAhABkAAAAIAAoAAAAhABoAAAAIAAoAAAAhABsAAAALABEAAAAhABwAAAAIAAoAAAAhAB0AAAAIAAoAAAAhAB4AAAAIAAoAAAAhAB8AAAAIAAoAAAAhACAAAAADABAAAAAhACEAAAAIAAoAAAAhACIAAAAIAAoAAAAhACMAAAAIAAoAAAAhACQAAAAIAAoAAAAhACUAAAAIAAoAAAAhACYAAAAIAAoAAAAhACcAAAAIAAoAAAAhACgAAAAIAAoAAAAiAAAAAAAIAAoAAAAiAAEAAAAIAAoAAAAiAAIAAAAIAAoAAAAiAAMAAAALABEAAAAiAAQAAAAIAAoAAAAiAAUAAAAIAAoAAAAiAAYAAAAIAAoAAAAiAAcAAAAIAAoAAAAiAAgAAAAIAAoAAAAiAAkAAAAIAAoAAAAiAAoAAAAIAAoAAAAiAAsAAAAIAAoAAAAiAAwAAAAIAAoAAAAiAA0AAAAIAAoAAAAiAA4AAAAIAAoAAAAiAA8AAAAIAAoAAAAiABAAAAAIAAoAAAAiABEAAAAIAAoAAAAiABIAAAAIAAoAAAAiABMAAAAIAAoAAAAiABQAAAAIAAoAAAAiABUAAAAIAAoAAAAiABYAAAAIAAoAAAAiABcAAAAIAAoAAAAiABgAAAAIAAoAAAAiABkAAAAIAAoAAAAiABoAAAAIAAoAAAAiABsAAAALABEAAAAiABwAAAAIAAoAAAAiAB0AAAAIAAoAAAAiAB4AAAAIAAoAAAAiAB8AAAAIAAoAAAAiACAAAAADABAAAAAiACEAAAAIAAoAAAAiACIAAAAIAAoAAAAiACMAAAAIAAoAAAAiACQAAAAIAAoAAAAiACUAAAAIAAoAAAAiACYAAAAIAAoAAAAiACcAAAAIAAoAAAAiACgAAAAIAAoAAAAjAAAAAAAIAAoAAAAjAAEAAAAIAAoAAAAjAAIAAAAIAAoAAAAjAAMAAAALABEAAAAjAAQAAAAIAAoAAAAjAAUAAAAIAAoAAAAjAAYAAAAIAAoAAAAjAAcAAAAIAAoAAAAjAAgAAAAIAAoAAAAjAAkAAAAIAAoAAAAjAAoAAAALABEAAAAjAAsAAAALABEAAAAjAAwAAAALABEAAAAjAA0AAAAIAAoAAAAjAA4AAAAIAAoAAAAjAA8AAAAIAAoAAAAjABAAAAAIAAoAAAAjABEAAAAIAAoAAAAjABIAAAAIAAoAAAAjABMAAAAIAAoAAAAjABQAAAAIAAoAAAAjABUAAAAIAAoAAAAjABYAAAAIAAoAAAAjABcAAAAIAAoAAAAjABgAAAAIAAoAAAAjABkAAAAIAAoAAAAjABoAAAAIAAoAAAAjABsAAAALABEAAAAjABwAAAAIAAoAAAAjAB0AAAAIAAoAAAAjAB4AAAAIAAoAAAAjAB8AAAAIAAoAAAAjACAAAAADABAAAAAjACEAAAAIAAoAAAAjACIAAAAIAAoAAAAjACMAAAAIAAoAAAAjACQAAAAIAAoAAAAjACUAAAAIAAoAAAAjACYAAAAIAAoAAAAjACcAAAAIAAoAAAAjACgAAAAIABAAAAAkAAAAAAAIAAoAAAAkAAEAAAAIAAoAAAAkAAIAAAAIAAoAAAAkAAMAAAAIAAoAAAAkAAQAAAALABEAAAAkAAUAAAAIAAoAAAAkAAYAAAAIAAoAAAAkAAcAAAAIAAoAAAAkAAgAAAAIAAoAAAAkAAkAAAAIAAoAAAAkAAoAAAALABEAAAAkAAsAAAAIAAoAAAAkAAwAAAALABEAAAAkAA0AAAAIAAoAAAAkAA4AAAAIAAoAAAAkAA8AAAAIAAoAAAAkABAAAAAIAAoAAAAkABEAAAAIAAoAAAAkABIAAAAIAAoAAAAkABMAAAAIAAoAAAAkABQAAAAIAAoAAAAkABUAAAAIAAoAAAAkABYAAAAIAAoAAAAkABcAAAAIAAoAAAAkABgAAAAIAAoAAAAkABkAAAAIAAoAAAAkABoAAAAIAAoAAAAkABsAAAALABEAAAAkABwAAAAIAAoAAAAkAB0AAAAIAAoAAAAkAB4AAAAIAAoAAAAkAB8AAAAIAAoAAAAkACAAAAADABAAAAAkACEAAAAIAAoAAAAkACIAAAAIAAoAAAAkACMAAAAIAAoAAAAkACQAAAAIAAoAAAAkACUAAAAIAAoAAAAkACYAAAAIAAoAAAAkACcAAAAIAAoAAAAkACgAAAAIABAAAAAlAAAAAAAIAAoAAAAlAAEAAAAIAAoAAAAlAAIAAAAIAAoAAAAlAAMAAAAIAAoAAAAlAAQAAAALABEAAAAlAAUAAAAIAAoAAAAlAAYAAAAIAAoAAAAlAAcAAAAIAAoAAAAlAAgAAAALABEAAAAlAAkAAAALABEAAAAlAAoAAAALABEAAAAlAAsAAAALABEAAAAlAAwAAAAIAAoAAAAlAA0AAAAIAAoAAAAlAA4AAAAIAAoAAAAlAA8AAAAIAAoAAAAlABAAAAAIAAoAAAAlABEAAAAIAAoAAAAlABIAAAAIAAoAAAAlABMAAAAIAAoAAAAlABQAAAAIAAoAAAAlABUAAAAIAAoAAAAlABYAAAAIAAoAAAAlABcAAAALABEAAAAlABgAAAAIAAoAAAAlABkAAAALABEAAAAlABoAAAALABEAAAAlABsAAAAIAAoAAAAlABwAAAAIAAoAAAAlAB0AAAAIAAoAAAAlAB4AAAAIAAoAAAAlAB8AAAADABAAAAAlACAAAAAIAAoAAAAlACEAAAAIAAoAAAAlACIAAAAIAAoAAAAlACMAAAAIAAoAAAAlACQAAAAIAAoAAAAlACUAAAAIAAoAAAAlACYAAAAIAAoAAAAlACcAAAAIAAoAAAAlACgAAAAIABAAAAAmAAAAAAAIAAoAAAAmAAEAAAAIAAoAAAAmAAIAAAAIAAoAAAAmAAMAAAAIAAoAAAAmAAQAAAAIAAoAAAAmAAUAAAALABEAAAAmAAYAAAALABEAAAAmAAcAAAALABEAAAAmAAgAAAALABEAAAAmAAkAAAAIAAoAAAAmAAoAAAAIAAoAAAAmAAsAAAAIAAoAAAAmAAwAAAAIAAoAAAAmAA0AAAAIAAoAAAAmAA4AAAAIAAoAAAAmAA8AAAAIAAoAAAAmABAAAAAIAAoAAAAmABEAAAAIAAoAAAAmABIAAAAIAAoAAAAmABMAAAAIAAoAAAAmABQAAAAIAAoAAAAmABUAAAAIAAoAAAAmABYAAAAIAAoAAAAmABcAAAAIAAoAAAAmABgAAAALABEAAAAmABkAAAALABEAAAAmABoAAAAIAAoAAAAmABsAAAAIAAoAAAAmABwAAAAIAAoAAAAmAB0AAAAIAAoAAAAmAB4AAAAIAAoAAAAmAB8AAAADABAAAAAmACAAAAAIAAoAAAAmACEAAAAIAAoAAAAmACIAAAAIAAoAAAAmACMAAAAIAAoAAAAmACQAAAAIAAoAAAAmACUAAAAIAAoAAAAmACYAAAAIAAoAAAAmACcAAAAIABAAAAAmACgAAAAIAAoAAAAnAAAAAAAIAAoAAAAnAAEAAAAIAAoAAAAnAAIAAAAIAAoAAAAnAAMAAAAIAAoAAAAnAAQAAAAIAAoAAAAnAAUAAAAIAAoAAAAnAAYAAAAIAAoAAAAnAAcAAAALABEAAAAnAAgAAAAIAAoAAAAnAAkAAAAIAAoAAAAnAAoAAAAIAAoAAAAnAAsAAAAIAAoAAAAnAAwAAAAIAAoAAAAnAA0AAAAIAAoAAAAnAA4AAAAIAAoAAAAnAA8AAAAIAAoAAAAnABAAAAAIAAoAAAAnABEAAAAIAAoAAAAnABIAAAAIAAoAAAAnABMAAAAIAAoAAAAnABQAAAAIAAoAAAAnABUAAAAIAAoAAAAnABYAAAAIAAoAAAAnABcAAAAIAAoAAAAnABgAAAAIAAoAAAAnABkAAAAIAAoAAAAnABoAAAAIAAoAAAAnABsAAAAIAAoAAAAnABwAAAAIAAoAAAAnAB0AAAAIAAoAAAAnAB4AAAAIAAoAAAAnAB8AAAADABAAAAAnACAAAAAIAAoAAAAnACEAAAAIAAoAAAAnACIAAAAIAAoAAAAnACMAAAAIAAoAAAAnACQAAAAIAAoAAAAnACUAAAAIAAoAAAAnACYAAAAIAAoAAAAnACcAAAAIABAAAAAnACgAAAAIAAoAAAAoAAAAAAAIAAoAAAAoAAEAAAAIAAoAAAAoAAIAAAAIAAoAAAAoAAMAAAAIAAoAAAAoAAQAAAAIAAoAAAAoAAUAAAAIAAoAAAAoAAYAAAAIAAoAAAAoAAcAAAALABEAAAAoAAgAAAAIAAoAAAAoAAkAAAAIAAoAAAAoAAoAAAAIAAoAAAAoAAsAAAADABAAAAAoAAwAAAAIAAoAAAAoAA0AAAAIAAoAAAAoAA4AAAAIAAoAAAAoAA8AAAAIAAoAAAAoABAAAAAIAAoAAAAoABEAAAAIAAoAAAAoABIAAAAIAAoAAAAoABMAAAAIAAoAAAAoABQAAAAIAAoAAAAoABUAAAAIAAoAAAAoABYAAAAIAAoAAAAoABcAAAAIAAoAAAAoABgAAAAIAAoAAAAoABkAAAAIAAoAAAAoABoAAAAIAAoAAAAoABsAAAAIAAoAAAAoABwAAAAIAAoAAAAoAB0AAAAIAAoAAAAoAB4AAAAIAAoAAAAoAB8AAAADABAAAAAoACAAAAAIAAoAAAAoACEAAAAIAAoAAAAoACIAAAAIAAoAAAAoACMAAAAIAAoAAAAoACQAAAAIAAoAAAAoACUAAAAIAAoAAAAoACYAAAAIABAAAAAoACcAAAAIAAoAAAAoACgAAAAIAAoAAAApAAAAAAAIAAoAAAApAAEAAAAIAAoAAAApAAIAAAAIAAoAAAApAAMAAAAIAAoAAAApAAQAAAAIAAoAAAApAAUAAAAIAAoAAAApAAYAAAALABEAAAApAAcAAAAIAAoAAAApAAgAAAAIAAoAAAApAAkAAAAIAAoAAAApAAoAAAAIAAoAAAApAAsAAAADABAAAAApAAwAAAADABAAAAApAA0AAAAIAAoAAAApAA4AAAAIAAoAAAApAA8AAAAIAAoAAAApABAAAAAIAAoAAAApABEAAAAIAAoAAAApABIAAAAIAAoAAAApABMAAAAIAAoAAAApABQAAAAIAAoAAAApABUAAAAIAAoAAAApABYAAAAIAAoAAAApABcAAAAIAAoAAAApABgAAAAIAAoAAAApABkAAAAIAAoAAAApABoAAAAIAAoAAAApABsAAAAIAAoAAAApABwAAAAIAAoAAAApAB0AAAAIAAoAAAApAB4AAAAIAAoAAAApAB8AAAADABAAAAApACAAAAAIAAoAAAApACEAAAAIAAoAAAApACIAAAAIAAoAAAApACMAAAAIAAoAAAApACQAAAAIAAoAAAApACUAAAAIABAAAAApACYAAAAIAAoAAAApACcAAAAIAAoAAAApACgAAAAIAAoAAAAqAAAAAAAIAAoAAAAqAAEAAAAIAAoAAAAqAAIAAAAIAAoAAAAqAAMAAAAIAAoAAAAqAAQAAAAIAAoAAAAqAAUAAAAIAAoAAAAqAAYAAAALABEAAAAqAAcAAAAIAAoAAAAqAAgAAAAIAAoAAAAqAAkAAAAIAAoAAAAqAAoAAAADABAAAAAqAAsAAAAIAAoAAAAqAAwAAAAIAAoAAAAqAA0AAAAIABAAAAAqAA4AAAAIABAAAAAqAA8AAAAIAAoAAAAqABAAAAAIAAoAAAAqABEAAAAIAAoAAAAqABIAAAAIAAoAAAAqABMAAAAIAAoAAAAqABQAAAAIAAoAAAAqABUAAAAIAAoAAAAqABYAAAAIAAoAAAAqABcAAAAIAAoAAAAqABgAAAAIAAoAAAAqABkAAAAIAAoAAAAqABoAAAAIAAoAAAAqABsAAAAIAAoAAAAqABwAAAAIAAoAAAAqAB0AAAAIAAoAAAAqAB4AAAAIAAoAAAAqAB8AAAADABAAAAAqACAAAAAIAAoAAAAqACEAAAAIAAoAAAAqACIAAAAIAAoAAAAqACMAAAAIAAoAAAAqACQAAAAIABAAAAAqACUAAAAIAAoAAAAqACYAAAAIAAoAAAAqACcAAAAIAAoAAAAqACgAAAAIAAoAAAArAAAAAAAIAAoAAAArAAEAAAAIAAoAAAArAAIAAAAIAAoAAAArAAMAAAAIAAoAAAArAAQAAAAIAAoAAAArAAUAAAALABEAAAArAAYAAAAIAAoAAAArAAcAAAAIAAoAAAArAAgAAAAIAAoAAAArAAkAAAAIAAoAAAArAAoAAAADABAAAAArAAsAAAAIAAoAAAArAAwAAAAIAAoAAAArAA0AAAAIABAAAAArAA4AAAADABAAAAArAA8AAAAIABAAAAArABAAAAAIABAAAAArABEAAAAIAAoAAAArABIAAAAIAAoAAAArABMAAAAIAAoAAAArABQAAAAIAAoAAAArABUAAAAIAAoAAAArABYAAAAIAAoAAAArABcAAAAIAAoAAAArABgAAAAIAAoAAAArABkAAAAIAAoAAAArABoAAAAIAAoAAAArABsAAAAIAAoAAAArABwAAAAIAAoAAAArAB0AAAAIAAoAAAArAB4AAAAIAAoAAAArAB8AAAADABAAAAArACAAAAAIAAoAAAArACEAAAAIAAoAAAArACIAAAAIAAoAAAArACMAAAAIABAAAAArACQAAAAIAAoAAAArACUAAAAIAAoAAAArACYAAAAIAAoAAAArACcAAAAIAAoAAAArACgAAAAIAAoAAAAsAAAAAAAIAAoAAAAsAAEAAAAIAAoAAAAsAAIAAAAIAAoAAAAsAAMAAAAIAAoAAAAsAAQAAAAIAAoAAAAsAAUAAAALABEAAAAsAAYAAAAIAAoAAAAsAAcAAAAIAAoAAAAsAAgAAAAIAAoAAAAsAAkAAAAIAAoAAAAsAAoAAAADABAAAAAsAAsAAAAIAAoAAAAsAAwAAAAIABAAAAAsAA0AAAAIAAoAAAAsAA4AAAADABAAAAAsAA8AAAAIAAoAAAAsABAAAAAIABAAAAAsABEAAAAIAAoAAAAsABIAAAAIAAoAAAAsABMAAAAIAAoAAAAsABQAAAAIAAoAAAAsABUAAAAIAAoAAAAsABYAAAAIAAoAAAAsABcAAAAIAAoAAAAsABgAAAAIAAoAAAAsABkAAAAIAAoAAAAsABoAAAAIABAAAAAsABsAAAAIABAAAAAsABwAAAAIAAoAAAAsAB0AAAAIAAoAAAAsAB4AAAADABAAAAAsAB8AAAAIAAoAAAAsACAAAAAIAAoAAAAsACEAAAAIAAoAAAAsACIAAAAIABAAAAAsACMAAAAIAAoAAAAsACQAAAAIAAoAAAAsACUAAAAIAAoAAAAsACYAAAAIAAoAAAAsACcAAAAIAAoAAAAsACgAAAAIAAoAAAAtAAAAAAAIAAoAAAAtAAEAAAAIAAoAAAAtAAIAAAAIAAoAAAAtAAMAAAAIAAoAAAAtAAQAAAAIAAoAAAAtAAUAAAALABEAAAAtAAYAAAAIAAoAAAAtAAcAAAAIAAoAAAAtAAgAAAAIAAoAAAAtAAkAAAADABAAAAAtAAoAAAAIAAoAAAAtAAsAAAAIAAoAAAAtAAwAAAAIABAAAAAtAA0AAAAIAAoAAAAtAA4AAAAIAAoAAAAtAA8AAAADABAAAAAtABAAAAAIAAoAAAAtABEAAAAIABAAAAAtABIAAAAIABAAAAAtABMAAAAIAAoAAAAtABQAAAAIAAoAAAAtABUAAAAIAAoAAAAtABYAAAAIAAoAAAAtABcAAAAIAAoAAAAtABgAAAAIAAoAAAAtABkAAAAIAAoAAAAtABoAAAAIABAAAAAtABsAAAAIAAoAAAAtABwAAAAIABAAAAAtAB0AAAAIABAAAAAtAB4AAAAIABAAAAAtAB8AAAAIABAAAAAtACAAAAAIABAAAAAtACEAAAAIABAAAAAtACIAAAAIAAoAAAAtACMAAAAIAAoAAAAtACQAAAAIAAoAAAAtACUAAAAIAAoAAAAtACYAAAAIAAoAAAAtACcAAAAIAAoAAAAtACgAAAAIAAoAAAAuAAAAAAAIAAoAAAAuAAEAAAAIAAoAAAAuAAIAAAAIAAoAAAAuAAMAAAALABEAAAAuAAQAAAALABEAAAAuAAUAAAAIAAoAAAAuAAYAAAAIAAoAAAAuAAcAAAAIAAoAAAAuAAgAAAAIAAoAAAAuAAkAAAADABAAAAAuAAoAAAAIAAoAAAAuAAsAAAAIABAAAAAuAAwAAAAIAAoAAAAuAA0AAAAIAAoAAAAuAA4AAAAIAAoAAAAuAA8AAAAIAAoAAAAuABAAAAADABAAAAAuABEAAAAIAAoAAAAuABIAAAAIABAAAAAuABMAAAAIAAoAAAAuABQAAAAIAAoAAAAuABUAAAAIAAoAAAAuABYAAAAIAAoAAAAuABcAAAAIAAoAAAAuABgAAAAIAAoAAAAuABkAAAAIAAoAAAAuABoAAAAIABAAAAAuABsAAAAIAAoAAAAuABwAAAAIAAoAAAAuAB0AAAAIAAoAAAAuAB4AAAADABAAAAAuAB8AAAAIAAoAAAAuACAAAAAIAAoAAAAuACEAAAAIAAoAAAAuACIAAAAIAAoAAAAuACMAAAAIAAoAAAAuACQAAAAIAAoAAAAuACUAAAAIAAoAAAAuACYAAAAIAAoAAAAuACcAAAAIAAoAAAAuACgAAAAIAAoAAAAvAAAAAAAIAAoAAAAvAAEAAAAIAAoAAAAvAAIAAAAIAAoAAAAvAAMAAAAIAAoAAAAvAAQAAAAIAAoAAAAvAAUAAAAIAAoAAAAvAAYAAAAIAAoAAAAvAAcAAAAIAAoAAAAvAAgAAAAIAAoAAAAvAAkAAAADABAAAAAvAAoAAAAIABAAAAAvAAsAAAAIAAoAAAAvAAwAAAAIAAoAAAAvAA0AAAAIAAoAAAAvAA4AAAAIAAoAAAAvAA8AAAAIAAoAAAAvABAAAAAIAAoAAAAvABEAAAADABAAAAAvABIAAAAIABAAAAAvABMAAAAIAAoAAAAvABQAAAAIAAoAAAAvABUAAAAIAAoAAAAvABYAAAAIAAoAAAAvABcAAAAIAAoAAAAvABgAAAAIAAoAAAAvABkAAAAIAAoAAAAvABoAAAAIABAAAAAvABsAAAAIAAoAAAAvABwAAAAIAAoAAAAvAB0AAAADABAAAAAvAB4AAAAIAAoAAAAvAB8AAAAIAAoAAAAvACAAAAAIAAoAAAAvACEAAAAIAAoAAAAvACIAAAAIAAoAAAAvACMAAAAIAAoAAAAvACQAAAAIAAoAAAAvACUAAAAIAAoAAAAvACYAAAAIAAoAAAAvACcAAAAIAAoAAAAvACgAAAAIAAoAAAAwAAAAAAAIAAoAAAAwAAEAAAAIAAoAAAAwAAIAAAAIAAoAAAAwAAMAAAAIAAoAAAAwAAQAAAAIAAoAAAAwAAUAAAAIAAoAAAAwAAYAAAAIAAoAAAAwAAcAAAAIAAoAAAAwAAgAAAAIAAoAAAAwAAkAAAADABAAAAAwAAoAAAAIABAAAAAwAAsAAAAIAAoAAAAwAAwAAAAIAAoAAAAwAA0AAAAIAAoAAAAwAA4AAAAIAAoAAAAwAA8AAAAIAAoAAAAwABAAAAAIAAoAAAAwABEAAAAIAAoAAAAwABIAAAAIABAAAAAwABMAAAADABAAAAAwABQAAAADABAAAAAwABUAAAAIAAoAAAAwABYAAAAIAAoAAAAwABcAAAAIAAoAAAAwABgAAAAIAAoAAAAwABkAAAAIAAoAAAAwABoAAAAIABAAAAAwABsAAAADABAAAAAwABwAAAADABAAAAAwAB0AAAAIAAoAAAAwAB4AAAAIAAoAAAAwAB8AAAAIAAoAAAAwACAAAAAIAAoAAAAwACEAAAAIAAoAAAAwACIAAAAIAAoAAAAwACMAAAAIAAoAAAAwACQAAAAIAAoAAAAwACUAAAAIAAoAAAAwACYAAAAIAAoAAAAwACcAAAAIAAoAAAAwACgAAAAIAAoAAAAxAAAAAAAIAAoAAAAxAAEAAAAIAAoAAAAxAAIAAAAIAAoAAAAxAAMAAAAIAAoAAAAxAAQAAAAIAAoAAAAxAAUAAAAIAAoAAAAxAAYAAAAIAAoAAAAxAAcAAAAIAAoAAAAxAAgAAAAIAAoAAAAxAAkAAAAIABAAAAAxAAoAAAAIABAAAAAxAAsAAAAIABAAAAAxAAwAAAAIAAoAAAAxAA0AAAAIAAoAAAAxAA4AAAAIAAoAAAAxAA8AAAAIAAoAAAAxABAAAAAIAAoAAAAxABEAAAAIAAoAAAAxABIAAAAIABAAAAAxABMAAAAIAAoAAAAxABQAAAAIAAoAAAAxABUAAAADABAAAAAxABYAAAADABAAAAAxABcAAAADABAAAAAxABgAAAADABAAAAAxABkAAAADABAAAAAxABoAAAAIABAAAAAxABsAAAAIAAoAAAAxABwAAAAIAAoAAAAxAB0AAAAIAAoAAAAxAB4AAAAIAAoAAAAxAB8AAAAIAAoAAAAxACAAAAAIAAoAAAAxACEAAAAIAAoAAAAxACIAAAAIAAoAAAAxACMAAAAIAAoAAAAxACQAAAAIAAoAAAAxACUAAAAIAAoAAAAxACYAAAAIAAoAAAAxACcAAAAIAAoAAAAxACgAAAAIAAoAAAAyAAAAAAAIAAoAAAAyAAEAAAAIAAoAAAAyAAIAAAAIAAoAAAAyAAMAAAAIAAoAAAAyAAQAAAAIAAoAAAAyAAUAAAAIAAoAAAAyAAYAAAAIABAAAAAyAAcAAAAIABAAAAAyAAgAAAAIABAAAAAyAAkAAAADABAAAAAyAAoAAAAIABAAAAAyAAsAAAAIAAoAAAAyAAwAAAAIABAAAAAyAA0AAAAIABAAAAAyAA4AAAAIAAoAAAAyAA8AAAAIAAoAAAAyABAAAAAIAAoAAAAyABEAAAAIAAoAAAAyABIAAAAIABAAAAAyABMAAAAIAAoAAAAyABQAAAAIAAoAAAAyABUAAAAIAAoAAAAyABYAAAAIAAoAAAAyABcAAAAIAAoAAAAyABgAAAAIAAoAAAAyABkAAAAIABAAAAAyABoAAAAIAAoAAAAyABsAAAAIAAoAAAAyABwAAAAIAAoAAAAyAB0AAAAIAAoAAAAyAB4AAAAIAAoAAAAyAB8AAAAIAAoAAAAyACAAAAAIAAoAAAAyACEAAAAIAAoAAAAyACIAAAAIAAoAAAAyACMAAAAIAAoAAAAyACQAAAAIAAoAAAAyACUAAAAIAAoAAAAyACYAAAAIAAoAAAAyACcAAAAIAAoAAAAyACgAAAAIAAoAAAAzAAAAAAAIAAoAAAAzAAEAAAAIAAoAAAAzAAIAAAAIAAoAAAAzAAMAAAAIAAoAAAAzAAQAAAAIAAoAAAAzAAUAAAAIAAoAAAAzAAYAAAAIABAAAAAzAAcAAAAIAAoAAAAzAAgAAAAIAAoAAAAzAAkAAAADABAAAAAzAAoAAAAIABAAAAAzAAsAAAAIAAoAAAAzAAwAAAAIAAoAAAAzAA0AAAAIAAoAAAAzAA4AAAAIABAAAAAzAA8AAAAIAAoAAAAzABAAAAAIAAoAAAAzABEAAAAIAAoAAAAzABIAAAAIABAAAAAzABMAAAAIAAoAAAAzABQAAAAIAAoAAAAzABUAAAAIAAoAAAAzABYAAAAIAAoAAAAzABcAAAAIAAoAAAAzABgAAAAIAAoAAAAzABkAAAAIABAAAAAzABoAAAAIAAoAAAAzABsAAAAIAAoAAAAzABwAAAAIAAoAAAAzAB0AAAAIAAoAAAAzAB4AAAAIAAoAAAAzAB8AAAAIAAoAAAAzACAAAAAIAAoAAAAzACEAAAAIAAoAAAAzACIAAAAIAAoAAAAzACMAAAAIAAoAAAAzACQAAAAIAAoAAAAzACUAAAAIAAoAAAAzACYAAAAIAAoAAAAzACcAAAAIAAoAAAAzACgAAAAIAAoAAAA0AAAAAAAIAAoAAAA0AAEAAAAIAAoAAAA0AAIAAAAIAAoAAAA0AAMAAAAIAAoAAAA0AAQAAAAIAAoAAAA0AAUAAAAIABAAAAA0AAYAAAAIAAoAAAA0AAcAAAAIAAoAAAA0AAgAAAAIAAoAAAA0AAkAAAAIAAoAAAA0AAoAAAAIABAAAAA0AAsAAAAIAAoAAAA0AAwAAAAIAAoAAAA0AA0AAAAIAAoAAAA0AA4AAAAIABAAAAA0AA8AAAAIAAoAAAA0ABAAAAAIAAoAAAA0ABEAAAAIAAoAAAA0ABIAAAAIABAAAAA0ABMAAAAIAAoAAAA0ABQAAAAIAAoAAAA0ABUAAAAIAAoAAAA0ABYAAAAIAAoAAAA0ABcAAAAIAAoAAAA0ABgAAAAIAAoAAAA0ABkAAAAIABAAAAA0ABoAAAAIAAoAAAA0ABsAAAAIAAoAAAA0ABwAAAAIAAoAAAA0AB0AAAAIAAoAAAA0AB4AAAAIAAoAAAA0AB8AAAAIAAoAAAA0ACAAAAAIAAoAAAA0ACEAAAAIAAoAAAA0ACIAAAAIAAoAAAA0ACMAAAAIAAoAAAA0ACQAAAAIAAoAAAA0ACUAAAAIAAoAAAA0ACYAAAAIAAoAAAA0ACcAAAAIAAoAAAA0ACgAAAAIAAoAAAA1AAAAAAAIAAoAAAA1AAEAAAAIAAoAAAA1AAIAAAAIAAoAAAA1AAMAAAAIAAoAAAA1AAQAAAAIABAAAAA1AAUAAAAIAAoAAAA1AAYAAAAIAAoAAAA1AAcAAAAIAAoAAAA1AAgAAAAIAAoAAAA1AAkAAAAIAAoAAAA1AAoAAAAIABAAAAA1AAsAAAAIAAoAAAA1AAwAAAAIAAoAAAA1AA0AAAAIAAoAAAA1AA4AAAAIAAoAAAA1AA8AAAAIABAAAAA1ABAAAAAIAAoAAAA1ABEAAAAIAAoAAAA1ABIAAAAIABAAAAA1ABMAAAAIAAoAAAA1ABQAAAAIAAoAAAA1ABUAAAAIAAoAAAA1ABYAAAAIAAoAAAA1ABcAAAAIAAoAAAA1ABgAAAAIAAoAAAA1ABkAAAAIABAAAAA1ABoAAAAIABAAAAA1ABsAAAAIAAoAAAA1ABwAAAAIAAoAAAA1AB0AAAAIAAoAAAA1AB4AAAAIAAoAAAA1AB8AAAAIAAoAAAA1ACAAAAAIAAoAAAA1ACEAAAAIAAoAAAA1ACIAAAAIAAoAAAA1ACMAAAAIAAoAAAA1ACQAAAAIAAoAAAA1ACUAAAAIAAoAAAA1ACYAAAAIAAoAAAA1ACcAAAAIAAoAAAA1ACgAAAAIAAoAAAA2AAAAAAAIAAoAAAA2AAEAAAAIAAoAAAA2AAIAAAAIAAoAAAA2AAMAAAAIABAAAAA2AAQAAAAIAAoAAAA2AAUAAAAIAAoAAAA2AAYAAAAIAAoAAAA2AAcAAAAIAAoAAAA2AAgAAAAIAAoAAAA2AAkAAAAIAAoAAAA2AAoAAAAIABAAAAA2AAsAAAADABAAAAA2AAwAAAAIAAoAAAA2AA0AAAAIAAoAAAA2AA4AAAAIAAoAAAA2AA8AAAAIABAAAAA2ABAAAAAIAAoAAAA2ABEAAAAIABAAAAA2ABIAAAAIAAoAAAA2ABMAAAAIAAoAAAA2ABQAAAAIAAoAAAA2ABUAAAAIAAoAAAA2ABYAAAAIAAoAAAA2ABcAAAAIAAoAAAA2ABgAAAAIAAoAAAA2ABkAAAAIAAoAAAA2ABoAAAAIAAoAAAA2ABsAAAAIABAAAAA2ABwAAAAIABAAAAA2AB0AAAAIAAoAAAA2AB4AAAAIAAoAAAA2AB8AAAAIAAoAAAA2ACAAAAAIAAoAAAA2ACEAAAALABEAAAA2ACIAAAAIAAoAAAA2ACMAAAAIAAoAAAA2ACQAAAAIAAoAAAA2ACUAAAAIAAoAAAA2ACYAAAAIAAoAAAA2ACcAAAAIAAoAAAA2ACgAAAAIAAoAAAA3AAAAAAAIAAoAAAA3AAEAAAAIAAoAAAA3AAIAAAAIAAoAAAA3AAMAAAAIABAAAAA3AAQAAAAIAAoAAAA3AAUAAAAIAAoAAAA3AAYAAAAIAAoAAAA3AAcAAAAIAAoAAAA3AAgAAAAIAAoAAAA3AAkAAAAIAAoAAAA3AAoAAAAIABAAAAA3AAsAAAAIAAoAAAA3AAwAAAADABAAAAA3AA0AAAADABAAAAA3AA4AAAAIAAoAAAA3AA8AAAAIAAoAAAA3ABAAAAAIABAAAAA3ABEAAAAIABAAAAA3ABIAAAAIAAoAAAA3ABMAAAAIAAoAAAA3ABQAAAAIAAoAAAA3ABUAAAAIAAoAAAA3ABYAAAAIAAoAAAA3ABcAAAAIAAoAAAA3ABgAAAAIAAoAAAA3ABkAAAAIAAoAAAA3ABoAAAAIAAoAAAA3ABsAAAAIAAoAAAA3ABwAAAAIAAoAAAA3AB0AAAAIABAAAAA3AB4AAAAIAAoAAAA3AB8AAAAIAAoAAAA3ACAAAAAIAAoAAAA3ACEAAAALABEAAAA3ACIAAAALABEAAAA3ACMAAAALABEAAAA3ACQAAAAIAAoAAAA3ACUAAAAIAAoAAAA3ACYAAAAIAAoAAAA3ACcAAAAIAAoAAAA3ACgAAAAIAAoAAAA4AAAAAAAIAAoAAAA4AAEAAAAIAAoAAAA4AAIAAAAIAAoAAAA4AAMAAAAIABAAAAA4AAQAAAAIAAoAAAA4AAUAAAAIAAoAAAA4AAYAAAAIAAoAAAA4AAcAAAAIAAoAAAA4AAgAAAAIAAoAAAA4AAkAAAAIAAoAAAA4AAoAAAAIABAAAAA4AAsAAAAIAAoAAAA4AAwAAAAIAAoAAAA4AA0AAAAIAAoAAAA4AA4AAAADABAAAAA4AA8AAAADABAAAAA4ABAAAAAIABAAAAA4ABEAAAAIABAAAAA4ABIAAAAIAAoAAAA4ABMAAAAIAAoAAAA4ABQAAAAIAAoAAAA4ABUAAAAIAAoAAAA4ABYAAAAIAAoAAAA4ABcAAAAIAAoAAAA4ABgAAAAIAAoAAAA4ABkAAAAIAAoAAAA4ABoAAAAIAAoAAAA4ABsAAAADABAAAAA4ABwAAAADABAAAAA4AB0AAAAIABAAAAA4AB4AAAAIAAoAAAA4AB8AAAAIAAoAAAA4ACAAAAAIAAoAAAA4ACEAAAAIAAoAAAA4ACIAAAAIAAoAAAA4ACMAAAALABEAAAA4ACQAAAAIAAoAAAA4ACUAAAAIAAoAAAA4ACYAAAAIAAoAAAA4ACcAAAAIAAoAAAA4ACgAAAAIAAoAAAA5AAAAAAAIAAoAAAA5AAEAAAAIAAoAAAA5AAIAAAAIAAoAAAA5AAMAAAAIABAAAAA5AAQAAAAIAAoAAAA5AAUAAAAIAAoAAAA5AAYAAAAIAAoAAAA5AAcAAAAIAAoAAAA5AAgAAAAIAAoAAAA5AAkAAAAIABAAAAA5AAoAAAAIAAoAAAA5AAsAAAAIAAoAAAA5AAwAAAAIAAoAAAA5AA0AAAAIAAoAAAA5AA4AAAAIAAoAAAA5AA8AAAAIAAoAAAA5ABAAAAADABAAAAA5ABEAAAAIABAAAAA5ABIAAAAIABAAAAA5ABMAAAAIAAoAAAA5ABQAAAAIAAoAAAA5ABUAAAAIAAoAAAA5ABYAAAAIAAoAAAA5ABcAAAAIAAoAAAA5ABgAAAAIAAoAAAA5ABkAAAAIAAoAAAA5ABoAAAADABAAAAA5ABsAAAADABAAAAA5ABwAAAAIAAoAAAA5AB0AAAADABAAAAA5AB4AAAAIABAAAAA5AB8AAAAIAAoAAAA5ACAAAAAIAAoAAAA5ACEAAAAIAAoAAAA5ACIAAAAIAAoAAAA5ACMAAAAIAAoAAAA5ACQAAAALABEAAAA5ACUAAAALABEAAAA5ACYAAAAIAAoAAAA5ACcAAAAIAAoAAAA5ACgAAAAIAAoAAAA6AAAAAAAIAAoAAAA6AAEAAAAIAAoAAAA6AAIAAAAIAAoAAAA6AAMAAAAIAAoAAAA6AAQAAAAIABAAAAA6AAUAAAAIAAoAAAA6AAYAAAAIAAoAAAA6AAcAAAAIAAoAAAA6AAgAAAAIAAoAAAA6AAkAAAAIABAAAAA6AAoAAAAIAAoAAAA6AAsAAAAIAAoAAAA6AAwAAAAIAAoAAAA6AA0AAAAIAAoAAAA6AA4AAAAIAAoAAAA6AA8AAAAIAAoAAAA6ABAAAAAIAAoAAAA6ABEAAAAIABAAAAA6ABIAAAAIABAAAAA6ABMAAAADABAAAAA6ABQAAAADABAAAAA6ABUAAAAIAAoAAAA6ABYAAAAIAAoAAAA6ABcAAAAIAAoAAAA6ABgAAAADABAAAAA6ABkAAAADABAAAAA6ABoAAAAIAAoAAAA6ABsAAAAIAAoAAAA6ABwAAAAIAAoAAAA6AB0AAAAIAAoAAAA6AB4AAAADABAAAAA6AB8AAAAIABAAAAA6ACAAAAAIAAoAAAA6ACEAAAAIAAoAAAA6ACIAAAAIAAoAAAA6ACMAAAAIAAoAAAA6ACQAAAAIAAoAAAA6ACUAAAALABEAAAA6ACYAAAAIAAoAAAA6ACcAAAAIAAoAAAA6ACgAAAAIAAoAAAA7AAAAAAAIAAoAAAA7AAEAAAAIAAoAAAA7AAIAAAAIAAoAAAA7AAMAAAAIAAoAAAA7AAQAAAAIABAAAAA7AAUAAAAIAAoAAAA7AAYAAAAIAAoAAAA7AAcAAAAIAAoAAAA7AAgAAAAIAAoAAAA7AAkAAAAIABAAAAA7AAoAAAAIAAoAAAA7AAsAAAAIAAoAAAA7AAwAAAAIAAoAAAA7AA0AAAAIAAoAAAA7AA4AAAAIAAoAAAA7AA8AAAAIAAoAAAA7ABAAAAAIAAoAAAA7ABEAAAAIAAoAAAA7ABIAAAAIABAAAAA7ABMAAAAIABAAAAA7ABQAAAAIAAoAAAA7ABUAAAADABAAAAA7ABYAAAADABAAAAA7ABcAAAADABAAAAA7ABgAAAAIAAoAAAA7ABkAAAAIAAoAAAA7ABoAAAAIAAoAAAA7ABsAAAAIAAoAAAA7ABwAAAAIAAoAAAA7AB0AAAAIAAoAAAA7AB4AAAADABAAAAA7AB8AAAAIABAAAAA7ACAAAAAIAAoAAAA7ACEAAAAIAAoAAAA7ACIAAAAIAAoAAAA7ACMAAAAIAAoAAAA7ACQAAAAIAAoAAAA7ACUAAAALABEAAAA7ACYAAAAIAAoAAAA7ACcAAAAIAAoAAAA7ACgAAAAIAAoAAAA8AAAAAAAIAAoAAAA8AAEAAAAIAAoAAAA8AAIAAAAIAAoAAAA8AAMAAAAIAAoAAAA8AAQAAAAIABAAAAA8AAUAAAAIAAoAAAA8AAYAAAAIAAoAAAA8AAcAAAAIAAoAAAA8AAgAAAAIAAoAAAA8AAkAAAAIABAAAAA8AAoAAAAIAAoAAAA8AAsAAAAIAAoAAAA8AAwAAAAIAAoAAAA8AA0AAAAIAAoAAAA8AA4AAAAIAAoAAAA8AA8AAAAIAAoAAAA8ABAAAAAIAAoAAAA8ABEAAAAIAAoAAAA8ABIAAAAIABAAAAA8ABMAAAAIABAAAAA8ABQAAAAIABAAAAA8ABUAAAAIAAoAAAA8ABYAAAAIAAoAAAA8ABcAAAAIAAoAAAA8ABgAAAAIAAoAAAA8ABkAAAAIAAoAAAA8ABoAAAAIAAoAAAA8ABsAAAAIAAoAAAA8ABwAAAAIAAoAAAA8AB0AAAAIAAoAAAA8AB4AAAAIABAAAAA8AB8AAAAIABAAAAA8ACAAAAAIAAoAAAA8ACEAAAAIAAoAAAA8ACIAAAAIAAoAAAA8ACMAAAAIAAoAAAA8ACQAAAALABEAAAA8ACUAAAAIAAoAAAA8ACYAAAAIAAoAAAA8ACcAAAAIAAoAAAA8ACgAAAAIAAoAAAA9AAAAAAAIAAoAAAA9AAEAAAAIAAoAAAA9AAIAAAAIAAoAAAA9AAMAAAAIAAoAAAA9AAQAAAAIAAoAAAA9AAUAAAAIABAAAAA9AAYAAAAIAAoAAAA9AAcAAAAIAAoAAAA9AAgAAAAIAAoAAAA9AAkAAAAIABAAAAA9AAoAAAAIAAoAAAA9AAsAAAAIAAoAAAA9AAwAAAAIAAoAAAA9AA0AAAAIAAoAAAA9AA4AAAAIAAoAAAA9AA8AAAAIAAoAAAA9ABAAAAAIAAoAAAA9ABEAAAAIAAoAAAA9ABIAAAAIAAoAAAA9ABMAAAAIABAAAAA9ABQAAAAIAAoAAAA9ABUAAAAIABAAAAA9ABYAAAAIAAoAAAA9ABcAAAAIAAoAAAA9ABgAAAAIAAoAAAA9ABkAAAAIAAoAAAA9ABoAAAAIAAoAAAA9ABsAAAAIAAoAAAA9ABwAAAAIAAoAAAA9AB0AAAAIAAoAAAA9AB4AAAAIABAAAAA9AB8AAAAIAAoAAAA9ACAAAAAIAAoAAAA9ACEAAAAIAAoAAAA9ACIAAAAIAAoAAAA9ACMAAAAIAAoAAAA9ACQAAAALABEAAAA9ACUAAAAIAAoAAAA9ACYAAAAIAAoAAAA9ACcAAAAIAAoAAAA9ACgAAAAIAAoAAAA+AAAAAAAIAAoAAAA+AAEAAAAIAAoAAAA+AAIAAAAIAAoAAAA+AAMAAAAIAAoAAAA+AAQAAAAIAAoAAAA+AAUAAAAIAAoAAAA+AAYAAAAIABAAAAA+AAcAAAAIAAoAAAA+AAgAAAAIAAoAAAA+AAkAAAAIABAAAAA+AAoAAAAIAAoAAAA+AAsAAAAIAAoAAAA+AAwAAAAIAAoAAAA+AA0AAAAIAAoAAAA+AA4AAAAIAAoAAAA+AA8AAAAIAAoAAAA+ABAAAAAIAAoAAAA+ABEAAAAIAAoAAAA+ABIAAAAIAAoAAAA+ABMAAAAIAAoAAAA+ABQAAAAIABAAAAA+ABUAAAAIABAAAAA+ABYAAAAIAAoAAAA+ABcAAAAIAAoAAAA+ABgAAAAIAAoAAAA+ABkAAAAIAAoAAAA+ABoAAAAIAAoAAAA+ABsAAAAIAAoAAAA+ABwAAAAIABAAAAA+AB0AAAAIABAAAAA+AB4AAAAIAAoAAAA+AB8AAAAIAAoAAAA+ACAAAAAIAAoAAAA+ACEAAAAIAAoAAAA+ACIAAAAIAAoAAAA+ACMAAAALABEAAAA+ACQAAAAIAAoAAAA+ACUAAAAIAAoAAAA+ACYAAAAIAAoAAAA+ACcAAAAIAAoAAAA+ACgAAAAIAAoAAAA/AAAAAAAIAAoAAAA/AAEAAAAIAAoAAAA/AAIAAAAIAAoAAAA/AAMAAAAIAAoAAAA/AAQAAAAIAAoAAAA/AAUAAAAIAAoAAAA/AAYAAAAIABAAAAA/AAcAAAAIAAoAAAA/AAgAAAAIAAoAAAA/AAkAAAAIABAAAAA/AAoAAAAIABAAAAA/AAsAAAAIAAoAAAA/AAwAAAAIAAoAAAA/AA0AAAAIAAoAAAA/AA4AAAAIAAoAAAA/AA8AAAAIAAoAAAA/ABAAAAAIAAoAAAA/ABEAAAAIAAoAAAA/ABIAAAAIAAoAAAA/ABMAAAAIAAoAAAA/ABQAAAAIABAAAAA/ABUAAAAIABAAAAA/ABYAAAAIABAAAAA/ABcAAAAIAAoAAAA/ABgAAAAIAAoAAAA/ABkAAAAIAAoAAAA/ABoAAAAIAAoAAAA/ABsAAAAIABAAAAA/ABwAAAAIAAoAAAA/AB0AAAAIAAoAAAA/AB4AAAAIAAoAAAA/AB8AAAAIAAoAAAA/ACAAAAAIAAoAAAA/ACEAAAAIAAoAAAA/ACIAAAAIAAoAAAA/ACMAAAALABEAAAA/ACQAAAAIAAoAAAA/ACUAAAAIAAoAAAA/ACYAAAAIAAoAAAA/ACcAAAAIAAoAAAA/ACgAAAAIAAoAAABAAAAAAAAIAAoAAABAAAEAAAAIAAoAAABAAAIAAAAIAAoAAABAAAMAAAAIAAoAAABAAAQAAAAIAAoAAABAAAUAAAAIAAoAAABAAAYAAAAIAAoAAABAAAcAAAAIABAAAABAAAgAAAAIAAoAAABAAAkAAAAIAAoAAABAAAoAAAAIABAAAABAAAsAAAAIABAAAABAAAwAAAAIABAAAABAAA0AAAAIAAoAAABAAA4AAAAIAAoAAABAAA8AAAAIAAoAAABAABAAAAAIAAoAAABAABEAAAAIAAoAAABAABIAAAAIAAoAAABAABMAAAAIAAoAAABAABQAAAAIAAoAAABAABUAAAAIAAoAAABAABYAAAAIABAAAABAABcAAAAIABAAAABAABgAAAAIABAAAABAABkAAAAIABAAAABAABoAAAAIABAAAABAABsAAAAIAAoAAABAABwAAAAIAAoAAABAAB0AAAAIAAoAAABAAB4AAAAIAAoAAABAAB8AAAAIAAoAAABAACAAAAAIAAoAAABAACEAAAAIAAoAAABAACIAAAAIAAoAAABAACMAAAALABEAAABAACQAAAAIAAoAAABAACUAAAAIAAoAAABAACYAAAAIAAoAAABAACcAAAAIAAoAAABAACgAAAAIAAoAAABBAAAAAAAIAAoAAABBAAEAAAAIAAoAAABBAAIAAAAIAAoAAABBAAMAAAAIAAoAAABBAAQAAAAIAAoAAABBAAUAAAAIAAoAAABBAAYAAAAIAAoAAABBAAcAAAAIAAoAAABBAAgAAAAIABAAAABBAAkAAAAIABAAAABBAAoAAAAIAAoAAABBAAsAAAAIAAoAAABBAAwAAAAIAAoAAABBAA0AAAAIABAAAABBAA4AAAAIAAoAAABBAA8AAAAIAAoAAABBABAAAAAIAAoAAABBABEAAAAIAAoAAABBABIAAAAIAAoAAABBABMAAAAIAAoAAABBABQAAAAIAAoAAABBABUAAAAIAAoAAABBABYAAAAIAAoAAABBABcAAAAIABAAAABBABgAAAAIAAoAAABBABkAAAAIAAoAAABBABoAAAAIAAoAAABBABsAAAAIAAoAAABBABwAAAAIAAoAAABBAB0AAAAIAAoAAABBAB4AAAAIAAoAAABBAB8AAAAIAAoAAABBACAAAAAIAAoAAABBACEAAAAIAAoAAABBACIAAAALABEAAABBACMAAAAIAAoAAABBACQAAAAIAAoAAABBACUAAAAIAAoAAABBACYAAAAIAAoAAABBACcAAAAIAAoAAABBACgAAAAIAAoAAABCAAAAAAAIAAoAAABCAAEAAAAIAAoAAABCAAIAAAAIAAoAAABCAAMAAAAIAAoAAABCAAQAAAAIAAoAAABCAAUAAAAIAAoAAABCAAYAAAAIAAoAAABCAAcAAAAIAAoAAABCAAgAAAAIAAoAAABCAAkAAAAIAAoAAABCAAoAAAAIABAAAABCAAsAAAAIABAAAABCAAwAAAAIABAAAABCAA0AAAAIABAAAABCAA4AAAAIABAAAABCAA8AAAAIAAoAAABCABAAAAAIAAoAAABCABEAAAAIAAoAAABCABIAAAAIAAoAAABCABMAAAAIAAoAAABCABQAAAAIAAoAAABCABUAAAAIAAoAAABCABYAAAAIAAoAAABCABcAAAAIAAoAAABCABgAAAAIAAoAAABCABkAAAAIAAoAAABCABoAAAAIAAoAAABCABsAAAAIAAoAAABCABwAAAAIAAoAAABCAB0AAAAIAAoAAABCAB4AAAAIAAoAAABCAB8AAAAIAAoAAABCACAAAAAIAAoAAABCACEAAAAIAAoAAABCACIAAAALABEAAABCACMAAAAIAAoAAABCACQAAAAIAAoAAABCACUAAAAIAAoAAABCACYAAAAIAAoAAABCACcAAAAIAAoAAABCACgAAAAIAAoAAABDAAAAAAAIAAoAAABDAAEAAAAIAAoAAABDAAIAAAAIAAoAAABDAAMAAAAIAAoAAABDAAQAAAAIAAoAAABDAAUAAAAIAAoAAABDAAYAAAAIAAoAAABDAAcAAAAIAAoAAABDAAgAAAAIAAoAAABDAAkAAAAIAAoAAABDAAoAAAAIAAoAAABDAAsAAAAIAAoAAABDAAwAAAAIAAoAAABDAA0AAAAIAAoAAABDAA4AAAAIAAoAAABDAA8AAAAIAAoAAABDABAAAAAIAAoAAABDABEAAAAIAAoAAABDABIAAAAIAAoAAABDABMAAAAIAAoAAABDABQAAAAIAAoAAABDABUAAAAIAAoAAABDABYAAAAIAAoAAABDABcAAAAIAAoAAABDABgAAAAIAAoAAABDABkAAAAIAAoAAABDABoAAAAIAAoAAABDABsAAAAIAAoAAABDABwAAAAIAAoAAABDAB0AAAAIAAoAAABDAB4AAAAIAAoAAABDAB8AAAAIAAoAAABDACAAAAALABEAAABDACEAAAALABEAAABDACIAAAAIAAoAAABDACMAAAAIAAoAAABDACQAAAAIAAoAAABDACUAAAAIAAoAAABDACYAAAAIAAoAAABDACcAAAAIAAoAAABDACgAAAAIAAoAAABEAAAAAAAIAAoAAABEAAEAAAAIAAoAAABEAAIAAAAIAAoAAABEAAMAAAAIAAoAAABEAAQAAAAIAAoAAABEAAUAAAAIAAoAAABEAAYAAAAIAAoAAABEAAcAAAAIAAoAAABEAAgAAAAIAAoAAABEAAkAAAAIAAoAAABEAAoAAAAIAAoAAABEAAsAAAAIAAoAAABEAAwAAAAIAAoAAABEAA0AAAAIAAoAAABEAA4AAAAIAAoAAABEAA8AAAAIAAoAAABEABAAAAAIAAoAAABEABEAAAAIAAoAAABEABIAAAAIAAoAAABEABMAAAAIAAoAAABEABQAAAAIAAoAAABEABUAAAAIAAoAAABEABYAAAAIAAoAAABEABcAAAAIAAoAAABEABgAAAAIAAoAAABEABkAAAALABEAAABEABoAAAALABEAAABEABsAAAALABEAAABEABwAAAALABEAAABEAB0AAAALABEAAABEAB4AAAALABEAAABEAB8AAAALABEAAABEACAAAAAIAAoAAABEACEAAAAIAAoAAABEACIAAAAIAAoAAABEACMAAAAIAAoAAABEACQAAAAIAAoAAABEACUAAAAIAAoAAABEACYAAAAIAAoAAABEACcAAAAIAAoAAABEACgAAAAIAAoAAABFAAAAAAAIAAoAAABFAAEAAAAIAAoAAABFAAIAAAAIAAoAAABFAAMAAAAIAAoAAABFAAQAAAAIAAoAAABFAAUAAAAIAAoAAABFAAYAAAAIAAoAAABFAAcAAAAIAAoAAABFAAgAAAAIAAoAAABFAAkAAAAIAAoAAABFAAoAAAAIAAoAAABFAAsAAAAIAAoAAABFAAwAAAAIAAoAAABFAA0AAAAIAAoAAABFAA4AAAAIAAoAAABFAA8AAAAIAAoAAABFABAAAAAIAAoAAABFABEAAAAIAAoAAABFABIAAAAIAAoAAABFABMAAAAIAAoAAABFABQAAAAIAAoAAABFABUAAAAIAAoAAABFABYAAAAIAAoAAABFABcAAAAIAAoAAABFABgAAAAIAAoAAABFABkAAAAIAAoAAABFABoAAAAIAAoAAABFABsAAAAIAAoAAABFABwAAAAIAAoAAABFAB0AAAAIAAoAAABFAB4AAAAIAAoAAABFAB8AAAAIAAoAAABFACAAAAAIAAoAAABFACEAAAAIAAoAAABFACIAAAAIAAoAAABFACMAAAAIAAoAAABFACQAAAAIAAoAAABFACUAAAAIAAoAAABFACYAAAAIAAoAAABFACcAAAAIAAoAAABFACgAAAAIAAoAAABGAAAAAAAIAAoAAABGAAEAAAAIAAoAAABGAAIAAAAIAAoAAABGAAMAAAAIAAoAAABGAAQAAAAIAAoAAABGAAUAAAAIAAoAAABGAAYAAAAIAAoAAABGAAcAAAAIAAoAAABGAAgAAAAIAAoAAABGAAkAAAAIAAoAAABGAAoAAAAIAAoAAABGAAsAAAAIAAoAAABGAAwAAAAIAAoAAABGAA0AAAAIAAoAAABGAA4AAAAIAAoAAABGAA8AAAAIAAoAAABGABAAAAAIAAoAAABGABEAAAAIAAoAAABGABIAAAAIAAoAAABGABMAAAAIAAoAAABGABQAAAAIAAoAAABGABUAAAAIAAoAAABGABYAAAAIAAoAAABGABcAAAAIAAoAAABGABgAAAAIAAoAAABGABkAAAAIAAoAAABGABoAAAAIAAoAAABGABsAAAAIAAoAAABGABwAAAAIAAoAAABGAB0AAAAIAAoAAABGAB4AAAAIAAoAAABGAB8AAAAIAAoAAABGACAAAAAIAAoAAABGACEAAAAIAAoAAABGACIAAAAIAAoAAABGACMAAAAIAAoAAABGACQAAAAIAAoAAABGACUAAAAIAAoAAABGACYAAAAIAAoAAABGACcAAAAIAAoAAABGACgAAAAIAAoAAABHAAAAAAAIAAoAAABHAAEAAAAIAAoAAABHAAIAAAAIAAoAAABHAAMAAAAIAAoAAABHAAQAAAAIAAoAAABHAAUAAAAIAAoAAABHAAYAAAAIAAoAAABHAAcAAAAIAAoAAABHAAgAAAAIAAoAAABHAAkAAAAIAAoAAABHAAoAAAAIAAoAAABHAAsAAAAIAAoAAABHAAwAAAAIAAoAAABHAA0AAAAIAAoAAABHAA4AAAAIAAoAAABHAA8AAAAIAAoAAABHABAAAAAIAAoAAABHABEAAAAIAAoAAABHABIAAAAIAAoAAABHABMAAAAIAAoAAABHABQAAAAIAAoAAABHABUAAAAIAAoAAABHABYAAAAIAAoAAABHABcAAAAIAAoAAABHABgAAAAIAAoAAABHABkAAAAIAAoAAABHABoAAAAIAAoAAABHABsAAAAIAAoAAABHABwAAAAIAAoAAABHAB0AAAAIAAoAAABHAB4AAAAIAAoAAABHAB8AAAAIAAoAAABHACAAAAAIAAoAAABHACEAAAAIAAoAAABHACIAAAAIAAoAAABHACMAAAAIAAoAAABHACQAAAAIAAoAAABHACUAAAAIAAoAAABHACYAAAAIAAoAAABHACcAAAAIAAoAAABHACgAAAAIAAoAAAAZACkAAAAIABAAAAAaACkAAAAIABAAAAAbACkAAAAIABAAAAAcACkAAAAIABAAAAAdACkAAAAIABAAAAAeACkAAAAIABAAAAAfACkAAAAIABAAAAAgACkAAAAIABAAAAAhACkAAAAIABAAAAAiACkAAAAIABAAAAA=")
 tile_set = ExtResource("10_00k4y")
 
@@ -584,62 +1219,62 @@ grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_nngtn")
 
-[node name="CharacterWaypoints" type="Node" parent="." unique_id=1562425428]
+[node name="Waypoints" type="Node" parent="." unique_id=1562425428]
 
-[node name="Waypoint0" type="Node2D" parent="CharacterWaypoints" unique_id=329412429 groups=["Waypoints"]]
+[node name="Waypoint0" type="Node2D" parent="Waypoints" unique_id=329412429 groups=["Waypoints"]]
 position = Vector2(104, 178)
 
-[node name="ColorRect" type="ColorRect" parent="CharacterWaypoints/Waypoint0" unique_id=949524314]
+[node name="ColorRect" type="ColorRect" parent="Waypoints/Waypoint0" unique_id=949524314]
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
 offset_bottom = 6.0
 color = Color(0, 1, 1, 1)
 
-[node name="Waypoint1" type="Node2D" parent="CharacterWaypoints" unique_id=1456746914 groups=["Waypoints"]]
+[node name="Waypoint1" type="Node2D" parent="Waypoints" unique_id=1456746914 groups=["Waypoints"]]
 position = Vector2(125, 527)
 
-[node name="ColorRect" type="ColorRect" parent="CharacterWaypoints/Waypoint1" unique_id=2127487343]
+[node name="ColorRect" type="ColorRect" parent="Waypoints/Waypoint1" unique_id=2127487343]
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
 offset_bottom = 6.0
 color = Color(0, 1, 1, 1)
 
-[node name="Waypoint2" type="Node2D" parent="CharacterWaypoints" unique_id=1209650674 groups=["Waypoints"]]
+[node name="Waypoint2" type="Node2D" parent="Waypoints" unique_id=1209650674 groups=["Waypoints"]]
 position = Vector2(557, 118)
 
-[node name="ColorRect" type="ColorRect" parent="CharacterWaypoints/Waypoint2" unique_id=110049422]
+[node name="ColorRect" type="ColorRect" parent="Waypoints/Waypoint2" unique_id=110049422]
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
 offset_bottom = 6.0
 color = Color(0, 1, 1, 1)
 
-[node name="Waypoint3" type="Node2D" parent="CharacterWaypoints" unique_id=41297342 groups=["Waypoints"]]
+[node name="Waypoint3" type="Node2D" parent="Waypoints" unique_id=41297342 groups=["Waypoints"]]
 position = Vector2(987, 199)
 
-[node name="ColorRect" type="ColorRect" parent="CharacterWaypoints/Waypoint3" unique_id=885828864]
+[node name="ColorRect" type="ColorRect" parent="Waypoints/Waypoint3" unique_id=885828864]
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
 offset_bottom = 6.0
 color = Color(0, 1, 1, 1)
 
-[node name="Waypoint4" type="Node2D" parent="CharacterWaypoints" unique_id=1667028766 groups=["Waypoints"]]
+[node name="Waypoint4" type="Node2D" parent="Waypoints" unique_id=1667028766 groups=["Waypoints"]]
 position = Vector2(947, 527)
 
-[node name="ColorRect" type="ColorRect" parent="CharacterWaypoints/Waypoint4" unique_id=837681537]
+[node name="ColorRect" type="ColorRect" parent="Waypoints/Waypoint4" unique_id=837681537]
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
 offset_bottom = 6.0
 color = Color(0, 1, 1, 1)
 
-[node name="Waypoint5" type="Node2D" parent="CharacterWaypoints" unique_id=1907782078 groups=["Waypoints"]]
+[node name="Waypoint5" type="Node2D" parent="Waypoints" unique_id=1907782078 groups=["Waypoints"]]
 position = Vector2(558, 381)
 
-[node name="ColorRect" type="ColorRect" parent="CharacterWaypoints/Waypoint5" unique_id=2032738575]
+[node name="ColorRect" type="ColorRect" parent="Waypoints/Waypoint5" unique_id=2032738575]
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
@@ -659,8 +1294,10 @@ visible = false
 position = Vector2(558, 326)
 
 [connection signal="gui_input" from="CanvasLayer/ChatWindow/VBoxContainer/ChatWindow/MarginContainer/ChatLog" to="CanvasLayer/ChatWindow" method="_on_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel" to="CanvasLayer/SelectionWindow" method="_on_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/AdminWindow/VBoxContainer/TitleBar" to="CanvasLayer/AdminWindow" method="_on_gui_input"]
 [connection signal="item_selected" from="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer/HBoxContainer/OptionButton" to="CanvasLayer/AdminWindow" method="change_selected_tool"]
 [connection signal="gui_input" from="CanvasLayer/ServerWindow/VBoxContainer/TitleBar" to="CanvasLayer/ServerWindow" method="_on_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/QuestWindow/VBoxContainer/TitleBar" to="CanvasLayer/QuestWindow" method="_on_gui_input"]
 [connection signal="body_entered" from="MobManager/MainCharacter/SearchCircle" to="MobManager/MainCharacter" method="_on_search_circle_body_entered"]
 [connection signal="gui_input" from="MobManager/MainCharacter/FakeCamera" to="MobManager/MainCharacter/FrustrationManager" method="_fake_camera_input"]
