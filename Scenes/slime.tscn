@@ -22,6 +22,7 @@ bg_color = Color(0, 1, 0, 1)
 z_as_relative = false
 collision_layer = 2
 collision_mask = 3
+input_pickable = true
 motion_mode = 1
 script = ExtResource("1_swwnm")
 _debugging = true
@@ -96,5 +97,6 @@ text = "3 / 3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="HurtBox" to="." method="_on_hurtbox_body_entered"]

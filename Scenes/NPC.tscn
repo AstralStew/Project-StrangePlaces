@@ -7,6 +7,14 @@
 
 [sub_resource type="Resource" id="Resource_faxwx"]
 script = ExtResource("2_17t5b")
+readable_name = null
+full_name = null
+str_colour = null
+str_type = null
+has_first_name = null
+has_last_name = null
+has_colour = null
+has_type = null
 metadata/_custom_type_script = "uid://2oqhs56kdawl"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4t65"]
@@ -21,6 +29,7 @@ bg_color = Color(0, 1, 0, 1)
 [node name="NPC" type="CharacterBody2D" unique_id=1166851068]
 collision_layer = 8
 collision_mask = 0
+input_pickable = true
 motion_mode = 1
 script = ExtResource("1_xs5w8")
 randomise_on_start = true
@@ -95,3 +104,5 @@ theme_override_styles/background = SubResource("StyleBoxFlat_1f0kj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_afpow")
 value = 100.0
 show_percentage = false
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

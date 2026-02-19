@@ -1,6 +1,7 @@
 class_name Enemy extends CharacterBody2D
 
 
+@onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 @onready var sprite : Sprite2D = $Sprite2D
 @onready var shadow : Sprite2D = $Sprite2D/Shadow
 @onready var body_collider : CollisionShape2D = $BodyCollider
@@ -52,6 +53,12 @@ class_name Enemy extends CharacterBody2D
 @onready var initial_shadow_color : Color = shadow.self_modulate
 
 
+@export var destroy_enemy_on_click : bool = false :
+	get: return (
+		admin_window.selected_tab == AdminWindow.Tabs.ENEMIES &&
+		admin_window.selected_enemy_tool == AdminWindow.EnemyTools.DESTROY
+	) 
+
 signal on_awake
 signal on_reached_character
 signal on_took_damage
@@ -70,6 +77,15 @@ func reset() -> void:
 	
 	healthbar.value = max_health
 	healthbar.max_value = max_health
+
+
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if destroy_enemy_on_click && event.is_action_pressed("AdminEnemyTool"):
+		lose_health(health)
+
+
+
 
 
 var sprite_moving_timer = 0.0
@@ -168,7 +184,7 @@ func lose_health(amount:float) -> void:
 		die()
 		return
 	
-	healthbar.value = health	
+	healthbar.value = health
 
 func die() -> void:
 	if dying: return

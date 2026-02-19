@@ -94,12 +94,92 @@ content_margin_bottom = 0.0
 bg_color = Color(0.90235776, 0.9023578, 0.90235776, 1)
 shadow_size = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1xwt"]
+bg_color = Color(0.79684955, 0.7968497, 0.7968497, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hmb7p"]
 bg_color = Color(0.095460095, 0.6214018, 0.9999997, 1)
 shadow_size = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_svwtx"]
 bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxahh"]
+content_margin_left = 10.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0.770237, 0.77023625, 0.7702367, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8776157, 0.8776158, 0.87761563, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3imv"]
+content_margin_left = 10.0
+content_margin_top = 2.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.79607844, 0.79607844, 0.79607844, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.8776157, 0.8776158, 0.87761563, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+expand_margin_top = 2.0
+shadow_color = Color(0, 0, 0, 0.05490196)
+shadow_size = 1
+shadow_offset = Vector2(0.8, -1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_baipb"]
+content_margin_left = 10.0
+content_margin_top = 2.0
+content_margin_right = 10.0
+content_margin_bottom = 2.0
+bg_color = Color(0.75, 0.75, 0.75, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8776157, 0.8776158, 0.87761563, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cnu6b"]
+bg_color = Color(0.79607844, 0.79607844, 0.79607844, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdx3f"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.79607844, 0.79607844, 0.79607844, 1)
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccfnn"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.7174879, 0.7174873, 0.7174877, 1)
+border_width_top = 2
+border_color = Color(1, 1, 1, 0.75)
+corner_detail = 1
 
 [resource]
 default_font = ExtResource("1_svwtx")
@@ -125,6 +205,7 @@ OptionButton/styles/disabled = SubResource("StyleBoxFlat_jg10e")
 OptionButton/styles/hover = SubResource("StyleBoxFlat_8xm50")
 OptionButton/styles/normal = SubResource("StyleBoxFlat_2704k")
 OptionButton/styles/pressed = SubResource("StyleBoxFlat_1mtt2")
+Panel/styles/panel = SubResource("StyleBoxFlat_g1xwt")
 PopupMenu/colors/font_color = Color(0, 0, 0, 1)
 PopupMenu/constants/close_h_offset = 0
 PopupMenu/constants/h_separation = 0
@@ -141,3 +222,15 @@ PopupMenu/styles/hover = SubResource("StyleBoxFlat_hmb7p")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_svwtx")
 RichTextLabel/fonts/bold_font = ExtResource("2_8xm50")
 RichTextLabel/fonts/normal_font = ExtResource("1_svwtx")
+TabBar/colors/drop_mark_color = Color(0.79607844, 0.79607844, 0.79607844, 1)
+TabBar/colors/font_hovered_color = Color(0.12156863, 0.12156863, 0.12156863, 1)
+TabBar/colors/font_selected_color = Color(0, 0, 0, 1)
+TabBar/colors/font_unselected_color = Color(0.11963164, 0.11963154, 0.119631566, 1)
+TabBar/styles/tab_hovered = SubResource("StyleBoxFlat_sxahh")
+TabBar/styles/tab_selected = SubResource("StyleBoxFlat_o3imv")
+TabBar/styles/tab_unselected = SubResource("StyleBoxFlat_baipb")
+TabContainer/colors/font_selected_color = Color(0, 0, 0, 1)
+TabContainer/colors/font_unselected_color = Color(0.7, 0.7, 0.7, 1)
+TabContainer/styles/panel = SubResource("StyleBoxFlat_cnu6b")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_rdx3f")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_ccfnn")

@@ -51,7 +51,7 @@ signal saw_enemy
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
 @export var can_attack : bool = false :
-	get: return admin_window.selected_tool == AdminWindow.ToolNames.TRIGGER_ATTACK
+	get: return admin_window.selected_tab == AdminWindow.Tabs.ATTACKING
 
 
 @onready var quest_window : QuestWindow = get_tree().get_first_node_in_group("QuestWindow")
@@ -176,7 +176,7 @@ func wander() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	
-	if can_attack && !attacking && event.is_action_pressed("Attack"):
+	if can_attack && !attacking && event.is_action_pressed("AdminAttackTool"):
 		attack()
 
 
@@ -203,35 +203,52 @@ func set_sight_circle(enable:bool) -> void:
 
 
 func _on_search_circle_body_entered(body: Node2D) -> void:
-	if interacting: return
+	if !wandering: return
 	print("[MainCharacter(",self,")] Search circle entered = ", body)
+	
+	# Make sure body is an NPC
+	var _npc = (body as NPC)
+	if _npc == null:
+		print("[MainCharacter(",self,")] Body '",body,"' is not an NPC, ignoring.")
+		return
+	
+	# Make sure this NPC isn't being ignored (due to already having been checked)
+	if quest_window.check_if_ignored(_npc.npconfig):
+		print("[MainCharacter(",self,")] NPC '",_npc,"' has already been checked this quest, ignoring.")
+		return
+	
 	
 	# Stop searching for NPC
 	wandering = false
 	set_sight_circle(false)
 	
-	
 	# Move towards the NPC
 	interacting = true
-	target = body.global_position
-	print("[MainCharacter] Search Finish - Moving towards NPC '",body,"'...")
+	target = _npc.global_position
+	print("[MainCharacter] Search Finish - Moving towards NPC '",_npc,"'...")
 	
 	moving = true
 	await target_reached
-	print("[MainCharacter] Search Finish - Reached NPC '",body,"', interacting for a while...")
+	print("[MainCharacter] Search Finish - Reached NPC '",_npc,"', interacting for a while...")
 	moving = false
 	
 	
 	# Interact with the NPC
-	await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
 	if body != null:
-		if Helpers.compare_npcs((body as NPC).npconfig,quest_window.active_quest.target):
-			(body as NPC).complete_interaction()
-			print("[MainCharacter] Search Complete! - Successful interaction with NPC '",body,"'!")
-		else:
-			print("[MainCharacter] Search Complete! - Failure! NPC '",body,"'!")			
-	else: 
-		push_warning("[MainCharacter] Body not found! What's that about?")
+		$ChatBubble.visible = true
+		await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
+		if body != null:
+			if Helpers.compare_npcs(_npc.npconfig,quest_window.active_quest.target):
+				_npc.complete_interaction()
+				print("[MainCharacter] Search Complete! - Successful interaction with NPC '",_npc,"'!")
+			else:
+				quest_window.ignore_npc(_npc.npconfig)
+				print("[MainCharacter] Search Complete! - Failure! Ignoring NPC '",body,"' for this quest!")
+		else: push_warning("[MainCharacter] Body not found! What's that about?")
+		$ChatBubble.visible = false
+	else: push_warning("[MainCharacter] Body not found! What's that about?")
+		
+	
 	interacting = false
 	
 	

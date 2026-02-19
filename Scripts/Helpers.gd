@@ -27,6 +27,22 @@ static func rand_quest_npconfig() -> NPConfig:
 		Helpers.rand_npc_type() if _do_type else Helpers.NPCTypes.NONE
 	)
 
+static func scaled_quest_npconfig(_level:int) -> NPConfig:
+	var _chance = 0.1 + (0.1*clamp(_level,1,5))
+	var _do_first_name : bool = randf() < _chance
+	var _do_last_name : bool = _do_first_name && randf() < _chance
+	var _do_colour : bool = randf() < _chance
+	var _do_type : bool = (!_do_first_name && !_do_last_name && !_do_colour) || randf() < _chance
+	
+	return NPConfig.new(
+		Helpers.rand_npc_firstname() if _do_first_name else "",
+		Helpers.rand_npc_lastname() if _do_last_name else "",
+		Helpers.rand_npc_colour() if _do_colour else Helpers.NPCColours.NONE,
+		Helpers.rand_npc_type() if _do_type else Helpers.NPCTypes.NONE
+	)
+
+
+
 static func rand_npc_firstname() -> String:
 	return NPCFirstNames.keys()[randi() % NPCFirstNames.size()]
 

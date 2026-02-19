@@ -9,7 +9,9 @@ class_name ChatWindow extends VirtualWindow
 
 @export_category("READ ONLY")
 
-@export var user_colours : Dictionary = {}
+@export var user_colours : Dictionary = {
+	"MainCharacter":Color.GREEN
+}
 @export var random_users : Array = [
 	"Deo4",
 	"serpentine",

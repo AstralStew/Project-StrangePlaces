@@ -23,6 +23,8 @@ class_name QuestWindow extends VirtualWindow
 
 @export var active_quest : Quest = null
 
+var ignored_npcs : Array[NPConfig] = []
+
 
 
 func _ready() -> void:
@@ -51,13 +53,25 @@ func set_active_quest(quest:Quest) -> void:
 	)
 
 func add_random_quest() -> void:
-	var quest = Quest.new(random_waypoint_name())
-	print("[QuestWindow] New quest = ",quest.qid)
+	if tracked_quests.size() == 6:
+		print("[QuestWindow] Add Random Quest - Max number of quests reached! Ignoring.")
+		return
+	
+	var quest = Quest.new(random_waypoint_name(),level)
+	print("[QuestWindow] Adding new random quest = ",quest.qid)
 	tracked_quests.append(quest)
+	update_quest_list()
 
 
 
+func ignore_npc(_npc:NPConfig) -> void:
+	ignored_npcs.append(_npc)
 
+func check_if_ignored(_npc:NPConfig) -> bool:
+	return ignored_npcs.has(_npc)
+
+func wipe_ignored_npcs() -> void:
+	ignored_npcs.clear()
 
 func random_tracked_quest() -> Quest:
 	return tracked_quests[randi() % tracked_quests.size()]
@@ -79,7 +93,11 @@ func get_waypoint_from_name(_name:String) -> Node2D:
 	return null
 
 
-func update_quest_list():
+func update_xp():
+	pass
+	
+
+func update_quest_list() -> void:
 	
 	var _list_entry : Control = null
 	var _id_label : RichTextLabel = null
@@ -104,18 +122,13 @@ func update_quest_list():
 			(_target.str_colour + " " if _target.has_colour else "") +
 			(_target.str_type if _target.has_type else "")
 		)
-		#print(
-			#(_target.first_name + " ") if _target.has_first_name else "" +
-			#(_target.last_name + " ") if _target.has_first_name && _target.has_last_name else "" +
-			#[" the ", ", "][randi() % 2] if _target.has_first_name || _target.has_last_name else "" +
-			#"any " if (_target.has_colour || _target.has_type) && (!_target.has_first_name && !_target.has_last_name) else "" +
-			#_target.str_colour if _target.has_colour else "" +
-			#_target.str_type if _target.has_type else ""
-		#)
 
 
 func finish_quest() -> void:
+	print("[QuestWindow] Finishing active quest '",active_quest.qid,"', found in tracked quests = ",tracked_quests.find(active_quest))
 	tracked_quests.remove_at(tracked_quests.find(active_quest))
+	wipe_ignored_npcs()
+	await get_tree().process_frame
 	add_random_quest()
 	set_active_quest(tracked_quests.back())
 	call_deferred("update_quest_list")

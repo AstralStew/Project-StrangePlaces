@@ -19,10 +19,16 @@ var slimes_spawned = 0
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
 @export var spawn_slime_on_click : bool = false :
-	get: return admin_window.selected_tool == AdminWindow.ToolNames.SPAWN_ENEMY
+	get: return (
+		admin_window.selected_tab == AdminWindow.Tabs.ENEMIES &&
+		admin_window.selected_enemy_tool == AdminWindow.EnemyTools.SPAWN
+	) 
 
 @export var spawn_NPC_on_click : bool = false :
-	get: return admin_window.selected_tool == AdminWindow.ToolNames.SPAWN_NPC
+	get: return (
+		admin_window.selected_tab == AdminWindow.Tabs.NPCS &&
+		admin_window.selected_npc_tool == AdminWindow.NPCTools.SPAWN
+	)
 
 signal spawned_slime
 signal spawned_NPC
@@ -47,14 +53,14 @@ func setup() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if spawn_slime_on_click && event.is_action_pressed("Spawn Enemy"):
+	if spawn_slime_on_click && event.is_action_pressed("AdminEnemyTool"):
 		var new_slime : Slime = spawn_slime()
 		if new_slime != null:
 			new_slime.global_position = $"..".get_local_mouse_position()
 			print("[MobManager] Spawned slime '",new_slime.name,"' via mouse at ",new_slime.global_position)
 		spawned_slime.emit()
 	
-	elif spawn_NPC_on_click && event.is_action_pressed("Spawn NPC"):
+	elif spawn_NPC_on_click && event.is_action_pressed("AdminNPCTool"):
 		var new_NPC : NPC = spawn_NPC()
 		if new_NPC != null:
 			new_NPC.global_position = $"..".get_local_mouse_position()
