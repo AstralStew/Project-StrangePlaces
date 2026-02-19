@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b0arrxbl3jyto"]
+
+[ext_resource type="Texture2D" uid="uid://4wurih8e3vtk" path="res://Assets/Sprites/HourGlass/Hourglass1.png" id="1_4dlqw"]
+[ext_resource type="Texture2D" uid="uid://ba1p7in3mk8ye" path="res://Assets/Sprites/HourGlass/Hourglass2.png" id="2_g5mfd"]
+[ext_resource type="Texture2D" uid="uid://bsctnjotfgxnx" path="res://Assets/Sprites/HourGlass/Hourglass3.png" id="3_8o545"]
+[ext_resource type="Texture2D" uid="uid://cdi8080a7lh8o" path="res://Assets/Sprites/HourGlass/Hourglass4.png" id="4_dlcjf"]
+[ext_resource type="Texture2D" uid="uid://do4fhwo1asgiu" path="res://Assets/Sprites/HourGlass/Hourglass5.png" id="5_r6npo"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4dlqw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_g5mfd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_8o545")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_dlcjf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_r6npo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
