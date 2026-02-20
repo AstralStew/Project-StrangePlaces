@@ -1,9 +1,19 @@
 [gd_scene format=3 uid="uid://bjvs68pkij8eu"]
 
 [ext_resource type="Shader" uid="uid://cteelw76fy07p" path="res://Assets/Shaders/glitch_shader.gdshader" id="1_0m6cb"]
+[ext_resource type="Shader" uid="uid://q538gamy2y87" path="res://Assets/Shaders/GlitchTear.gdshader" id="2_awyjc"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="2_yq3f5"]
+[ext_resource type="Texture2D" uid="uid://djrvqukuu1s2k" path="res://Assets/Sprites/whitedot16_2.png" id="4_cxx1u"]
+[ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="5_41mwc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cxx1u"]
+shader = ExtResource("2_awyjc")
+shader_parameter/albedo_texture = ExtResource("2_yq3f5")
+shader_parameter/uv_scale = 1.0
+shader_parameter/chromatic_abberation = 0.050000002375
+shader_parameter/noise_size = 0.01
+shader_parameter/noise_speed = 5.0
+shader_parameter/noise_amount = 0.1
 
 [sub_resource type="BoxMesh" id="BoxMesh_yq3f5"]
 
@@ -15,11 +25,39 @@ shader_parameter/shake_speed = 5.0
 shader_parameter/shake_block_size = 30.5
 shader_parameter/shake_color_rate = 0.01
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o6fqi"]
+shader = ExtResource("2_awyjc")
+shader_parameter/albedo_texture = ExtResource("5_41mwc")
+shader_parameter/uv_scale = 1.0
+shader_parameter/chromatic_abberation = 0.04
+shader_parameter/noise_size = 0.01
+shader_parameter/noise_speed = 5.0
+shader_parameter/noise_amount = 0.1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15ar5"]
+shader = ExtResource("2_awyjc")
+shader_parameter/uv_scale = 1.0
+shader_parameter/chromatic_abberation = 0.04
+shader_parameter/noise_size = 0.01
+shader_parameter/noise_speed = 5.0
+shader_parameter/noise_amount = 0.1
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fonlw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cxx1u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Node2D" type="Node2D" unique_id=204959591]
 
 [node name="MainCharacter" type="Sprite2D" parent="." unique_id=914164010]
 material = SubResource("ShaderMaterial_cxx1u")
-position = Vector2(167, 202)
+position = Vector2(161, 290)
 texture = ExtResource("2_yq3f5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=601823445]
@@ -32,3 +70,22 @@ material = SubResource("ShaderMaterial_awyjc")
 offset_right = 324.0
 offset_bottom = 317.0
 color = Color(1, 1, 1, 0)
+
+[node name="Whitedot162" type="Sprite2D" parent="." unique_id=900523376]
+modulate = Color(1, 1, 1, 0.09019608)
+self_modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_o6fqi")
+position = Vector2(422, 201)
+scale = Vector2(17.8125, 17.8125)
+texture = ExtResource("4_cxx1u")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=58392447]
+material = SubResource("ShaderMaterial_15ar5")
+position = Vector2(69.5, 69.5)
+scale = Vector2(9.6875, 9.6875)
+sprite_frames = SubResource("SpriteFrames_fonlw")
+
+[node name="Whitedot16" type="Sprite2D" parent="." unique_id=1163162705]
+position = Vector2(302.99994, 523)
+scale = Vector2(17.75, 17.75)
+texture = ExtResource("5_41mwc")

@@ -39,7 +39,7 @@ void fragment() {
 		discard;
 	}
 
-	COLOR = vec4(sample_up.r, sample_center.g, sample_down.b,1.0);
+	COLOR = vec4(sample_up.r, sample_center.g, sample_down.b,sample_center.a);
 	//ALBEDO = vec3(sample_up.r, sample_center.g, sample_down.b);
 }
 
