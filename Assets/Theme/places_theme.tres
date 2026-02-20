@@ -1,7 +1,9 @@
 [gd_resource type="Theme" format=3 uid="uid://dylopdfu1tn04"]
 
+[ext_resource type="FontVariation" uid="uid://n5dju8eycpl7" path="res://Assets/Fonts/NotoSerif - Bold.tres" id="1_557h3"]
 [ext_resource type="FontVariation" uid="uid://bd10vgmu4lyxc" path="res://Assets/Fonts/NotoSerif - Normal.tres" id="1_u4h4t"]
 
 [resource]
 default_font = ExtResource("1_u4h4t")
 default_font_size = 7
+RichTextLabel/fonts/bold_font = ExtResource("1_557h3")

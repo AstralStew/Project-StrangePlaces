@@ -21,4 +21,4 @@ func _on_gui_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	if dragging:
 		#print("[VirtualWindow] Dragging...")
-		global_position = (get_global_mouse_position() + offset).clamp(min_pos, get_viewport_rect().size - size)
+		global_position = (get_global_mouse_position() + offset).clamp(min_pos, (get_viewport_rect().size - size).min(max_pos))

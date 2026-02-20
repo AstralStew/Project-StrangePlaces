@@ -8,13 +8,15 @@ class_name ServerWindow extends VirtualWindow
 @export var healthy_colour : Color = Color.hex(0x2e96ff)
 @export var corrupted_colour : Color = Color.hex(0xef00f0)
 
-@export_category("SPREAD")
+@export_category("SPAWN SPREAD")
 @export var bonus_spread_increase : float = 0.06
 @export var bonus_spread_max : float = 0.36
 @export var spawn_slime_spread_chance : float = 0.05
 @export var spawn_slime_spread_amount : Vector2i = Vector2(1,2)
 @export var spawn_NPC_spread_chance : float = 0.15
 @export var spawn_NPC_spread_amount : Vector2i  = Vector2(2,4)
+@export var tick_slime_spread_amount: int = 1
+@export var tick_NPC_spread_amount: int = 1
 
 
 @export_category("READ ONLY")
@@ -53,13 +55,19 @@ func corrupt(amount:int) -> void:
 		chosen_cube = healthy_cubes[chosen_cube_index]
 		
 		corrupted_cubes.append(chosen_cube)
-		healthy_cubes.remove_at(chosen_cube_index)		
+		healthy_cubes.remove_at(chosen_cube_index)
 		
 		chosen_cube.name = chosen_cube.name.replace("Healthy","Corrupt")
 		chosen_cube.modulate = corrupted_colour
 
 
+func tick_slime() -> void:
+	print("[ServerWindow] Tick slime!")
+	corrupt(tick_slime_spread_amount)
 
+func tick_NPC() -> void:
+	print("[ServerWindow] Tick NPC!")
+	corrupt(tick_slime_spread_amount)
 
 
 func spawn_slime() -> void:

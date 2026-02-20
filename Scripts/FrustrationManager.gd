@@ -19,10 +19,22 @@ var frustration : float = 0
 @export var no_enemies_elapsed_time : float = 0.0
 
 
+signal on_took_unnecessary_damage
+signal on_cant_find_npc
+signal on_enemies_missing
+signal on_see_spawn_in
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	chat_window = get_tree().get_first_node_in_group("ChatWindow") as ChatWindow
-		
+	on_took_unnecessary_damage.connect(chat_window.took_unnecessary_damage)
+	on_cant_find_npc.connect(chat_window.cant_find_npc)
+	on_enemies_missing.connect(chat_window.enemies_missing)
+	on_see_spawn_in.connect(chat_window.see_spawn_in)
+	
+	
 	mob_manager = get_tree().get_first_node_in_group("MobManager") as MobManager
 	mob_manager.spawned_slime.connect(check_spawn_position)
 	mob_manager.spawned_NPC.connect(check_spawn_position)
@@ -31,6 +43,8 @@ func _ready() -> void:
 	main_character.npc_not_found.connect(npc_not_found)
 	main_character.took_damage.connect(took_damage)
 	main_character.saw_enemy.connect(saw_enemy)
+	
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -41,15 +55,7 @@ func _process(delta: float) -> void:
 			no_enemies_elapsed_time = 0
 			no_enemies()
 		else: no_enemies_elapsed_time += delta
-		
-		#if frustration <= 0:
-			#max_frustration_reached()
-			#return
-		#frustration -= delta
 
-func max_frustration_reached() -> void:
-	print("[FrustrationManager] Max frustration reached! Resetting...")
-	frustration = randf() * 5
 
 
 
@@ -75,6 +81,7 @@ func saw_spawn_in() -> void:
 		print("[FrustrationManager(",main_character,")] Caught something spawning in + chose to msg...")
 		chat_window.add_message(get_parent().name,saw_spawn_in_message())
 		typing = false
+		on_see_spawn_in.emit()
 
 func saw_spawn_in_message() -> String:
 	match randi() % 6:
@@ -102,6 +109,7 @@ func took_damage() -> void:
 		print("[FrustrationManager(",main_character,")] Took damage + chose to msg...")
 		chat_window.add_message(get_parent().name,took_damage_message())
 		typing = false
+		on_took_unnecessary_damage.emit()
 	
 
 func took_damage_message() -> String:
@@ -130,6 +138,7 @@ func no_enemies() -> void:
 		print("[FrustrationManager(",main_character,")] No enemies found + chose to msg...")
 		chat_window.add_message(get_parent().name,no_enemies_message())
 		typing = false
+		on_enemies_missing.emit()
 
 func no_enemies_message() -> String:
 	match randi() % 6:
@@ -153,6 +162,7 @@ func npc_not_found() -> void:
 		print("[FrustrationManager(",main_character,")] No npc found + chose to msg...")
 		chat_window.add_message(get_parent().name,no_npc_message())
 		typing = false
+		on_cant_find_npc.emit()
 
 func no_npc_message() -> String:
 	match randi() % 6:

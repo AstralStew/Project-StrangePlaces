@@ -187,8 +187,11 @@ func attack() -> void:
 	set_weapon(false)
 	attacking = false
 
+var weapon_dir : Vector2 = Vector2.ZERO
 func set_weapon(enable:bool) -> void:
-	weapon.position = ((get_global_mouse_position() - global_position).normalized() * weapon_distance) + weapon_local_offset if enable else weapon_local_offset
+	weapon_dir = (get_global_mouse_position() - global_position).normalized()
+	weapon.position = (weapon_dir * weapon_distance) + weapon_local_offset if enable else weapon_local_offset
+	weapon.rotation = weapon_dir.angle()
 	weapon.visible = enable
 	weapon.process_mode = Node.PROCESS_MODE_INHERIT if enable else Node.PROCESS_MODE_DISABLED
 

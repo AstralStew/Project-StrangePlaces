@@ -16,6 +16,10 @@ enum NPCTools {SPAWN,DESTROY}
 
 
 
+func _ready() -> void:
+	enemy_tab_content.visible = false
+	npc_tab_content.visible = false
+
 
 func change_selected_tab(tab:Tabs) -> void:
 	

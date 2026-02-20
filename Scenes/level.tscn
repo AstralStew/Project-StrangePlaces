@@ -6,10 +6,12 @@
 [ext_resource type="Script" uid="uid://dik7dj3oq3mn5" path="res://Scripts/MainCharacter.gd" id="2_0f350"]
 [ext_resource type="FontVariation" uid="uid://bd10vgmu4lyxc" path="res://Assets/Fonts/NotoSerif - Normal.tres" id="3_c7le1"]
 [ext_resource type="FontVariation" uid="uid://n5dju8eycpl7" path="res://Assets/Fonts/NotoSerif - Bold.tres" id="4_2klc5"]
+[ext_resource type="FontFile" uid="uid://ct8m2j1ii34b1" path="res://Assets/Fonts/MedievalSharp-Regular.ttf" id="4_6y3s5"]
 [ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="4_bvt00"]
 [ext_resource type="FontFile" uid="uid://dnb45ygx1gmmr" path="res://Assets/Fonts/NotoSerif-Italic-VariableFont_wdth,wght.ttf" id="4_c7le1"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="4_wqkje"]
 [ext_resource type="Script" uid="uid://cxx4eqmxkp6rd" path="res://Scripts/MobManager.gd" id="5_0f350"]
+[ext_resource type="FontVariation" uid="uid://br5rbduvhh5kw" path="res://Assets/Fonts/MedievalSharp - Bold.tres" id="5_u0did"]
 [ext_resource type="Script" uid="uid://r6d5lfr8t5me" path="res://Scripts/VirtualWindow.gd" id="6_3a44l"]
 [ext_resource type="Theme" uid="uid://crvl6pfk0nc20" path="res://Assets/Theme/system_theme.tres" id="6_oqgf2"]
 [ext_resource type="Script" uid="uid://dps57thgvvve3" path="res://Scripts/FrustrationManager.gd" id="9_pa6b8"]
@@ -22,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="13_00k4y"]
 [ext_resource type="Script" uid="uid://uvho0c56f1ui" path="res://Scripts/CharacterSprite.gd" id="13_2klc5"]
 [ext_resource type="Texture2D" uid="uid://dabbhgpfc36cd" path="res://Assets/Sprites/Camera.png" id="20_pnhnk"]
-[ext_resource type="SpriteFrames" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
+[ext_resource type="SpriteFrames" uid="uid://b38x5ra632bdj" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqkje"]
 bg_color = Color(0.68108356, 0.8222354, 1, 1)
@@ -32,6 +34,29 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cgv8"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hcs0j"]
+bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t205d"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvt00"]
 bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
 border_width_left = 1
@@ -39,6 +64,10 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.88235295, 0.7647059, 0, 1)
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cmrb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -240,14 +269,50 @@ offset_right = 247.0
 offset_bottom = -8.0
 grow_vertical = 0
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1cgv8")
 script = ExtResource("1_ha31o")
-min_pos = Vector2(0, 232)
-max_pos = Vector2(640, 232)
+random_fluctuations_frequency = Vector2i(2, 8)
+min_pos = Vector2(0, 218)
+max_pos = Vector2(640, 218)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ChatWindow" unique_id=399651967]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 0
+
+[node name="PlayersLabel" type="RichTextLabel" parent="CanvasLayer/ChatWindow/VBoxContainer" unique_id=251256722]
+clip_contents = false
+custom_minimum_size = Vector2(84, 14)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("4_6y3s5")
+theme_override_fonts/bold_font = ExtResource("5_u0did")
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/bold_font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_hcs0j")
+bbcode_enabled = true
+text = "[color=green]Players online: [b]420[/b]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ChatWindow/VBoxContainer" unique_id=446678251]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 104
+
+[node name="TabBar" type="TabBar" parent="CanvasLayer/ChatWindow/VBoxContainer/HBoxContainer" unique_id=923833804]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_8c0lf")
+theme_override_fonts/font = ExtResource("4_2klc5")
+theme_override_font_sizes/font_size = 7
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_t205d")
+current_tab = 0
+tab_count = 1
+tab_0/title = "General"
 
 [node name="ChatWindow" type="Panel" parent="CanvasLayer/ChatWindow/VBoxContainer" unique_id=1844206785]
 custom_minimum_size = Vector2(247.055, 120)
@@ -548,6 +613,7 @@ spawn_slime_spread_chance = 0.1
 spawn_slime_spread_amount = Vector2i(1, 1)
 spawn_NPC_spread_chance = 0.2
 spawn_NPC_spread_amount = Vector2i(1, 3)
+max_pos = Vector2(640, 360)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ServerWindow" unique_id=1797434869]
 layout_mode = 2
@@ -699,6 +765,7 @@ offset_right = 639.0
 offset_bottom = 337.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("11_0cmrb")
+max_pos = Vector2(640, 360)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/QuestWindow" unique_id=667713648]
 layout_mode = 2
@@ -1195,7 +1262,7 @@ script = ExtResource("5_0f350")
 [node name="EnemyAwakeTimer" type="Timer" parent="MobManager" unique_id=929365997]
 autostart = true
 
-[node name="MainCharacter" type="CharacterBody2D" parent="MobManager" unique_id=1131605401 groups=["Player"]]
+[node name="MainCharacter" type="CharacterBody2D" parent="MobManager" unique_id=1131605401 groups=["MainCharacter"]]
 z_as_relative = false
 position = Vector2(610, 322)
 motion_mode = 1
