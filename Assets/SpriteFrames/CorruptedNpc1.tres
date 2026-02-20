@@ -1,0 +1,34 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bcdb2o2lwgpqm"]
+
+[ext_resource type="Texture2D" uid="uid://1j45rshluj23" path="res://Assets/Sprites/CorruptedNPC/CorruptedNPC2.png" id="1_c42rd"]
+[ext_resource type="Texture2D" uid="uid://c113rdy5rdj5q" path="res://Assets/Sprites/CorruptedNPC/CorruptedNPC3.png" id="2_dca2v"]
+[ext_resource type="Texture2D" uid="uid://bng1qakib0xtu" path="res://Assets/Sprites/CorruptedNPC/CorruptedNPC4.png" id="3_wu0uo"]
+[ext_resource type="Texture2D" uid="uid://cvrogspro08me" path="res://Assets/Sprites/CorruptedNPC/CorruptedNPC5.png" id="4_xiv5t"]
+[ext_resource type="Texture2D" uid="uid://beahdxyhylaiq" path="res://Assets/Sprites/CorruptedNPC/CorruptedNPC6.png" id="5_7fsup"]
+[ext_resource type="Texture2D" uid="uid://cg5guxkmtpvqa" path="res://Assets/Sprites/CorruptedNPC/CorruptedNPC7.png" id="6_nhxam"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_c42rd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_dca2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_wu0uo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xiv5t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_7fsup")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nhxam")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
