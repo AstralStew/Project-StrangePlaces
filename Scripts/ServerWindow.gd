@@ -1,5 +1,6 @@
 class_name ServerWindow extends VirtualWindow
 
+@onready var bsod : AnimatedSprite2D =$"../BSOD"
 
 @onready var data_cube = preload("res://Scenes/data_cube.tscn")
 @onready var cube_grid = $VBoxContainer/ServerWindow/MarginContainer/VBoxContainer/DataCubeHolderPanel/CenterContainer/DataCubeGrid
@@ -46,10 +47,16 @@ func _ready() -> void:
 	corrupt(3)
 
 
+
+
 func corrupt(amount:int) -> void:
 	print("[ServerWindow] Corrupting ",amount," cubes")
 	var chosen_cube_index = -1
 	var chosen_cube : Panel = null
+	
+	if corruption + amount >= number_of_data_cubes:
+		game_over()
+	
 	for i in amount:
 		chosen_cube_index = randi() % healthy_cubes.size()
 		chosen_cube = healthy_cubes[chosen_cube_index]
@@ -59,6 +66,14 @@ func corrupt(amount:int) -> void:
 		
 		chosen_cube.name = chosen_cube.name.replace("Healthy","Corrupt")
 		chosen_cube.modulate = corrupted_colour
+
+func game_over() -> void:
+	bsod.visible = true
+	bsod.play("default")
+	await bsod.animation_finished
+	get_tree().quit()
+
+
 
 
 func tick_slime() -> void:

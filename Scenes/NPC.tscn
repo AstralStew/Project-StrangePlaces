@@ -4,27 +4,47 @@
 [ext_resource type="Texture2D" uid="uid://dglsj1hk7y67b" path="res://Assets/Sprites/QuestNPC1.png" id="2_7fgga"]
 [ext_resource type="Script" uid="uid://2oqhs56kdawl" path="res://Scripts/NPConfig.gd" id="2_17t5b"]
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="3_faxwx"]
+[ext_resource type="Script" uid="uid://dh7pwgey77h0v" path="res://Scripts/NPCSprite.gd" id="4_fcq3e"]
+[ext_resource type="Material" uid="uid://bguptvvukmmx0" path="res://Assets/Shaders/glitch_sprite_material.tres" id="5_fcq3e"]
+[ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="6_fcq3e"]
 
 [sub_resource type="Resource" id="Resource_faxwx"]
 script = ExtResource("2_17t5b")
-readable_name = null
-full_name = null
-str_colour = null
-str_type = null
-has_first_name = null
-has_last_name = null
-has_colour = null
-has_type = null
 metadata/_custom_type_script = "uid://2oqhs56kdawl"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4t65"]
 size = Vector2(13, 37.74677)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1f0kj"]
-bg_color = Color(1, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcq3e"]
+content_margin_left = 5.0
+content_margin_top = 2.0
+content_margin_right = 5.0
+content_margin_bottom = 2.0
+bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 2
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afpow"]
-bg_color = Color(0, 1, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0lvl"]
+bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 1
 
 [node name="NPC" type="CharacterBody2D" unique_id=1166851068]
 collision_layer = 8
@@ -36,73 +56,68 @@ randomise_on_start = true
 npconfig = SubResource("Resource_faxwx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1647531854]
-position = Vector2(-0.79999924, 0.20000076)
+position = Vector2(-0.79999924, -18.3)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_7fgga")
+script = ExtResource("4_fcq3e")
+shadermat = ExtResource("5_fcq3e")
+corrupt_amount = 0.001
+corrupt_noise_amount = 0.2
+
+[node name="Shadow" type="Sprite2D" parent="Sprite2D" unique_id=1311143299]
+self_modulate = Color(0, 0, 0, 0.22352941)
+show_behind_parent = true
+z_as_relative = false
+texture_filter = 1
+position = Vector2(-0.66666913, 60.999996)
+scale = Vector2(3.742, 1.052)
+texture = ExtResource("6_fcq3e")
 
 [node name="BodyCollider" type="CollisionShape2D" parent="." unique_id=888512686]
-position = Vector2(-0.5, 0.57338524)
+position = Vector2(-0.5, -17.926615)
 shape = SubResource("RectangleShape2D_x4t65")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Label" type="RichTextLabel" parent="." unique_id=2119694911]
 z_index = 1
 clip_contents = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -49.0
-offset_top = -29.0
-offset_right = 48.0
-offset_bottom = -21.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.0
+offset_top = -62.0
+offset_right = 27.0
+offset_bottom = -41.0
 grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("3_faxwx")
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 1
+theme_override_constants/outline_size = 0
 theme_override_font_sizes/normal_font_size = 6
-theme_override_font_sizes/italics_font_size = 6
+theme_override_font_sizes/bold_font_size = 5
+theme_override_styles/normal = SubResource("StyleBoxFlat_fcq3e")
 bbcode_enabled = true
-text = "Name Example [Blue Wizard]"
+text = "Name Example
+[b]<Blue Wizard>"
 fit_content = true
+scroll_active = false
 autowrap_mode = 0
+autowrap_trim_flags = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+justification_flags = 131
 
 [node name="Panel" type="Panel" parent="Label" unique_id=172742760]
+visible = false
 z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -1.5
-offset_top = -1.0
-offset_right = 1.5
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Healthbar" type="ProgressBar" parent="." unique_id=1274332396]
-visible = false
-z_index = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -13.0
-offset_top = -23.0
-offset_right = 14.0
-offset_bottom = -20.0
-grow_horizontal = 2
 theme = ExtResource("3_faxwx")
-theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 3
-theme_override_font_sizes/font_size = 16
-theme_override_styles/background = SubResource("StyleBoxFlat_1f0kj")
-theme_override_styles/fill = SubResource("StyleBoxFlat_afpow")
-value = 100.0
-show_percentage = false
+theme_override_styles/panel = SubResource("StyleBoxFlat_m0lvl")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

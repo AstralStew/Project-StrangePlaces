@@ -5,7 +5,9 @@
 [ext_resource type="Script" uid="uid://cqm6v1qb2ed4e" path="res://Scripts/EnemySprite.gd" id="3_5gljc"]
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="3_aiwxb"]
 [ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="3_f4si1"]
+[ext_resource type="StyleBox" uid="uid://cxtfkr02oh1rk" path="res://Assets/Theme/system_progressbar_corruptstyle.tres" id="4_e388w"]
 [ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="4_paq7w"]
+[ext_resource type="Material" uid="uid://bguptvvukmmx0" path="res://Assets/Shaders/glitch_sprite_material.tres" id="4_vblni"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w0eeu"]
 size = Vector2(26.000011, 15.000008)
@@ -15,7 +17,7 @@ size = Vector2(26.000011, 15.000008)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1f0kj"]
 bg_color = Color(1, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_afpow"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vblni"]
 bg_color = Color(0, 1, 0, 1)
 
 [node name="Slime" type="CharacterBody2D" unique_id=1166851068]
@@ -36,6 +38,9 @@ position = Vector2(0, -7.500001)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_aiwxb")
 script = ExtResource("3_5gljc")
+corrupt_healthbar_style = ExtResource("4_e388w")
+shadermat = ExtResource("4_vblni")
+corrupt_noise_amount = 0.2
 
 [node name="Shadow" type="Sprite2D" parent="Sprite2D" unique_id=2141955805]
 self_modulate = Color(0, 0, 0, 0.22352941)
@@ -78,7 +83,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_font_sizes/font_size = 16
 theme_override_styles/background = SubResource("StyleBoxFlat_1f0kj")
-theme_override_styles/fill = SubResource("StyleBoxFlat_afpow")
+theme_override_styles/fill = SubResource("StyleBoxFlat_vblni")
 value = 100.0
 show_percentage = false
 

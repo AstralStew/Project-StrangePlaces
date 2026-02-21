@@ -2,6 +2,7 @@ class_name MainCharacter extends CharacterBody2D
 
 
 @onready var weapon = $Weapon
+@onready var weapon_particle = $WeaponParticle
 @onready var sight_circle : Area2D = $SearchCircle
 @onready var sprite = $Sprite2D
 @onready var healthbar : ProgressBar = $Healthbar
@@ -183,16 +184,18 @@ func _unhandled_input(event: InputEvent) -> void:
 func attack() -> void:
 	attacking = true
 	set_weapon(true)
+	weapon_particle.set_deferred("position", weapon.position)
+	weapon_particle.set_deferred("rotation",weapon.rotation + deg_to_rad(-93) )
+	weapon_particle.set_deferred("emitting", true)
 	await get_tree().create_timer(weapon_time).timeout
 	set_weapon(false)
 	attacking = false
 
 var weapon_dir : Vector2 = Vector2.ZERO
 func set_weapon(enable:bool) -> void:
-	weapon_dir = (get_global_mouse_position() - global_position).normalized()
+	weapon_dir = (get_global_mouse_position() - weapon.global_position).normalized()
 	weapon.position = (weapon_dir * weapon_distance) + weapon_local_offset if enable else weapon_local_offset
 	weapon.rotation = weapon_dir.angle()
-	weapon.visible = enable
 	weapon.process_mode = Node.PROCESS_MODE_INHERIT if enable else Node.PROCESS_MODE_DISABLED
 
 

@@ -61,7 +61,7 @@ func setup() -> void:
 		await get_tree().process_frame
 	
 	passive_tick()
-
+#
 
 func _unhandled_input(event: InputEvent) -> void:
 	if spawn_slime_on_click && event.is_action_pressed("AdminEnemyTool"):
@@ -80,15 +80,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			print("[MobManager] Spawned NPC '",new_NPC.name,"' via mouse at ",new_NPC.global_position)
 		spawned_NPC.emit()
 
-
+#
 func passive_tick() -> void:
 	while(true):
 		if (get_tree().get_node_count_in_group("Slimes") * slime_tick_chance) > randf():
 			tick_slime.emit()
-			get_tree().get_nodes_in_group("Slimes")[randi() % get_tree().get_node_count_in_group("Slimes")].modulate = Color.PURPLE
+			var chosen_slime : Slime = get_tree().get_nodes_in_group("Slimes")[randi() % get_tree().get_node_count_in_group("Slimes")]
+			chosen_slime.corrupt()
+			
 		elif (get_tree().get_node_count_in_group("NPCs") * npc_tick_chance) > randf():
 			tick_NPC.emit()
-			get_tree().get_nodes_in_group("NPCs")[randi() % get_tree().get_node_count_in_group("NPCs")].modulate = Color.PURPLE
+			var chosen_NPC : NPC = get_tree().get_nodes_in_group("NPCs")[randi() % get_tree().get_node_count_in_group("NPCs")]
+			chosen_NPC.corrupt()
 		
 		await get_tree().create_timer(tick_rate).timeout
 		
