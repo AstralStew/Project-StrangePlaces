@@ -60,7 +60,8 @@ func setup() -> void:
 		print("[MobManager] Spawned slime '",new_slime.name,"' during startup at ",new_slime.global_position)
 		await get_tree().process_frame
 	
-	passive_tick()
+	if GlobalVariables.corruption_active:
+		passive_tick()
 #
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -82,7 +83,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 #
 func passive_tick() -> void:
-	while(true):
+	while(GlobalVariables.corruption_active):
 		if (get_tree().get_node_count_in_group("Slimes") * slime_tick_chance) > randf():
 			tick_slime.emit()
 			var chosen_slime : Slime = get_tree().get_nodes_in_group("Slimes")[randi() % get_tree().get_node_count_in_group("Slimes")]

@@ -31,16 +31,13 @@ func _ready() -> void:
 	
 	for i in (1+(randi() % 1)):
 		add_random_quest()
-	update_quest_list()
+	#update_quest_list()
 	
 	set_active_quest(random_tracked_quest())
-	adding_quests_over_time()
+	#adding_quests_over_time()
 
 
-func adding_quests_over_time() -> void:
-	while (true):
-		await get_tree().create_timer(randi_range(quests_over_time.x,quests_over_time.y)).timeout
-		add_random_quest()
+
 
 
 func set_active_quest(quest:Quest) -> void:
@@ -60,7 +57,8 @@ func add_random_quest() -> void:
 	var quest = Quest.new(random_waypoint_name(),level)
 	print("[QuestWindow] Adding new random quest = ",quest.qid)
 	tracked_quests.append(quest)
-	update_quest_list()
+	#update_quest_list()
+	call_deferred("update_quest_list")
 
 
 
@@ -129,6 +127,20 @@ func finish_quest() -> void:
 	tracked_quests.remove_at(tracked_quests.find(active_quest))
 	wipe_ignored_npcs()
 	await get_tree().process_frame
-	add_random_quest()
-	set_active_quest(tracked_quests.back())
+	
+	# Add 1-2 random quests
+	for i in (1+(randi() % 1)):
+		add_random_quest()
+	
+	set_active_quest(random_tracked_quest())
+	#set_active_quest(tracked_quests.back())  # Set the last quest gained as the active
 	call_deferred("update_quest_list")
+
+
+
+
+## NOTE > Works but not being used right now
+func adding_quests_over_time() -> void:
+	while (true):
+		await get_tree().create_timer(randi_range(quests_over_time.x,quests_over_time.y)).timeout
+		add_random_quest()

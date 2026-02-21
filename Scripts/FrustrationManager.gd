@@ -1,4 +1,4 @@
-extends Node
+class_name FrustrationManager extends Node
 
 var chat_window : ChatWindow = null
 var main_character : MainCharacter = null
@@ -15,7 +15,12 @@ var frustration : float = 0
 @export var no_enemies_time : float = 10.0
 
 @export_category("READ ONLY")
-@export var typing : bool = false
+@export var typing : bool = false :
+	get: return typing
+	set(value):
+		typing = value
+		main_character.set_chat_bubble(value)
+
 @export var no_enemies_elapsed_time : float = 0.0
 
 

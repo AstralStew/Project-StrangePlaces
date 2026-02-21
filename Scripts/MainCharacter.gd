@@ -6,6 +6,7 @@ class_name MainCharacter extends CharacterBody2D
 @onready var sight_circle : Area2D = $SearchCircle
 @onready var sprite = $Sprite2D
 @onready var healthbar : ProgressBar = $Healthbar
+@onready var frustration_manager : FrustrationManager = $FrustrationManager
 
 @export_category("STATS")
 @export var max_health : float = 5
@@ -42,6 +43,7 @@ class_name MainCharacter extends CharacterBody2D
 @export var is_dir_rightward : bool = false
 
 var wander_target_reached : bool = false
+
 
 signal target_reached
 signal npc_not_found
@@ -241,7 +243,7 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 	
 	# Interact with the NPC
 	if body != null:
-		$ChatBubble.visible = true
+		set_chat_bubble(true)
 		await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
 		if body != null:
 			if Helpers.compare_npcs(_npc.npconfig,quest_window.active_quest.target):
@@ -251,7 +253,7 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 				quest_window.ignore_npc(_npc.npconfig)
 				print("[MainCharacter] Search Complete! - Failure! Ignoring NPC '",body,"' for this quest!")
 		else: push_warning("[MainCharacter] Body not found! What's that about?")
-		$ChatBubble.visible = false
+		set_chat_bubble(false)
 	else: push_warning("[MainCharacter] Body not found! What's that about?")
 		
 	
@@ -259,3 +261,14 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 	
 	
 	travel()
+
+
+@onready var previous_speed : float = 0
+
+func set_chat_bubble(enable:bool) -> void:
+	if enable:
+		previous_speed = speed
+		speed = 0
+	else:
+		speed = previous_speed
+	$ChatBubble.visible = enable

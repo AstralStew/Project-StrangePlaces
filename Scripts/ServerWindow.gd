@@ -35,6 +35,7 @@ var randf : float = 0.0
 
 
 func _ready() -> void:
+	
 	var instance : Panel = null
 	for i in number_of_data_cubes:
 		instance = data_cube.instantiate()
@@ -43,13 +44,17 @@ func _ready() -> void:
 		cube_grid.add_child(instance)
 		healthy_cubes.append(instance)
 	
-	# Corrupt a few data cubes to start
-	corrupt(3)
+	if GlobalVariables.corruption_active:
+		# Corrupt a few data cubes to start
+		corrupt(3)
 
 
 
 
 func corrupt(amount:int) -> void:
+	if !GlobalVariables.corruption_active:
+		push_error("[ServerWindow] ERROR -> Trying to corrupt but corruption isn't active in global_variables")
+		return
 	print("[ServerWindow] Corrupting ",amount," cubes")
 	var chosen_cube_index = -1
 	var chosen_cube : Panel = null

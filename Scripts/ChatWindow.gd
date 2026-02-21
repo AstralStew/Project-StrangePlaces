@@ -7,8 +7,11 @@ class_name ChatWindow extends VirtualWindow
 
 @export_category("CONTROLS")
 
+@export var game_length_mins : int = 5
+
 @export var starting_player_count : int = 419
 @export var random_msg_frequency : Vector2 = Vector2(1,4)
+
 
 @export_category("REDUCTIONS")
 
@@ -45,10 +48,11 @@ var new_col : Color = Color.RED
 	]
 
 func _ready() -> void:
-	add_server_message("Server host credentials (x46290)")
-	add_server_message("Welcome to [b][i]Places Online[/i]™[/b]")
-	add_server_message("Thank you for joining us for our launch! :^)")
-	add_server_message("Please send any bugs to [i]placesonlinebugs@mailcoded.net[/i]!")
+	add_server_message("Welcome to [b][i]Places Online[/i]™[/b]\n" +
+	"Thank you for joining us for our launch! :^)\n" +
+	"Please send any bugs to [i]placesonlinebugs@mailcoded.net[/i]!"
+	)
+	server_restart_timer()
 	
 	random_msgs()
 	player_count_fluctuations()
@@ -71,6 +75,8 @@ func add_server_message(msg_text:String):
 	chat_log.append_text("[color=white][b]Server[/b]: " + msg_text + "\n")
 
 
+
+
 func adjust_player_count(amount:int):
 	print("[ChatWindow] Adjusting player count (", floori(player_count),") by ",amount)
 	amount_to_adjust += amount
@@ -78,6 +84,15 @@ func adjust_player_count(amount:int):
 func reduce_player_count(amount:int):
 	print("[ChatWindow] Reducing player count (", floori(player_count),") by ",amount)
 	amount_to_adjust -= amount
+
+
+
+func server_restart_timer() -> void:
+	while (game_length_mins > 0):
+		add_server_message("[bgcolor=69696978][b]NOTE > server will restart in "+str(game_length_mins)+" minutes[/b][/bgcolor]")
+		await get_tree().create_timer(60).timeout
+		
+
 
 
 
@@ -124,7 +139,7 @@ func _physics_process(delta: float) -> void:
 func update_count_gfx():
 	#print("[ChatWindow] Clamped player count = ", str(clamp(player_count/starting_player_count,0,starting_player_count)),", Color = ",Color.GREEN.lerp(Color.RED,clamp(player_count/starting_player_count,0,starting_player_count)))
 	new_col = Color.RED.lerp(Color.GREEN,clamp(player_count/starting_player_count,0,starting_player_count))
-	players_label.text = "[color=" + new_col.to_html() + "]Players online: [b]" + str(ceili(player_count)) + "[/b]"
+	players_label.text = "Players online:  [b][color="+new_col.to_html()+"]"+str(ceili(player_count))
 
 
 

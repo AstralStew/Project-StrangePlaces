@@ -19,7 +19,7 @@ func _input(event: InputEvent) -> void:
 		var WaterCoords = Water.get_cell_atlas_coords(WaterTilePosition)
 		var Plains2Coords = Plains2.get_cell_atlas_coords(Plains2TilePosition)
 
-		if Input.is_action_just_pressed("Attack"):
+		if Input.is_action_just_pressed("AdminAttackTool"):
 			#print("Ding, tilePosition = " ,tilePosition, " tileSetNumber = ", tileSetNumber)
 			Plains.set_cell(PlainsTilePosition, tileSetNumber, PlainsCoords)
 			Water.set_cell(WaterTilePosition, tileSetNumber, WaterCoords)
