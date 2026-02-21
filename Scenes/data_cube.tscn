@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://0k6m83og1rwr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_00k4y"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[node name="DataCube" type="Panel" unique_id=324123449]
+custom_minimum_size = Vector2(8, 14)
+size_flags_horizontal = 5
+size_flags_vertical = 5
+theme_override_styles/panel = SubResource("StyleBoxFlat_00k4y")

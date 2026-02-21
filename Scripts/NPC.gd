@@ -1,9 +1,7 @@
 class_name NPC extends CharacterBody2D
 
-enum NpcTypes {WIZARD, THIEF, MERCHANT, FIGHTER}
-enum NpcColours {BLUE, RED, GREEN, PURPLE}
-enum FirstNames {Glorbund, Timmon, Slawgeld, Flipp, Bugothy, Wimble, Jamsen}
-enum LastNames {Nilyx, Wumbucket, Glablewart, Bisqois, Krit, Shonx, Rectus}
+
+@onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
 @export_category("CONTROLS")
 
@@ -12,36 +10,36 @@ enum LastNames {Nilyx, Wumbucket, Glablewart, Bisqois, Krit, Shonx, Rectus}
 
 @export_category("READ ONLY")
 
-var _first_name : String = ""
-var _last_name : String = ""
-var _npc_colour : NpcColours = NpcColours.BLUE
-var _npc_type : NpcTypes = NpcTypes.WIZARD
-
-@export var full_name : String = "" :
-	get: return (_first_name + " " + _last_name)
-
-@export var npc_colour : String = "" :
-	get: return NpcColours.keys()[_npc_colour]
-
-@export var npc_type : String = "" :
-	get: return NpcTypes.keys()[_npc_type]
+@export var npconfig : NPConfig = null
 
 
+
+@export var destroy_enemy_on_click : bool = false :
+	get: return (
+		admin_window.selected_tab == AdminWindow.Tabs.NPCS &&
+		admin_window.selected_npc_tool == AdminWindow.NPCTools.DESTROY
+	) 
 
 
 func setup() -> void:
-	if randomise_on_start:
-		_npc_colour = (randi() % NpcColours.size()) as NpcColours
-		_npc_type = (randi() % NpcTypes.size())  as NpcTypes
-		_first_name = FirstNames.keys()[randi() % FirstNames.size()]
-		_last_name = LastNames.keys()[randi() % LastNames.size()]
-		
-		#var label_text = str(npc_name) + "[" + str(npc_colour) + " " + str(npc_type) + "]"
-		$Label.text = full_name + " [" + npc_colour + " " + npc_type + "]"
-		
-		name = "NPC_" + full_name + "_" + npc_colour + npc_type
+	
+	npconfig = NPConfig.rand() if randomise_on_start else NPConfig.blank()
+	$Label.text = npconfig.readable_name
+	name = "NPC_" + npconfig.full_name + "_" + npconfig.str_colour + npconfig.str_type
+
+
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if destroy_enemy_on_click && event.is_action_pressed("AdminEnemyTool"):
+		queue_free()
+
+
+
+
 
 func complete_interaction() -> void:
+	
+	(get_tree().get_first_node_in_group("QuestWindow") as QuestWindow).finish_quest()
 	
 	if randf() <= chance_to_disappear:
 		queue_free()

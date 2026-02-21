@@ -3,6 +3,7 @@ class_name MainCharacter extends CharacterBody2D
 
 @onready var weapon = $Weapon
 @onready var sight_circle : Area2D = $SearchCircle
+@onready var sprite = $Sprite2D
 @onready var healthbar : ProgressBar = $Healthbar
 
 @export_category("STATS")
@@ -21,6 +22,7 @@ class_name MainCharacter extends CharacterBody2D
 @export var weapon_time : float = 1
 @export var weapon_damage : float = 5
 @export var weapon_distance : float = 10
+@export var weapon_local_offset : Vector2 = Vector2(0,-16)
 
 
 @export_category("READ ONLY")
@@ -28,7 +30,6 @@ class_name MainCharacter extends CharacterBody2D
 @export var health : float = 100.0
 @export var direction : Vector2 = Vector2.ZERO
 @export var target : Vector2 = Vector2.ZERO
-@export var last_waypoint : Node2D = null
 
 @export var moving : bool = false
 @export var attacking : bool = false
@@ -37,20 +38,23 @@ class_name MainCharacter extends CharacterBody2D
 @export var interacting : bool = false
 
 
+@export var is_dir_rightward : bool = false
+
 var wander_target_reached : bool = false
 
 signal target_reached
-
 signal npc_not_found
-
 signal took_damage
+signal saw_enemy
+
 
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
 @export var can_attack : bool = false :
-	get: return admin_window.selected_tool == AdminWindow.ToolNames.TRIGGER_ATTACK
+	get: return admin_window.selected_tab == AdminWindow.Tabs.ATTACKING
 
 
+@onready var quest_window : QuestWindow = get_tree().get_first_node_in_group("QuestWindow")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -77,6 +81,11 @@ func _physics_process(delta: float) -> void:
 		
 		direction = target - global_position
 		
+		if direction.x > 0:
+			is_dir_rightward = true
+		elif direction.x < 0:
+			is_dir_rightward = false
+		
 		if travelling && direction.length() < travel_end_distance:
 			target_reached.emit()
 		elif interacting && direction.length() < npc_end_distance:
@@ -94,12 +103,13 @@ func _physics_process(delta: float) -> void:
 
 func travel() -> void:
 	
+	await get_tree().process_frame
+	
 	travelling = true
 	
-	last_waypoint = get_tree().get_nodes_in_group("Waypoints")[randi() % get_tree().get_node_count_in_group("Waypoints")] as Node2D
-	target = last_waypoint.global_position
+	target = quest_window.waypoint.global_position
 	
-	print("[MainCharacter] Travelling - Moving towards '",last_waypoint,"' at ",target)
+	print("[MainCharacter] Travelling - Moving towards '",quest_window.waypoint,"' at ",target)
 	
 	moving = true
 	await target_reached
@@ -138,7 +148,7 @@ func wander() -> void:
 			# Pick a location near the waypoint to wander to
 			if !chosen_wander_target:
 				var randv = Vector2(randf_range(-1,1),randf_range(-1,1)).normalized() * randf_range(wander_range.x, wander_range.y)
-				target = last_waypoint.global_position + randv
+				target = quest_window.waypoint.global_position + randv
 				moving = true
 				print("[MainCharacter] Wandering - Wandering towards ",target,"...")
 				chosen_wander_target = true
@@ -149,7 +159,7 @@ func wander() -> void:
 				time_waited = 0
 				chosen_wander_target = false
 				wander_target_reached = false
-				direction = Vector2.ZERO
+				target = global_position
 				moving = false
 				print("[MainCharacter] Wandering - Wander target reached! Starting to wait...")
 				
@@ -165,7 +175,8 @@ func wander() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if can_attack && !attacking && event.is_action_pressed("Attack"):
+	
+	if can_attack && !attacking && event.is_action_pressed("AdminAttackTool"):
 		attack()
 
 
@@ -177,10 +188,9 @@ func attack() -> void:
 	attacking = false
 
 func set_weapon(enable:bool) -> void:
-	weapon.position = (get_global_mouse_position() - global_position).normalized() * weapon_distance if enable else Vector2.ZERO
+	weapon.position = ((get_global_mouse_position() - global_position).normalized() * weapon_distance) + weapon_local_offset if enable else weapon_local_offset
 	weapon.visible = enable
-	weapon.set_deferred("monitoring", enable) 
-	weapon.set_deferred("monitorable", enable) 
+	weapon.process_mode = Node.PROCESS_MODE_INHERIT if enable else Node.PROCESS_MODE_DISABLED
 
 
 
@@ -193,28 +203,53 @@ func set_sight_circle(enable:bool) -> void:
 
 
 func _on_search_circle_body_entered(body: Node2D) -> void:
+	if !wandering: return
 	print("[MainCharacter(",self,")] Search circle entered = ", body)
+	
+	# Make sure body is an NPC
+	var _npc = (body as NPC)
+	if _npc == null:
+		print("[MainCharacter(",self,")] Body '",body,"' is not an NPC, ignoring.")
+		return
+	
+	# Make sure this NPC isn't being ignored (due to already having been checked)
+	if quest_window.check_if_ignored(_npc.npconfig):
+		print("[MainCharacter(",self,")] NPC '",_npc,"' has already been checked this quest, ignoring.")
+		return
+	
 	
 	# Stop searching for NPC
 	wandering = false
 	set_sight_circle(false)
 	
-	
 	# Move towards the NPC
 	interacting = true
-	target = body.global_position
-	print("[MainCharacter] Search Finish - Moving towards NPC '",body,"'...")
+	target = _npc.global_position
+	print("[MainCharacter] Search Finish - Moving towards NPC '",_npc,"'...")
 	
 	moving = true
 	await target_reached
-	print("[MainCharacter] Search Finish - Reached NPC '",body,"', interacting for a while...")
+	print("[MainCharacter] Search Finish - Reached NPC '",_npc,"', interacting for a while...")
 	moving = false
 	
 	
 	# Interact with the NPC
-	await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
-	(body as NPC).complete_interaction()
+	if body != null:
+		$ChatBubble.visible = true
+		await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
+		if body != null:
+			if Helpers.compare_npcs(_npc.npconfig,quest_window.active_quest.target):
+				_npc.complete_interaction()
+				print("[MainCharacter] Search Complete! - Successful interaction with NPC '",_npc,"'!")
+			else:
+				quest_window.ignore_npc(_npc.npconfig)
+				print("[MainCharacter] Search Complete! - Failure! Ignoring NPC '",body,"' for this quest!")
+		else: push_warning("[MainCharacter] Body not found! What's that about?")
+		$ChatBubble.visible = false
+	else: push_warning("[MainCharacter] Body not found! What's that about?")
+		
+	
 	interacting = false
-	print("[MainCharacter] Search Finish - Completed interaction with NPC '",body,"', time to travel")
+	
 	
 	travel()

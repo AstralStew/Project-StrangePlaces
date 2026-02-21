@@ -2,7 +2,20 @@
 
 [ext_resource type="Script" uid="uid://bbvxfrn4wa50o" path="res://Scripts/NPC.gd" id="1_xs5w8"]
 [ext_resource type="Texture2D" uid="uid://dglsj1hk7y67b" path="res://Assets/Sprites/QuestNPC1.png" id="2_7fgga"]
+[ext_resource type="Script" uid="uid://2oqhs56kdawl" path="res://Scripts/NPConfig.gd" id="2_17t5b"]
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="3_faxwx"]
+
+[sub_resource type="Resource" id="Resource_faxwx"]
+script = ExtResource("2_17t5b")
+readable_name = null
+full_name = null
+str_colour = null
+str_type = null
+has_first_name = null
+has_last_name = null
+has_colour = null
+has_type = null
+metadata/_custom_type_script = "uid://2oqhs56kdawl"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4t65"]
 size = Vector2(13, 37.74677)
@@ -16,9 +29,11 @@ bg_color = Color(0, 1, 0, 1)
 [node name="NPC" type="CharacterBody2D" unique_id=1166851068]
 collision_layer = 8
 collision_mask = 0
+input_pickable = true
 motion_mode = 1
 script = ExtResource("1_xs5w8")
 randomise_on_start = true
+npconfig = SubResource("Resource_faxwx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1647531854]
 position = Vector2(-0.79999924, 0.20000076)
@@ -89,3 +104,5 @@ theme_override_styles/background = SubResource("StyleBoxFlat_1f0kj")
 theme_override_styles/fill = SubResource("StyleBoxFlat_afpow")
 value = 100.0
 show_percentage = false
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

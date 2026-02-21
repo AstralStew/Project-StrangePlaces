@@ -1,0 +1,42 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://c2iltkheeo4ec"]
+
+[ext_resource type="Texture2D" uid="uid://dnh5i3ixi07wv" path="res://Assets/Sprites/BSOD/BSOD.png" id="1_y1blj"]
+[ext_resource type="Texture2D" uid="uid://doaouoy1xyfi3" path="res://Assets/Sprites/BSOD/BSODanimated1.png" id="2_0bjke"]
+[ext_resource type="Texture2D" uid="uid://dqj1couuwppdm" path="res://Assets/Sprites/BSOD/BSODanimated2.png" id="3_1sd4t"]
+[ext_resource type="Texture2D" uid="uid://cvdnlyx66l7ry" path="res://Assets/Sprites/BSOD/BSODanimated3.png" id="4_hmguc"]
+[ext_resource type="Texture2D" uid="uid://dyajcc2818crx" path="res://Assets/Sprites/BSOD/BSODanimated5.png" id="5_bcx0i"]
+[ext_resource type="Texture2D" uid="uid://760u28o3j6s7" path="res://Assets/Sprites/BSOD/BSODanimated6.png" id="6_phh1r"]
+[ext_resource type="Texture2D" uid="uid://bkjpaqrffwoki" path="res://Assets/Sprites/BSOD/BSODanimated7.png" id="7_e0l37"]
+[ext_resource type="Texture2D" uid="uid://dv6vikymlfgkn" path="res://Assets/Sprites/BSOD/BSODanimated8.png" id="8_it8tw"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 60.0,
+"texture": ExtResource("1_y1blj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0bjke")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_1sd4t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hmguc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bcx0i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_phh1r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_e0l37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_it8tw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
