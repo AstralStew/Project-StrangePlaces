@@ -47,6 +47,7 @@ func _set_corrupt_materials() -> void:
 	material = shadermat.duplicate(true) as ShaderMaterial
 	(material as ShaderMaterial).set_shader_parameter("albedo_texture",texture)
 	shadow.self_modulate = Color.html("e224ffff")
+	material_timer += randf()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

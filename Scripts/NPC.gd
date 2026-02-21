@@ -1,8 +1,8 @@
 class_name NPC extends CharacterBody2D
 
 
-@onready var mob_sprite : MobSprite = $Sprite2D
-var npc_label : RichTextLabel
+var npc_sprite : NPCSprite 
+#var npc_label : RichTextLabel
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
 @export_category("CONTROLS")
@@ -27,10 +27,18 @@ var npc_label : RichTextLabel
 func setup() -> void:
 	
 	npconfig = NPConfig.rand() if randomise_on_start else NPConfig.blank()
-	npc_label = $Label
-	npc_label.text = npconfig.label_name
-	npc_label.size.x = 0
-	name = "NPC_" + npconfig.full_name + "_" + npconfig.str_colour + npconfig.str_type
+	
+	#npc_label = $Label
+	#npc_label.text = npconfig.label_name
+	#npc_label.size.x = 0
+	
+	npc_sprite = $Sprite2D
+	npc_sprite.texture = Helpers.get_npc_texture(npconfig)
+	npc_sprite.npc = self
+	
+	npc_sprite.setup()
+	
+	#name = "NPC_" + npconfig.full_name + "_" + npconfig.str_colour + npconfig.str_type
 	
 
 
@@ -44,7 +52,7 @@ func corrupt() -> void:
 	if !corrupted:
 		print("[NPC] Corrupt called for the first time!")
 		corrupted = true
-		mob_sprite.corrupted = true
+		npc_sprite.corrupted = true
 		name = name + " [corrupt]"
 		return
 	
