@@ -23,11 +23,17 @@
 [ext_resource type="PackedScene" uid="uid://crl06jibvlkr8" path="res://Scenes/NPC.tscn" id="12_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="13_00k4y"]
 [ext_resource type="Script" uid="uid://uvho0c56f1ui" path="res://Scripts/CharacterSprite.gd" id="13_2klc5"]
+[ext_resource type="ButtonGroup" uid="uid://dsyp6bemgst11" path="res://Assets/Theme/npc_colour_button_group.tres" id="13_hcs0j"]
+[ext_resource type="ButtonGroup" uid="uid://y8rfskre2mfk" path="res://Assets/Theme/npc_type_button_group.tres" id="14_t205d"]
 [ext_resource type="TileSet" uid="uid://by5o3ria43pbf" path="res://Assets/TileSets/summer_plains_v1.0_standard/summer_plains_v1.0_standard/Normal_Plains.tres" id="15_luodc"]
 [ext_resource type="Texture2D" uid="uid://dia5471vlbs0n" path="res://Assets/TileSets/summer_plains_v1.0_standard/summer_plains_v1.0_standard/AssetsAtlas.tres" id="16_1cgv8"]
 [ext_resource type="Texture2D" uid="uid://dabbhgpfc36cd" path="res://Assets/Sprites/Camera.png" id="20_pnhnk"]
 [ext_resource type="SpriteFrames" uid="uid://b38x5ra632bdj" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
-[ext_resource type="Texture2D" uid="uid://gxml34seapn2" path="res://Assets/particles/slash_01_a.png" id="23_u0did"]
+[ext_resource type="PackedScene" uid="uid://cj1upoq0lhb8b" path="res://Scenes/weapon_particle.tscn" id="27_hcs0j"]
+[ext_resource type="AudioStream" uid="uid://bfh7isptqj7f4" path="res://Assets/Audio/TownTheme.mp3" id="31_ais7f"]
+[ext_resource type="AudioStream" uid="uid://dqaslewrw81kb" path="res://Assets/Audio/sword_randomizer.tres" id="31_dw52x"]
+[ext_resource type="AudioStream" uid="uid://qsfdm6gcx8v" path="res://Assets/Audio/npc_randomizer.tres" id="31_t205d"]
+[ext_resource type="AudioStream" uid="uid://53stn4qq2q7t" path="res://Assets/Audio/slime_randomizer.tres" id="32_ais7f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqkje"]
 bg_color = Color(0.68108356, 0.8222354, 1, 1)
@@ -123,6 +129,22 @@ border_blend = true
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_luodc"]
 content_margin_left = 3.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dw52x"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ais7f"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+shadow_size = 1
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1cgv8"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcs0j"]
@@ -132,8 +154,6 @@ content_margin_left = 3.0
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idpk0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dw52x"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_dw52x"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ais7f"]
 content_margin_left = 8.0
@@ -211,42 +231,6 @@ border_color = Color(0.90588236, 0.90588236, 0.90588236, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nngtn"]
 size = Vector2(24, 24)
-
-[sub_resource type="Curve" id="Curve_53r2q"]
-_data = [Vector2(0, 0.0028227568), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_luodc"]
-curve = SubResource("Curve_53r2q")
-
-[sub_resource type="Curve" id="Curve_u0did"]
-_limits = [0.74944025, 1.0, 0.0, 1.0]
-_data = [Vector2(0, 0.74944025), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.74944025), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_53r2q"]
-curve = SubResource("Curve_u0did")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hcs0j"]
-particle_flag_rotate_y = true
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(0, 0, 0)
-angle_min = 1.0728835e-05
-angle_max = 1.0728835e-05
-direction = Vector3(0, 0, 0)
-angular_velocity_min = -90.000015
-angular_velocity_max = -90.000015
-gravity = Vector3(0, 0, 0)
-linear_accel_min = -2.2351742e-06
-linear_accel_max = -2.2351742e-06
-radial_accel_min = -2.2351742e-06
-radial_accel_max = -2.2351742e-06
-tangential_accel_min = -2.2351742e-06
-tangential_accel_max = -2.2351742e-06
-scale_min = 0.099999994
-scale_max = 0.099999994
-scale_curve = SubResource("CurveTexture_53r2q")
-alpha_curve = SubResource("CurveTexture_luodc")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga1kr"]
 size = Vector2(11.462999, 16.910767)
@@ -615,14 +599,12 @@ tab_1/title = "  Enemies  "
 tab_2/title = "   NPCs  "
 
 [node name="EnemyTabContent" type="PanelContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2" unique_id=259627891]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("6_oqgf2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_luodc")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/EnemyTabContent" unique_id=1586736213]
-visible = false
 layout_mode = 2
 
 [node name="CurrentTool" type="HBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/EnemyTabContent/VBoxContainer" unique_id=450239665]
@@ -674,6 +656,7 @@ Click the map to destroy an enemy of the chosen type at the mouse"
 scroll_active = false
 
 [node name="NPCTabContent" type="PanelContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2" unique_id=1832549376]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("6_oqgf2")
@@ -736,37 +719,41 @@ size_flags_horizontal = 0
 theme_override_constants/separation = 4
 alignment = 1
 
-[node name="FirstLabel" type="Label" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/NamesContainer" unique_id=1438046618]
+[node name="NamesLabel" type="Label" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/NamesContainer" unique_id=1438046618]
 layout_mode = 2
 size_flags_horizontal = 2
-size_flags_vertical = 0
 size_flags_stretch_ratio = 0.57
 theme = ExtResource("6_oqgf2")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_styles/normal = SubResource("StyleBoxEmpty_luodc")
 text = "Name:"
+vertical_alignment = 1
 
 [node name="FirstField" type="LineEdit" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/NamesContainer" unique_id=1494000493]
 custom_minimum_size = Vector2(64.03, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-
-[node name="LastLabel" type="Label" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/NamesContainer" unique_id=1851060394]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
 theme = ExtResource("6_oqgf2")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_luodc")
-text = "Last:"
+theme_override_colors/font_placeholder_color = Color(0.7557872, 0.7557867, 0.7557867, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_dw52x")
+placeholder_text = "First"
+max_length = 10
+caret_blink = true
 
 [node name="LastField" type="LineEdit" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/NamesContainer" unique_id=736147298]
 custom_minimum_size = Vector2(64.03, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme = ExtResource("6_oqgf2")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.7557872, 0.7557867, 0.7557867, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_ais7f")
+placeholder_text = "Last"
+max_length = 10
+caret_blink = true
 
 [node name="ColoursContainer" type="HBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer" unique_id=1245399669]
 layout_mode = 2
@@ -799,7 +786,7 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_idpk0")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_dw52x")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
 button_pressed = true
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("13_hcs0j")
 text = "Blue"
 
 [node name="Green" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/ColoursContainer/ColourOptions" unique_id=691111567]
@@ -812,7 +799,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("13_hcs0j")
 text = "Green"
 
 [node name="Purple" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/ColoursContainer/ColourOptions" unique_id=543856175]
@@ -825,7 +812,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("13_hcs0j")
 text = "Purple"
 
 [node name="Red" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/ColoursContainer/ColourOptions" unique_id=2048465273]
@@ -838,7 +825,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("13_hcs0j")
 text = "Red"
 
 [node name="TypesContainer" type="HBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer" unique_id=2006717097]
@@ -861,7 +848,7 @@ theme_override_constants/h_separation = 6
 theme_override_constants/v_separation = 2
 columns = 2
 
-[node name="Blue" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=165720909]
+[node name="Alchemist" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=165720909]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -872,10 +859,10 @@ theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_idpk0")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_dw52x")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
 button_pressed = true
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("14_t205d")
 text = "Alchemist"
 
-[node name="Green" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=1348512129]
+[node name="Blacksmith" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=1348512129]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -885,10 +872,10 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("14_t205d")
 text = "Blacksmith"
 
-[node name="Purple" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=1562232650]
+[node name="Merchant" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=1562232650]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -898,11 +885,11 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("14_t205d")
 text = "Merchant
 "
 
-[node name="Red" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=1678640317]
+[node name="Wizard" type="CheckBox" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer/TypesContainer/TypeOptions" unique_id=1678640317]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -912,7 +899,7 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_1cgv8")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1cgv8")
-button_group = SubResource("ButtonGroup_dw52x")
+button_group = ExtResource("14_t205d")
 text = "Wizard"
 
 [node name="ServerWindow" type="PanelContainer" parent="CanvasLayer" unique_id=245114579 groups=["ServerWindow"]]
@@ -1075,10 +1062,10 @@ autowrap_mode = 2
 clip_text = true
 
 [node name="QuestWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1469930672 groups=["QuestWindow"]]
-offset_left = 395.0
-offset_top = 168.0
-offset_right = 615.0
-offset_bottom = 317.0
+offset_left = 209.0
+offset_top = 334.0
+offset_right = 429.0
+offset_bottom = 483.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("11_0cmrb")
 max_pos = Vector2(640, 360)
@@ -1929,7 +1916,7 @@ travel_end_distance = 40.0
 wander_range = Vector2(60, 120)
 wander_wait_time = Vector2(0.25, 3)
 npc_end_distance = 30.0
-weapon_time = 0.4
+weapon_time = 0.2
 weapon_distance = 20.0
 
 [node name="FrustrationManager" type="Node2D" parent="MobManager/MainCharacter" unique_id=1649549904]
@@ -1991,16 +1978,7 @@ offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WeaponParticle" type="GPUParticles2D" parent="MobManager/MainCharacter" unique_id=1763626909]
-emitting = false
-amount = 1
-texture = ExtResource("23_u0did")
-lifetime = 0.2
-one_shot = true
-collision_base_size = 0.0
-visibility_rect = Rect2(-512, -512, 1024, 1024)
-local_coords = true
-process_material = SubResource("ParticleProcessMaterial_hcs0j")
+[node name="WeaponParticle" parent="MobManager/MainCharacter" unique_id=904334994 instance=ExtResource("27_hcs0j")]
 
 [node name="HurtBox" type="Area2D" parent="MobManager/MainCharacter" unique_id=237269211]
 position = Vector2(-1.7999878, -15.799988)
@@ -2082,9 +2060,19 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nngtn")
 [node name="Sprite2D" type="Sprite2D" parent="MobManager/MainCharacter/FakeCamera" unique_id=814752966]
 modulate = Color(1, 0, 1, 0.47058824)
 texture_filter = 1
-position = Vector2(220, 220.935)
+position = Vector2(218, 222.935)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("20_pnhnk")
+
+[node name="Label" type="Label" parent="MobManager/MainCharacter/FakeCamera" unique_id=1247504249]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.9349976
+offset_right = 86.0
+offset_bottom = 27.934998
+theme = ExtResource("6_oqgf2")
+theme_override_colors/font_color = Color(1, 0, 1, 0.7411765)
+text = "main_character.char"
 
 [node name="Waypoints" type="Node" parent="." unique_id=1562425428]
 
@@ -2159,6 +2147,29 @@ reached_distance = 1.0
 process_mode = 4
 visible = false
 position = Vector2(558, 326)
+
+[node name="Music" type="AudioStreamPlayer" parent="." unique_id=473865038]
+stream = ExtResource("31_ais7f")
+volume_db = -3.665
+autoplay = true
+max_polyphony = 10
+bus = &"Music"
+parameters/looping = true
+
+[node name="SwordFx" type="AudioStreamPlayer" parent="." unique_id=1437248501]
+stream = ExtResource("31_dw52x")
+max_polyphony = 10
+bus = &"Effects"
+
+[node name="SlimeFx" type="AudioStreamPlayer" parent="." unique_id=2120616655]
+stream = ExtResource("32_ais7f")
+max_polyphony = 10
+bus = &"Effects"
+
+[node name="NpcFx" type="AudioStreamPlayer" parent="." unique_id=2070827043]
+stream = ExtResource("31_t205d")
+max_polyphony = 10
+bus = &"Effects"
 
 [connection signal="gui_input" from="CanvasLayer/ChatWindow/VBoxContainer/ChatWindow/MarginContainer/ChatLog" to="CanvasLayer/ChatWindow" method="_on_gui_input"]
 [connection signal="gui_input" from="CanvasLayer/SelectionWindow/VBoxContainer/SelectionPanel" to="CanvasLayer/SelectionWindow" method="_on_gui_input"]

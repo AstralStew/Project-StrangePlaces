@@ -7,7 +7,7 @@ class_name ChatWindow extends VirtualWindow
 
 @export_category("CONTROLS")
 
-@export var game_length_mins : int = 5
+@export var game_length_mins : int = 1
 
 @export var starting_player_count : int = 419
 @export var random_msg_frequency : Vector2 = Vector2(1,4)
@@ -24,6 +24,8 @@ class_name ChatWindow extends VirtualWindow
 @export var reduce_from_see_spawn_in : Vector2i = Vector2i(3,7)
 
 @export_category("READ ONLY")
+
+@onready var mins_remaining : int = game_length_mins
 
 @onready var player_count : float = starting_player_count
 
@@ -88,18 +90,30 @@ func reduce_player_count(amount:int):
 
 
 func server_restart_timer() -> void:
-	while (game_length_mins > 0):
-		add_server_message("[bgcolor=69696978][b]NOTE > server will restart in "+str(game_length_mins)+" minutes[/b][/bgcolor]")
+	while (mins_remaining > 0):
+		add_server_message("[bgcolor=69696978][b]NOTE > server will restart in "+str(mins_remaining)+" minutes[/b][/bgcolor]")
+		mins_remaining -= 1
 		await get_tree().create_timer(60).timeout
+	server_restart()
+
+func server_restart() -> void:
+		add_server_message("[bgcolor=69696978][b]NOTE > server is restarting in 5...")
+		await get_tree().create_timer(1).timeout
+		add_server_message("[bgcolor=69696978][b]NOTE > server is restarting in 4...")
+		await get_tree().create_timer(1).timeout
+		add_server_message("[bgcolor=69696978][b]NOTE > server is restarting in 3...")
+		await get_tree().create_timer(1).timeout
+		add_server_message("[bgcolor=69696978][b]NOTE > server is restarting in 2...")
+		await get_tree().create_timer(1).timeout
+		add_server_message("[bgcolor=69696978][b]NOTE > server is restarting in 1...")
+		await get_tree().create_timer(1).timeout
 		
-
-
 
 
 func player_count_fluctuations():
 	var fluctuation : int = 0
 	var neg : bool = false
-	while (true):
+	while (GlobalVariables.game_running):
 		await get_tree().create_timer(randi_range(random_fluctuations_frequency.x,random_fluctuations_frequency.y)).timeout
 		
 		neg = randf() > 0.5
@@ -121,6 +135,7 @@ func no_more_players():
 	Engine.time_scale = 0.0
 
 func _physics_process(delta: float) -> void:
+	if !GlobalVariables.game_running: return
 	if amount_to_adjust != 0:
 		
 		amount_to_adjust = move_toward(amount_to_adjust,0,adjust_speed)
@@ -171,7 +186,7 @@ func see_spawn_in() -> void:
 
 
 func random_msgs() -> void:
-	while(true):
+	while(GlobalVariables.game_running):
 		await get_tree().create_timer(randf_range(random_msg_frequency.x,random_msg_frequency.y)).timeout
 		add_message(random_users[randi() % random_users.size()],random_msg(), true)
 

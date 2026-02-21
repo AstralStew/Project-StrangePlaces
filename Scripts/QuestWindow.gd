@@ -9,12 +9,12 @@ class_name QuestWindow extends VirtualWindow
 
 @export_category("READ ONLY")
 
-@export var level : int = 1
+@export var player_level : int = 1
 @export var current_xp : int = 0
 
 @export var max_xp : int = 100:
 	get:
-		return 100 * (level**2)
+		return 100 * (player_level**2)
 
 
 @export var waypoint : Node2D = null
@@ -29,7 +29,7 @@ var ignored_npcs : Array[NPConfig] = []
 
 func _ready() -> void:
 	
-	for i in (1+(randi() % 1)):
+	for i in (GlobalVariables.level):   #(1+(randi() % 1)
 		add_random_quest()
 	#update_quest_list()
 	
@@ -54,7 +54,7 @@ func add_random_quest() -> void:
 		print("[QuestWindow] Add Random Quest - Max number of quests reached! Ignoring.")
 		return
 	
-	var quest = Quest.new(random_waypoint_name(),level)
+	var quest = Quest.new(random_waypoint_name(),GlobalVariables.level)
 	print("[QuestWindow] Adding new random quest = ",quest.qid)
 	tracked_quests.append(quest)
 	#update_quest_list()

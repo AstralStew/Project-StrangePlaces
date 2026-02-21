@@ -53,6 +53,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if !GlobalVariables.game_running: return
 	
 	if !main_character.interacting:
 	
@@ -66,6 +67,8 @@ func _process(delta: float) -> void:
 
 var _clicked_in_fake_camera : bool = false
 func _fake_camera_input(event: InputEvent) -> void:
+	if !GlobalVariables.game_running: return
+	
 	if event is InputEventMouseButton && event.button_index == 1:
 		print("[FrustrationManager] Clicked in fake camera! Waiting to see if something was spawned...")
 		_clicked_in_fake_camera = true

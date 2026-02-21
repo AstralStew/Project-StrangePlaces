@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cj1upoq0lhb8b"]
+
+[ext_resource type="Texture2D" uid="uid://gxml34seapn2" path="res://Assets/particles/slash_01_a.png" id="1_ah4i5"]
+
+[sub_resource type="Curve" id="Curve_53r2q"]
+_data = [Vector2(0, 0.0028227568), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_luodc"]
+curve = SubResource("Curve_53r2q")
+
+[sub_resource type="Curve" id="Curve_u0did"]
+_limits = [0.74944025, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0.74944025), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.74944025), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_53r2q"]
+curve = SubResource("Curve_u0did")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hcs0j"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0, 0, 0)
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(0, 0, 0)
+angular_velocity_min = -90.000015
+angular_velocity_max = -90.000015
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_53r2q")
+alpha_curve = SubResource("CurveTexture_luodc")
+
+[node name="WeaponParticle" type="GPUParticles2D" unique_id=904334994]
+emitting = false
+amount = 1
+texture = ExtResource("1_ah4i5")
+lifetime = 0.2
+one_shot = true
+collision_base_size = 0.0
+visibility_rect = Rect2(-512, -512, 1024, 1024)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_hcs0j")

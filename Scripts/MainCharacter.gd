@@ -2,11 +2,12 @@ class_name MainCharacter extends CharacterBody2D
 
 
 @onready var weapon = $Weapon
-@onready var weapon_particle = $WeaponParticle
+@onready var weapon_particle = preload("res://Scenes/weapon_particle.tscn")
 @onready var sight_circle : Area2D = $SearchCircle
 @onready var sprite = $Sprite2D
 @onready var healthbar : ProgressBar = $Healthbar
 @onready var frustration_manager : FrustrationManager = $FrustrationManager
+@onready var audio_sword_fx : AudioStreamPlayer = $"../../SwordFx"
 
 @export_category("STATS")
 @export var max_health : float = 5
@@ -142,7 +143,7 @@ func wander() -> void:
 	var chosen_wander_target = false
 	wander_target_reached = false
 	
-	while (wandering):
+	while (GlobalVariables.game_running && wandering):
 		
 		# Check if we've waited long enough to pick a new wander target
 		if time_waited < chosen_wait_time:
@@ -178,6 +179,7 @@ func wander() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if !GlobalVariables.game_running: return
 	
 	if can_attack && !attacking && event.is_action_pressed("AdminAttackTool"):
 		attack()
@@ -186,9 +188,12 @@ func _unhandled_input(event: InputEvent) -> void:
 func attack() -> void:
 	attacking = true
 	set_weapon(true)
-	weapon_particle.set_deferred("position", weapon.position)
-	weapon_particle.set_deferred("rotation",weapon.rotation + deg_to_rad(-93) )
-	weapon_particle.set_deferred("emitting", true)
+	var particle = weapon_particle.instantiate()
+	add_child(particle)
+	particle.set_deferred("position", weapon.position)
+	particle.set_deferred("rotation",weapon.rotation + deg_to_rad(-93) )
+	particle.set_deferred("emitting", true)
+	audio_sword_fx.play()
 	await get_tree().create_timer(weapon_time).timeout
 	set_weapon(false)
 	attacking = false
@@ -211,7 +216,7 @@ func set_sight_circle(enable:bool) -> void:
 
 
 func _on_search_circle_body_entered(body: Node2D) -> void:
-	if !wandering: return
+	if !GlobalVariables.game_running || !wandering: return
 	print("[MainCharacter(",self,")] Search circle entered = ", body)
 	
 	# Make sure body is an NPC
@@ -244,6 +249,7 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 	# Interact with the NPC
 	if body != null:
 		set_chat_bubble(true)
+		_npc.start_interaction()
 		await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
 		if body != null:
 			if Helpers.compare_npcs(_npc.npconfig,quest_window.active_quest.target):
@@ -266,9 +272,14 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 @onready var previous_speed : float = 0
 
 func set_chat_bubble(enable:bool) -> void:
+	if enable == $ChatBubble.visible:
+		print("[MainCharacter] Set Chat Bubble > already the right speed, ignoring.")
+		return
 	if enable:
 		previous_speed = speed
+		print("[MainCharacter] Set Chat Bubble > Enabling and setting speed to 0, previous speed = ", speed)
 		speed = 0
 	else:
 		speed = previous_speed
+		print("[MainCharacter] Set Chat Bubble > Disabling and setting speed back to ", speed)
 	$ChatBubble.visible = enable

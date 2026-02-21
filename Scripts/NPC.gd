@@ -5,6 +5,8 @@ var npc_sprite : NPCSprite
 #var npc_label : RichTextLabel
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
 
+var audio_npc_fx : AudioStreamPlayer = null
+
 @export_category("CONTROLS")
 
 @export var randomise_on_start : bool = false
@@ -24,9 +26,10 @@ var npc_sprite : NPCSprite
 	) 
 
 
-func setup() -> void:
+func setup(_npconfig:NPConfig) -> void:
 	
-	npconfig = NPConfig.rand() if randomise_on_start else NPConfig.blank()
+	#npconfig = NPConfig.rand() if randomise_on_start else NPConfig.blank()
+	npconfig = _npconfig
 	
 	#npc_label = $Label
 	#npc_label.text = npconfig.label_name
@@ -62,10 +65,13 @@ func corrupt() -> void:
 	
 
 
+func start_interaction() -> void:	
+	audio_npc_fx.play()
 
-func complete_interaction() -> void:
+func complete_interaction() -> void:	
+	audio_npc_fx.play()
 	
-	(get_tree().get_first_node_in_group("QuestWindow") as QuestWindow).finish_quest()
+	(get_tree().get_first_node_in_group("QuestWindow") as QuestWindow).finish_quest()	
 	
 	if randf() <= chance_to_disappear:
 		queue_free()

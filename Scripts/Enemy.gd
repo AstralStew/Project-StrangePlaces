@@ -6,6 +6,7 @@ class_name Enemy extends CharacterBody2D
 @onready var shadow : Sprite2D = $Sprite2D/Shadow
 @onready var body_collider : CollisionShape2D = $BodyCollider
 
+
 @export var _debugging : bool = false
 
 @export_category("REFERENCES")
@@ -46,7 +47,7 @@ class_name Enemy extends CharacterBody2D
 @export var dying : bool = false
 @export var near_character : bool = false
 @export var dir : Vector2 = Vector2.ZERO
-@export var health : float = 1
+@onready var health : float = max_health
 
 @onready var initial_sprite_pos : Vector2 = sprite.position
 @onready var initial_sprite_color : Color = sprite.self_modulate
@@ -65,6 +66,9 @@ class_name Enemy extends CharacterBody2D
 signal on_awake
 signal on_reached_character
 signal on_took_damage
+
+
+var audio_enemy_fx : AudioStreamPlayer = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -145,6 +149,7 @@ func wake_up() -> void:
 	if _debugging: print("[Enemy(",self,")] I am awake")
 	awake = true
 	moving = true
+	audio_enemy_fx.play()
 	on_awake.emit()
 
 
@@ -173,6 +178,7 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if _debugging: print("[Enemy(",self,")] Area entered = ", area)
 	
 	if area.name.contains("Weapon"):
+		audio_enemy_fx.play()
 		hit_by_weapon()
 	
 

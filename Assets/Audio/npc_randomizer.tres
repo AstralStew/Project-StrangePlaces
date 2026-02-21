@@ -1,0 +1,10 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://qsfdm6gcx8v"]
+
+[ext_resource type="AudioStream" uid="uid://dnncu1iqfy7ve" path="res://Assets/Audio/hey_aggressive_mujtaba.wav" id="1_me8c7"]
+[ext_resource type="AudioStream" uid="uid://cg4eujc8dexfb" path="res://Assets/Audio/huh.wav" id="2_3ll8q"]
+
+[resource]
+random_pitch = 1.122462
+streams_count = 2
+stream_0/stream = ExtResource("1_me8c7")
+stream_1/stream = ExtResource("2_3ll8q")

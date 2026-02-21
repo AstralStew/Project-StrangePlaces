@@ -1,0 +1,12 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://dqaslewrw81kb"]
+
+[ext_resource type="AudioStream" uid="uid://c3x4lwtdrgu0r" path="res://Assets/Audio/swing2.wav" id="1_hibcm"]
+[ext_resource type="AudioStream" uid="uid://b36hgwfaisixn" path="res://Assets/Audio/swing3.wav" id="2_5jrin"]
+[ext_resource type="AudioStream" uid="uid://b0hpdwt62jqt" path="res://Assets/Audio/swing.wav" id="3_opvq2"]
+
+[resource]
+random_pitch = 1.122462
+streams_count = 3
+stream_0/stream = ExtResource("1_hibcm")
+stream_1/stream = ExtResource("2_5jrin")
+stream_2/stream = ExtResource("3_opvq2")

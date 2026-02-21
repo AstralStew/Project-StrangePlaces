@@ -7,6 +7,9 @@ class_name MobManager extends Node
 @onready var slime_scene = preload("res://Scenes/slime.tscn")
 @onready var NPC_scene = preload("res://Scenes/NPC.tscn")
 
+@onready var audio_slime_fx : AudioStreamPlayer = $"../SlimeFx"
+@onready var audio_npc_fx : AudioStreamPlayer = $"../NpcFx"
+
 @export_category("CONTROLS")
 
 @export var number_of_start_slimes : int = 20
@@ -71,15 +74,23 @@ func _unhandled_input(event: InputEvent) -> void:
 			new_slime.add_to_group("Slimes")
 			new_slime.global_position = $"..".get_local_mouse_position()
 			print("[MobManager] Spawned slime '",new_slime.name,"' via mouse at ",new_slime.global_position)
-		spawned_slime.emit()
+		if GlobalVariables.corruption_active: spawned_slime.emit()
 	
 	elif spawn_NPC_on_click && event.is_action_pressed("AdminNPCTool"):
-		var new_NPC : NPC = spawn_NPC()
+		
+		var _npconfig : NPConfig = NPConfig.new(
+			admin_window.selected_npc_firstname if admin_window.selected_npc_firstname != "" else Helpers.rand_npc_firstname(),
+			admin_window.selected_npc_lastname if admin_window.selected_npc_lastname != "" else Helpers.rand_npc_lastname(),
+			admin_window.selected_npc_colour if admin_window.selected_npc_colour != Helpers.NPCColours.NONE else Helpers.rand_npc_colour(),
+			admin_window.selected_npc_type if admin_window.selected_npc_type != Helpers.NPCTypes.NONE else Helpers.rand_npc_type()
+		)
+		
+		var new_NPC : NPC = spawn_NPC(_npconfig)
 		if new_NPC != null:
 			new_NPC.add_to_group("NPCs")
 			new_NPC.global_position = $"..".get_local_mouse_position()
 			print("[MobManager] Spawned NPC '",new_NPC.name,"' via mouse at ",new_NPC.global_position)
-		spawned_NPC.emit()
+		if GlobalVariables.corruption_active: spawned_NPC.emit()
 
 #
 func passive_tick() -> void:
@@ -106,6 +117,7 @@ func spawn_slime() -> Slime:
 	
 	instance.timer = enemy_timer
 	instance.main_character = main_character
+	instance.audio_enemy_fx = audio_slime_fx
 	instance.setup()
 	add_child(instance)
 	
@@ -115,12 +127,13 @@ func spawn_slime() -> Slime:
 	return instance
 
 
-func spawn_NPC() -> NPC:
+func spawn_NPC(_npconfig:NPConfig = NPConfig.rand()) -> NPC:
 	var instance = NPC_scene.instantiate() as NPC
 	if instance == null:
 		return null
 	
-	instance.setup()
+	instance.audio_npc_fx = audio_npc_fx
+	instance.setup(_npconfig)
 	add_child(instance)
 	
 	instance.name = "NPC_" + instance.npconfig.readable_name
