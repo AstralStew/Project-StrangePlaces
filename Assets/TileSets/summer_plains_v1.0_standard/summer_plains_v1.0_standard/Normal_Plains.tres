@@ -1,7 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://by5o3ria43pbf"]
 
 [ext_resource type="Texture2D" uid="uid://dabcn7w4prxgt" path="res://Assets/TileSets/summer_plains_v1.0_standard/summer_plains_v1.0_standard/tiles.png" id="1_pmriq"]
-[ext_resource type="PackedScene" uid="uid://bjvs68pkij8eu" path="res://Scenes/vfx.tscn" id="2_ksybc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lp5id"]
 texture = ExtResource("1_pmriq")
@@ -549,9 +548,5 @@ texture = ExtResource("1_pmriq")
 22:23/0 = 0
 23:23/0 = 0
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_yc3p4"]
-scenes/1/scene = ExtResource("2_ksybc")
-
 [resource]
 sources/0 = SubResource("TileSetAtlasSource_lp5id")
-sources/1 = SubResource("TileSetScenesCollectionSource_yc3p4")
