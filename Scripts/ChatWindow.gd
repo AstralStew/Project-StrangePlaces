@@ -2,12 +2,30 @@ class_name ChatWindow extends VirtualWindow
 
 
 @onready var chat_log : RichTextLabel = $VBoxContainer/ChatWindow/MarginContainer/ChatLog
+@onready var players_label : RichTextLabel = $VBoxContainer/PlayersLabel
+
 
 @export_category("CONTROLS")
 
+@export var starting_player_count : int = 419
 @export var random_msg_frequency : Vector2 = Vector2(1,4)
 
+@export_category("REDUCTIONS")
+
+@export var adjust_speed : float = 0.15
+@export var random_fluctuations_amount : Vector2i = Vector2i(1,3)
+@export var random_fluctuations_frequency : Vector2i = Vector2i(5,10)
+@export var reduce_from_unnecessary_damage : Vector2i = Vector2i(3,7)
+@export var reduce_from_cant_find_npc : Vector2i = Vector2i(8,12)
+@export var reduce_from_enemies_missing : Vector2i = Vector2i(13,17)
+@export var reduce_from_see_spawn_in : Vector2i = Vector2i(3,7)
+
 @export_category("READ ONLY")
+
+@onready var player_count : float = starting_player_count
+
+var amount_to_adjust : float = 0
+var new_col : Color = Color.RED
 
 @export var user_colours : Dictionary = {
 	"MainCharacter":Color.GREEN
@@ -33,6 +51,7 @@ func _ready() -> void:
 	add_server_message("Please send any bugs to [i]placesonlinebugs@mailcoded.net[/i]!")
 	
 	random_msgs()
+	player_count_fluctuations()
 
 
 func add_message (username:String, msg_text:String, random:bool = false):
@@ -50,6 +69,87 @@ func add_message (username:String, msg_text:String, random:bool = false):
 
 func add_server_message(msg_text:String):
 	chat_log.append_text("[color=white][b]Server[/b]: " + msg_text + "\n")
+
+
+func adjust_player_count(amount:int):
+	print("[ChatWindow] Adjusting player count (", floori(player_count),") by ",amount)
+	amount_to_adjust += amount
+
+func reduce_player_count(amount:int):
+	print("[ChatWindow] Reducing player count (", floori(player_count),") by ",amount)
+	amount_to_adjust -= amount
+
+
+
+func player_count_fluctuations():
+	var fluctuation : int = 0
+	var neg : bool = false
+	while (true):
+		await get_tree().create_timer(randi_range(random_fluctuations_frequency.x,random_fluctuations_frequency.y)).timeout
+		
+		neg = randf() > 0.5
+		fluctuation = randi_range(random_fluctuations_amount.x,random_fluctuations_amount.y)
+		print("[ChatWindow] Random fluctuation: +",fluctuation)
+		adjust_player_count(fluctuation * (-1 if neg else 1))
+		
+		await get_tree().create_timer(randi_range(random_fluctuations_frequency.x,random_fluctuations_frequency.y)).timeout
+		
+		print("[ChatWindow] Reducing previous random fluctuation: -",fluctuation)
+		reduce_player_count(fluctuation * (-1 if neg else 1))
+
+
+
+
+
+func no_more_players():
+	print("[ChatWindow] NO MORE PLAYERS > YOU LOSE THE GAME YA DUNCE")
+	Engine.time_scale = 0.0
+
+func _physics_process(delta: float) -> void:
+	if amount_to_adjust != 0:
+		
+		amount_to_adjust = move_toward(amount_to_adjust,0,adjust_speed)
+		
+		if amount_to_adjust < 0:
+			player_count = max(move_toward(player_count,player_count-adjust_speed,adjust_speed),0)
+		else:
+			player_count = max(move_toward(player_count,player_count+adjust_speed,adjust_speed),0)
+		
+		if floori(player_count) == 0:
+			no_more_players()
+		
+		update_count_gfx()
+
+
+func update_count_gfx():
+	#print("[ChatWindow] Clamped player count = ", str(clamp(player_count/starting_player_count,0,starting_player_count)),", Color = ",Color.GREEN.lerp(Color.RED,clamp(player_count/starting_player_count,0,starting_player_count)))
+	new_col = Color.RED.lerp(Color.GREEN,clamp(player_count/starting_player_count,0,starting_player_count))
+	players_label.text = "[color=" + new_col.to_html() + "]Players online: [b]" + str(ceili(player_count)) + "[/b]"
+
+
+
+
+func took_unnecessary_damage() -> void:
+	var amount = randi_range(reduce_from_unnecessary_damage.x,reduce_from_unnecessary_damage.y)
+	print("[ChatWindow] MainCharacter told chat they took unnecessary damage! Reducing player count by ",amount)
+	reduce_player_count(amount)
+	
+func cant_find_npc() -> void:
+	var amount = randi_range(reduce_from_cant_find_npc.x,reduce_from_cant_find_npc.y)
+	print("[ChatWindow] MainCharacter told chat they can't find NPC! Reducing player count by ",amount)
+	reduce_player_count(amount)
+	
+func enemies_missing() -> void:
+	var amount = randi_range(reduce_from_enemies_missing.x,reduce_from_enemies_missing.y)
+	print("[ChatWindow] MainCharacter told chat there are no enemies! Reducing player count by ",amount)
+	reduce_player_count(amount)
+	
+func see_spawn_in() -> void:
+	var amount = randi_range(reduce_from_see_spawn_in.x,reduce_from_see_spawn_in.y) 
+	print("[ChatWindow] MainCharacter told chat they saw something spawn in! Reducing player count by ",amount)
+	reduce_player_count(amount)
+
+
 
 
 

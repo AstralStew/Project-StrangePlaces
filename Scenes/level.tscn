@@ -2,14 +2,17 @@
 
 [ext_resource type="Script" uid="uid://cbvwq5gqfdipg" path="res://Scripts/AdminWindow.gd" id="1_0f350"]
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="1_8c0lf"]
+[ext_resource type="SpriteFrames" uid="uid://c2iltkheeo4ec" path="res://Assets/SpriteFrames/BSOD.tres" id="1_53r2q"]
 [ext_resource type="Script" uid="uid://2vupr66p2pq2" path="res://Scripts/ChatWindow.gd" id="1_ha31o"]
 [ext_resource type="Script" uid="uid://dik7dj3oq3mn5" path="res://Scripts/MainCharacter.gd" id="2_0f350"]
 [ext_resource type="FontVariation" uid="uid://bd10vgmu4lyxc" path="res://Assets/Fonts/NotoSerif - Normal.tres" id="3_c7le1"]
 [ext_resource type="FontVariation" uid="uid://n5dju8eycpl7" path="res://Assets/Fonts/NotoSerif - Bold.tres" id="4_2klc5"]
+[ext_resource type="FontFile" uid="uid://ct8m2j1ii34b1" path="res://Assets/Fonts/MedievalSharp-Regular.ttf" id="4_6y3s5"]
 [ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="4_bvt00"]
 [ext_resource type="FontFile" uid="uid://dnb45ygx1gmmr" path="res://Assets/Fonts/NotoSerif-Italic-VariableFont_wdth,wght.ttf" id="4_c7le1"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="4_wqkje"]
 [ext_resource type="Script" uid="uid://cxx4eqmxkp6rd" path="res://Scripts/MobManager.gd" id="5_0f350"]
+[ext_resource type="FontVariation" uid="uid://br5rbduvhh5kw" path="res://Assets/Fonts/MedievalSharp - Bold.tres" id="5_u0did"]
 [ext_resource type="Script" uid="uid://r6d5lfr8t5me" path="res://Scripts/VirtualWindow.gd" id="6_3a44l"]
 [ext_resource type="Theme" uid="uid://crvl6pfk0nc20" path="res://Assets/Theme/system_theme.tres" id="6_oqgf2"]
 [ext_resource type="Script" uid="uid://dps57thgvvve3" path="res://Scripts/FrustrationManager.gd" id="9_pa6b8"]
@@ -22,7 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="13_00k4y"]
 [ext_resource type="Script" uid="uid://uvho0c56f1ui" path="res://Scripts/CharacterSprite.gd" id="13_2klc5"]
 [ext_resource type="Texture2D" uid="uid://dabbhgpfc36cd" path="res://Assets/Sprites/Camera.png" id="20_pnhnk"]
-[ext_resource type="SpriteFrames" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
+[ext_resource type="SpriteFrames" uid="uid://b38x5ra632bdj" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
+[ext_resource type="Texture2D" uid="uid://gxml34seapn2" path="res://Assets/particles/slash_01_a.png" id="23_u0did"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqkje"]
 bg_color = Color(0.68108356, 0.8222354, 1, 1)
@@ -32,6 +36,29 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cgv8"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hcs0j"]
+bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t205d"]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_color = Color(0.88235295, 0.7647059, 0, 1)
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_detail = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvt00"]
 bg_color = Color(0.15, 0.04765001, 0.016500004, 0.63529414)
 border_width_left = 1
@@ -39,6 +66,10 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.88235295, 0.7647059, 0, 1)
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+corner_detail = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0cmrb"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -146,6 +177,42 @@ border_color = Color(0.90588236, 0.90588236, 0.90588236, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nngtn"]
 size = Vector2(24, 24)
 
+[sub_resource type="Curve" id="Curve_53r2q"]
+_data = [Vector2(0, 0.0028227568), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_luodc"]
+curve = SubResource("Curve_53r2q")
+
+[sub_resource type="Curve" id="Curve_u0did"]
+_limits = [0.74944025, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 0.74944025), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.74944025), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_53r2q"]
+curve = SubResource("Curve_u0did")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hcs0j"]
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(0, 0, 0)
+angle_min = 1.0728835e-05
+angle_max = 1.0728835e-05
+direction = Vector3(0, 0, 0)
+angular_velocity_min = -90.000015
+angular_velocity_max = -90.000015
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -2.2351742e-06
+linear_accel_max = -2.2351742e-06
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.099999994
+scale_max = 0.099999994
+scale_curve = SubResource("CurveTexture_53r2q")
+alpha_curve = SubResource("CurveTexture_luodc")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ga1kr"]
 size = Vector2(11.462999, 16.910767)
 
@@ -185,6 +252,13 @@ metadata/_edit_vertical_guides_ = [0.0, 640.0, 1152.0]
 metadata/_edit_horizontal_guides_ = [360.0, 0.0, 657.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
+
+[node name="BSOD" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1561082258]
+visible = false
+z_index = 1
+position = Vector2(323, 179)
+scale = Vector2(1.0873092, 0.9472442)
+sprite_frames = ExtResource("1_53r2q")
 
 [node name="TitleBar2" type="Panel" parent="CanvasLayer" unique_id=622135326]
 custom_minimum_size = Vector2(220, 20)
@@ -240,14 +314,50 @@ offset_right = 247.0
 offset_bottom = -8.0
 grow_vertical = 0
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1cgv8")
 script = ExtResource("1_ha31o")
-min_pos = Vector2(0, 232)
-max_pos = Vector2(640, 232)
+random_fluctuations_frequency = Vector2i(2, 8)
+min_pos = Vector2(0, 218)
+max_pos = Vector2(640, 218)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ChatWindow" unique_id=399651967]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 0
+
+[node name="PlayersLabel" type="RichTextLabel" parent="CanvasLayer/ChatWindow/VBoxContainer" unique_id=251256722]
+clip_contents = false
+custom_minimum_size = Vector2(84, 14)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/normal_font = ExtResource("4_6y3s5")
+theme_override_fonts/bold_font = ExtResource("5_u0did")
+theme_override_font_sizes/normal_font_size = 8
+theme_override_font_sizes/bold_font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_hcs0j")
+bbcode_enabled = true
+text = "[color=green]Players online: [b]420[/b]"
+fit_content = true
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ChatWindow/VBoxContainer" unique_id=446678251]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 104
+
+[node name="TabBar" type="TabBar" parent="CanvasLayer/ChatWindow/VBoxContainer/HBoxContainer" unique_id=923833804]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_8c0lf")
+theme_override_fonts/font = ExtResource("4_2klc5")
+theme_override_font_sizes/font_size = 7
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_t205d")
+current_tab = 0
+tab_count = 1
+tab_0/title = "General"
 
 [node name="ChatWindow" type="Panel" parent="CanvasLayer/ChatWindow/VBoxContainer" unique_id=1844206785]
 custom_minimum_size = Vector2(247.055, 120)
@@ -548,6 +658,7 @@ spawn_slime_spread_chance = 0.1
 spawn_slime_spread_amount = Vector2i(1, 1)
 spawn_NPC_spread_chance = 0.2
 spawn_NPC_spread_amount = Vector2i(1, 3)
+max_pos = Vector2(640, 360)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ServerWindow" unique_id=1797434869]
 layout_mode = 2
@@ -693,12 +804,13 @@ autowrap_mode = 2
 clip_text = true
 
 [node name="QuestWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1469930672 groups=["QuestWindow"]]
-offset_left = 419.0
-offset_top = 188.0
-offset_right = 639.0
-offset_bottom = 337.0
+offset_left = 249.0
+offset_top = -10.0
+offset_right = 469.0
+offset_bottom = 139.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("11_0cmrb")
+max_pos = Vector2(640, 360)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/QuestWindow" unique_id=667713648]
 layout_mode = 2
@@ -1195,19 +1307,19 @@ script = ExtResource("5_0f350")
 [node name="EnemyAwakeTimer" type="Timer" parent="MobManager" unique_id=929365997]
 autostart = true
 
-[node name="MainCharacter" type="CharacterBody2D" parent="MobManager" unique_id=1131605401 groups=["Player"]]
+[node name="MainCharacter" type="CharacterBody2D" parent="MobManager" unique_id=1131605401 groups=["MainCharacter"]]
 z_as_relative = false
 position = Vector2(610, 322)
 motion_mode = 1
 script = ExtResource("2_0f350")
 max_health = 100.0
-speed = 50.0
+speed = 40.0
 travel_end_distance = 40.0
 wander_range = Vector2(60, 120)
 wander_wait_time = Vector2(0.25, 3)
 npc_end_distance = 30.0
 weapon_time = 0.4
-weapon_distance = 22.0
+weapon_distance = 20.0
 
 [node name="FrustrationManager" type="Node2D" parent="MobManager/MainCharacter" unique_id=1649549904]
 position = Vector2(0, -16)
@@ -1248,7 +1360,6 @@ scale = Vector2(0.3, 0.3)
 texture = ExtResource("4_wqkje")
 
 [node name="Weapon" type="Area2D" parent="MobManager/MainCharacter" unique_id=60578948]
-visible = false
 position = Vector2(0, -16)
 collision_layer = 4
 
@@ -1257,17 +1368,29 @@ shape = SubResource("RectangleShape2D_nngtn")
 debug_color = Color(0.9529412, 0.22352941, 0, 0)
 
 [node name="ColorRect" type="ColorRect" parent="MobManager/MainCharacter/Weapon" unique_id=956954025]
+visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -12.0
-offset_top = -12.0
-offset_right = 12.0
-offset_bottom = 12.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="WeaponParticle" type="GPUParticles2D" parent="MobManager/MainCharacter" unique_id=1763626909]
+emitting = false
+amount = 1
+texture = ExtResource("23_u0did")
+lifetime = 0.2
+one_shot = true
+collision_base_size = 0.0
+visibility_rect = Rect2(-512, -512, 1024, 1024)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_hcs0j")
 
 [node name="HurtBox" type="Area2D" parent="MobManager/MainCharacter" unique_id=237269211]
 position = Vector2(-1.7999878, -15.799988)

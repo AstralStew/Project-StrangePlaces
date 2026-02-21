@@ -1,7 +1,7 @@
 class_name Helpers
 
 enum NPCColours {BLUE, RED, GREEN, PURPLE, NONE = -1}
-enum NPCTypes {WIZARD, THIEF, MERCHANT, FIGHTER,NONE = -1}
+enum NPCTypes {WIZARD, BLACKSMITH, MERCHANT, ALCHEMIST, NONE = -1}
 enum NPCFirstNames {Glorbund, Timmon, Slawgeld, Flipp, Bugothy, Wimble, Jamsen}
 enum NPCLastNames {Nilyx, Wumbucket, Glablewart, Bisqois, Krit, Shonx, Rectus}
 
@@ -54,6 +54,74 @@ static func rand_npc_colour() -> NPCColours:
 
 static func rand_npc_type() -> NPCTypes:
 	return (randi() % (NPCTypes.size() - 1))  as NPCTypes
+
+
+
+static func get_npc_texture(npconfig : NPConfig) -> Texture2D:
+	if npconfig.npc_colour == NPCColours.BLUE:
+		if npconfig.npc_type == NPCTypes.ALCHEMIST:
+			return blue_alchemist_texture
+		elif npconfig.npc_type == NPCTypes.BLACKSMITH:
+			return blue_blacksmith_texture
+		elif npconfig.npc_type == NPCTypes.MERCHANT:
+			return blue_merchant_texture
+		elif npconfig.npc_type == NPCTypes.WIZARD:
+			return blue_wizard_texture
+		else: return null
+	elif npconfig.npc_colour == NPCColours.GREEN:
+		if npconfig.npc_type == NPCTypes.ALCHEMIST:
+			return green_alchemist_texture
+		elif npconfig.npc_type == NPCTypes.BLACKSMITH:
+			return green_blacksmith_texture
+		elif npconfig.npc_type == NPCTypes.MERCHANT:
+			return green_merchant_texture
+		elif npconfig.npc_type == NPCTypes.WIZARD:
+			return green_wizard_texture
+		else: return null
+	elif npconfig.npc_colour == NPCColours.PURPLE:
+		if npconfig.npc_type == NPCTypes.ALCHEMIST:
+			return purple_alchemist_texture
+		elif npconfig.npc_type == NPCTypes.BLACKSMITH:
+			return purple_blacksmith_texture
+		elif npconfig.npc_type == NPCTypes.MERCHANT:
+			return purple_merchant_texture
+		elif npconfig.npc_type == NPCTypes.WIZARD:
+			return purple_wizard_texture
+		else: return null
+	elif npconfig.npc_colour == NPCColours.RED:
+		if npconfig.npc_type == NPCTypes.ALCHEMIST:
+			return red_alchemist_texture
+		elif npconfig.npc_type == NPCTypes.BLACKSMITH:
+			return red_blacksmith_texture
+		elif npconfig.npc_type == NPCTypes.MERCHANT:
+			return red_merchant_texture
+		elif npconfig.npc_type == NPCTypes.WIZARD:
+			return red_wizard_texture
+		else: return null
+	else: return null
+
+
+static var blue_alchemist_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Alchemist/Alchemist_Blue.png")
+static var green_alchemist_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Alchemist/Alchemist_Green.png")
+static var purple_alchemist_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Alchemist/Alchemist_Purple.png")
+static var red_alchemist_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Alchemist/Alchemist_Red.png")
+
+static var blue_blacksmith_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Blacksmith/Blacksmith_Blue.png")
+static var green_blacksmith_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Blacksmith/Blacksmith_Green.png")
+static var purple_blacksmith_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Blacksmith/Blacksmith_Purple.png")
+static var red_blacksmith_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Blacksmith/Blacksmith_Red.png")
+
+static var blue_merchant_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Merchant/Merchant_Blue.png")
+static var green_merchant_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Merchant/Merchant_Green.png")
+static var purple_merchant_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Merchant/Merchant_Purple.png")
+static var red_merchant_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Merchant/Merchant_Red.png")
+
+static var blue_wizard_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Wizard/Wizard_Blue.png")
+static var green_wizard_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Wizard/Wizard_Green.png")
+static var purple_wizard_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Wizard/Wizard_Purple.png")
+static var red_wizard_texture : Texture2D = preload("res://Assets/Sprites/NPC's/Wizard/Wizard_Red.png")
+
+
 
 
 

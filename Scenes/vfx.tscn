@@ -1,21 +1,13 @@
-[gd_scene format=3 uid="uid://bjvs68pkij8eu"]
+[gd_scene format=3 uid="uid://qi8e6x67abxl"]
 
 [ext_resource type="Shader" uid="uid://cteelw76fy07p" path="res://Assets/Shaders/glitch_shader.gdshader" id="1_0m6cb"]
+[ext_resource type="Material" uid="uid://bguptvvukmmx0" path="res://Assets/Shaders/glitch_sprite_material.tres" id="1_15ar5"]
 [ext_resource type="Shader" uid="uid://q538gamy2y87" path="res://Assets/Shaders/GlitchTear.gdshader" id="2_awyjc"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="2_yq3f5"]
 [ext_resource type="Texture2D" uid="uid://bf0wmy33qm03b" path="res://Assets/particles/color_sparkle.png" id="3_41mwc"]
 [ext_resource type="Texture2D" uid="uid://djrvqukuu1s2k" path="res://Assets/Sprites/whitedot16_2.png" id="4_cxx1u"]
 [ext_resource type="Texture2D" uid="uid://gxml34seapn2" path="res://Assets/particles/slash_01_a.png" id="4_o6fqi"]
 [ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="5_41mwc"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cxx1u"]
-shader = ExtResource("2_awyjc")
-shader_parameter/albedo_texture = ExtResource("2_yq3f5")
-shader_parameter/uv_scale = 1.0
-shader_parameter/chromatic_abberation = 0.050000002375
-shader_parameter/noise_size = 0.01
-shader_parameter/noise_speed = 5.0
-shader_parameter/noise_amount = 0.1
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o6fqi"]
 particle_flag_disable_z = true
@@ -35,7 +27,7 @@ inherit_velocity_ratio = 0.1
 direction = Vector3(0, 0, 0)
 spread = 0.0
 angular_velocity_min = -107.000015
-angular_velocity_max = 199.37997
+angular_velocity_max = 117.69998
 orbit_velocity_min = 9.49949e-08
 orbit_velocity_max = 9.49949e-08
 radial_velocity_min = -2.2351742e-05
@@ -47,6 +39,8 @@ radial_accel_min = -2.2351742e-06
 radial_accel_max = -2.2351742e-06
 tangential_accel_min = -2.2351742e-06
 tangential_accel_max = -2.2351742e-06
+scale_min = 0.099999994
+scale_max = 0.099999994
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_awyjc"]
 shader = ExtResource("1_0m6cb")
@@ -87,7 +81,7 @@ animations = [{
 [node name="Node2D" type="Node2D" unique_id=204959591]
 
 [node name="MainCharacter" type="Sprite2D" parent="." unique_id=914164010]
-material = SubResource("ShaderMaterial_cxx1u")
+material = ExtResource("1_15ar5")
 position = Vector2(161, 290)
 texture = ExtResource("2_yq3f5")
 
@@ -103,7 +97,7 @@ process_material = SubResource("ParticleProcessMaterial_o6fqi")
 [node name="GPUParticles2D" type="GPUParticles2D" parent="MainCharacter" unique_id=275313078]
 amount = 1
 texture = ExtResource("4_o6fqi")
-lifetime = 0.09999999999999999
+lifetime = 0.1
 speed_scale = 0.5
 process_material = SubResource("ParticleProcessMaterial_15ar5")
 

@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bguptvvukmmx0"]
+
+[ext_resource type="Shader" uid="uid://q538gamy2y87" path="res://Assets/Shaders/GlitchTear.gdshader" id="1_qltjh"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_qltjh")
+shader_parameter/uv_scale = 1.0
+shader_parameter/chromatic_abberation = 0.0
+shader_parameter/noise_size = 0.10000000149012
+shader_parameter/noise_speed = 0.2
+shader_parameter/noise_amount = 0.0

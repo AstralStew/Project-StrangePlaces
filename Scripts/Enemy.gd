@@ -2,7 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var sprite : EnemySprite = $Sprite2D
 @onready var shadow : Sprite2D = $Sprite2D/Shadow
 @onready var body_collider : CollisionShape2D = $BodyCollider
 
@@ -51,6 +51,9 @@ class_name Enemy extends CharacterBody2D
 @onready var initial_sprite_pos : Vector2 = sprite.position
 @onready var initial_sprite_color : Color = sprite.self_modulate
 @onready var initial_shadow_color : Color = shadow.self_modulate
+
+
+@export var corrupted : bool = false
 
 
 @export var destroy_enemy_on_click : bool = false :
@@ -150,13 +153,19 @@ func reached_character() -> void:
 
 
 
-## NOT WORKING FOR SOME REASON
-#func _on_hurtbox_body_entered(body: Node2D) -> void:
-	#if _debugging: print("[Enemy(",self,")] Body entered = ", body)
-	#
-	#if body == (main_character as Node2D):
-		#reset()
-		#main_character.lose_health(damage)
+
+func corrupt() -> void:
+	if !corrupted:
+		print("[Enemy(",self,")] Corrupt called for the first time!")
+		corrupted = true
+		sprite.corrupted = true
+		name = name + " [corrupt]"
+		return
+	
+	print("[Enemy(",self,")] Corrupt called again")
+	
+	# Turn into a monster
+
 
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:

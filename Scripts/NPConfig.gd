@@ -24,6 +24,9 @@ static func rand() -> NPConfig:
 	get: return full_name + " [" + str_colour + " " + str_type + "]"
 
 
+@export var label_name : String = "":
+	get: return full_name + "\n[b]<" + str_colour + " " + str_type + ">"
+
 @export var full_name : String = "" :
 	get: return (first_name + " " + last_name)
 
