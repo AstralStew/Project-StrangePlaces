@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://dfdyagmfiqt7b"]
 
+[ext_resource type="Script" uid="uid://b6jkoo6vxkvcn" path="res://change_world_map.gd" id="1_7b4d5"]
 [ext_resource type="TileSet" uid="uid://by5o3ria43pbf" path="res://Assets/TileSets/summer_plains_v1.0_standard/summer_plains_v1.0_standard/Normal_Plains.tres" id="1_idl5h"]
 [ext_resource type="Texture2D" uid="uid://bnoko0jtjd37m" path="res://Assets/Sprites/MainCharacter.png" id="2_idl5h"]
 [ext_resource type="Texture2D" uid="uid://dglsj1hk7y67b" path="res://Assets/Sprites/QuestNPC1.png" id="3_hxymy"]
@@ -8,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dia5471vlbs0n" path="res://Assets/TileSets/summer_plains_v1.0_standard/summer_plains_v1.0_standard/AssetsAtlas.tres" id="6_hxymy"]
 
 [node name="WorldMap" type="Node2D" unique_id=578214612]
+script = ExtResource("1_7b4d5")
 
 [node name="Plains" type="TileMapLayer" parent="." unique_id=1628404870]
 position = Vector2(224, 52)
@@ -23,11 +25,13 @@ tile_map_data = PackedByteArray("AAADAAUAAAAAAAYAAAADAAYAAAAAAAcAAAADAAcAAAAAAAg
 tile_set = ExtResource("1_idl5h")
 
 [node name="MainCharacter" type="Sprite2D" parent="." unique_id=1044439285]
+visible = false
 position = Vector2(379, 215)
 scale = Vector2(0.26953122, 0.26953122)
 texture = ExtResource("2_idl5h")
 
 [node name="QuestNpc1" type="Sprite2D" parent="." unique_id=1520195479]
+visible = false
 position = Vector2(340, 232)
 scale = Vector2(0.2539062, 0.2539062)
 texture = ExtResource("3_hxymy")
@@ -43,12 +47,14 @@ scale = Vector2(0.24218765, 0.24218765)
 texture = ExtResource("5_ivuc1")
 
 [node name="tree" type="Sprite2D" parent="." unique_id=864418639]
+visible = false
 position = Vector2(1013, 135)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(17, 329, 97, 140)
 
 [node name="tree2" type="Sprite2D" parent="." unique_id=427366246]
+visible = false
 position = Vector2(842, 76)
 texture = ExtResource("6_hxymy")
 flip_h = true
@@ -56,6 +62,7 @@ region_enabled = true
 region_rect = Rect2(17, 329, 97, 140)
 
 [node name="tree3" type="Sprite2D" parent="." unique_id=1458597570]
+visible = false
 position = Vector2(1273, 125)
 texture = ExtResource("6_hxymy")
 flip_h = true
@@ -63,312 +70,364 @@ region_enabled = true
 region_rect = Rect2(17, 329, 97, 140)
 
 [node name="tree4" type="Sprite2D" parent="." unique_id=27901]
+visible = false
 position = Vector2(663, 216)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(17, 329, 97, 140)
 
 [node name="tent" type="Sprite2D" parent="." unique_id=2094366685]
+visible = false
 position = Vector2(771, 169)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(303, 775, 88, 63)
 
 [node name="fire" type="Sprite2D" parent="." unique_id=1543564963]
+visible = false
 position = Vector2(839, 209)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(320, 713, 52, 41)
 
 [node name="desert rock" type="Sprite2D" parent="." unique_id=409712460]
+visible = false
 position = Vector2(1213, 287)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
 
 [node name="desert rock2" type="Sprite2D" parent="." unique_id=13519060]
+visible = false
 position = Vector2(744, 721)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
 
 [node name="desert rock3" type="Sprite2D" parent="." unique_id=1019077110]
+visible = false
 position = Vector2(1096, 533)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
 
 [node name="desert rock4" type="Sprite2D" parent="." unique_id=2071744033]
+visible = false
 position = Vector2(1241, 440)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
 
 [node name="bush" type="Sprite2D" parent="." unique_id=213152589]
+visible = false
 position = Vector2(272, 402)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(185, 617, 46, 46)
 
 [node name="bush2" type="Sprite2D" parent="." unique_id=1041268459]
+visible = false
 position = Vector2(359, 70)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(185, 617, 46, 46)
 
 [node name="bush3" type="Sprite2D" parent="." unique_id=1671772194]
+visible = false
 position = Vector2(393, 554)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(185, 617, 46, 46)
 
 [node name="bush4" type="Sprite2D" parent="." unique_id=1221600348]
+visible = false
 position = Vector2(154, 540)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(185, 617, 46, 46)
 
 [node name="bush5" type="Sprite2D" parent="." unique_id=379290598]
+visible = false
 position = Vector2(639, 393)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(185, 617, 46, 46)
 
 [node name="sign" type="Sprite2D" parent="." unique_id=1717531794]
+visible = false
 position = Vector2(480, 421)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(16, 682, 39, 52)
 
 [node name="log" type="Sprite2D" parent="." unique_id=819859325]
+visible = false
 position = Vector2(697, 72)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(144, 263, 63, 41)
 
 [node name="log2" type="Sprite2D" parent="." unique_id=432069792]
+visible = false
 position = Vector2(615, 729)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(144, 263, 63, 41)
 
 [node name="waterRock" type="Sprite2D" parent="." unique_id=822412119]
+visible = false
 position = Vector2(109, 658)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(252, 652, 36, 32)
 
 [node name="waterRock2" type="Sprite2D" parent="." unique_id=2052315942]
+visible = false
 position = Vector2(313, 773)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(252, 652, 36, 32)
 
 [node name="pier" type="Sprite2D" parent="." unique_id=326905352]
+visible = false
 position = Vector2(209, 664)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(19, 759, 67, 93)
 
 [node name="stones" type="Sprite2D" parent="." unique_id=144291399]
+visible = false
 position = Vector2(284, 341)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(345, 570, 18, 11)
 
 [node name="stones6" type="Sprite2D" parent="." unique_id=286146906]
+visible = false
 position = Vector2(346, 394)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(345, 570, 18, 11)
 
 [node name="stones7" type="Sprite2D" parent="." unique_id=269210509]
+visible = false
 position = Vector2(100, 166)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(345, 570, 18, 11)
 
 [node name="stones2" type="Sprite2D" parent="." unique_id=142510092]
+visible = false
 position = Vector2(160, 182)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(345, 570, 18, 11)
 
 [node name="stones3" type="Sprite2D" parent="." unique_id=474705939]
+visible = false
 position = Vector2(27, 35)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(345, 570, 18, 11)
 
 [node name="stones4" type="Sprite2D" parent="." unique_id=749704676]
+visible = false
 position = Vector2(128, 52)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(345, 570, 18, 11)
 
 [node name="stones5" type="Sprite2D" parent="." unique_id=101962389]
+visible = false
 position = Vector2(33, 196)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(345, 570, 18, 11)
 
 [node name="flower" type="Sprite2D" parent="." unique_id=1040838836]
+visible = false
 position = Vector2(1000, 54)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower2" type="Sprite2D" parent="." unique_id=424350027]
+visible = false
 position = Vector2(1017, 21)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower3" type="Sprite2D" parent="." unique_id=1314411101]
+visible = false
 position = Vector2(1060, 58)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower4" type="Sprite2D" parent="." unique_id=243794080]
+visible = false
 position = Vector2(1108, 45)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower5" type="Sprite2D" parent="." unique_id=887498497]
+visible = false
 position = Vector2(988, 227)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower6" type="Sprite2D" parent="." unique_id=1641469357]
+visible = false
 position = Vector2(935, 66)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower7" type="Sprite2D" parent="." unique_id=116916290]
+visible = false
 position = Vector2(1155, 31)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower8" type="Sprite2D" parent="." unique_id=1510681128]
+visible = false
 position = Vector2(939, 163)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower9" type="Sprite2D" parent="." unique_id=1743327239]
+visible = false
 position = Vector2(893, 120)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="flower10" type="Sprite2D" parent="." unique_id=1038117159]
+visible = false
 position = Vector2(925, 103)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(380, 580, 8, 5)
 
 [node name="plant" type="Sprite2D" parent="." unique_id=1915912534]
+visible = false
 position = Vector2(1098, 135)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="plant2" type="Sprite2D" parent="." unique_id=632407494]
+visible = false
 position = Vector2(1318, 38)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="plant3" type="Sprite2D" parent="." unique_id=1359098757]
+visible = false
 position = Vector2(1223, 25)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="plant4" type="Sprite2D" parent="." unique_id=111334229]
+visible = false
 position = Vector2(1211, 203)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="plant5" type="Sprite2D" parent="." unique_id=1442516868]
+visible = false
 position = Vector2(1068, 179)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="plant6" type="Sprite2D" parent="." unique_id=651680788]
+visible = false
 position = Vector2(1131, 103)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="plant7" type="Sprite2D" parent="." unique_id=2145508337]
+visible = false
 position = Vector2(1158, 142)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="mushroom" type="Sprite2D" parent="." unique_id=1310526744]
+visible = false
 position = Vector2(726, 388)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom2" type="Sprite2D" parent="." unique_id=1914556143]
+visible = false
 position = Vector2(901, 389)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom3" type="Sprite2D" parent="." unique_id=565729751]
+visible = false
 position = Vector2(788, 415)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom4" type="Sprite2D" parent="." unique_id=861149345]
+visible = false
 position = Vector2(779, 472)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom5" type="Sprite2D" parent="." unique_id=2129184317]
+visible = false
 position = Vector2(842, 447)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom6" type="Sprite2D" parent="." unique_id=2077747275]
+visible = false
 position = Vector2(390, 163)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom7" type="Sprite2D" parent="." unique_id=1156287184]
+visible = false
 position = Vector2(262, 92)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom8" type="Sprite2D" parent="." unique_id=1489155903]
+visible = false
 position = Vector2(301, 24)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom9" type="Sprite2D" parent="." unique_id=1286306028]
+visible = false
 position = Vector2(448, 248)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(445, 531, 15, 17)
 
 [node name="mushroom10" type="Sprite2D" parent="." unique_id=1910369197]
+visible = false
 position = Vector2(448, 73)
 texture = ExtResource("6_hxymy")
 region_enabled = true
