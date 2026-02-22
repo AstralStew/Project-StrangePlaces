@@ -233,6 +233,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="EmailWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1031785012 groups=["EmailWindow"]]
+visible = false
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -281,14 +282,14 @@ theme_override_font_sizes/font_size = 10
 text = "MailCoded - [Email Title]"
 vertical_alignment = 1
 
-[node name="QuestWindow" type="Panel" parent="CanvasLayer/EmailWindow/VBoxContainer" unique_id=1192918737]
+[node name="EmailWindow" type="Panel" parent="CanvasLayer/EmailWindow/VBoxContainer" unique_id=1192918737]
 custom_minimum_size = Vector2(300, 163.12)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_1b77t")
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow" unique_id=1521175494]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow" unique_id=1521175494]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -302,12 +303,12 @@ theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer" unique_id=1635962800]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer" unique_id=1635962800]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer" unique_id=2053712922]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer" unique_id=2053712922]
 layout_mode = 2
 size_flags_vertical = 6
 theme_override_constants/margin_left = 3
@@ -315,22 +316,22 @@ theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 3
 theme_override_constants/margin_bottom = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer" unique_id=324314199]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer" unique_id=324314199]
 layout_mode = 2
 theme = ExtResource("1_l85fw")
 theme_override_styles/panel = SubResource("StyleBoxFlat_k7nur")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer" unique_id=1298943549]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer" unique_id=1298943549]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="FromContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1994823635]
+[node name="FromContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1994823635]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="FromLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/FromContainer" unique_id=539276686]
+[node name="FromLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/FromContainer" unique_id=539276686]
 custom_minimum_size = Vector2(42.86, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -343,7 +344,7 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="From" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/FromContainer" unique_id=147621692]
+[node name="From" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/FromContainer" unique_id=147621692]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_l85fw")
@@ -355,13 +356,13 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="DateContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=355401000]
+[node name="DateContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=355401000]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="DateLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/DateContainer" unique_id=874463456]
+[node name="DateLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/DateContainer" unique_id=874463456]
 custom_minimum_size = Vector2(42.86, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -374,7 +375,7 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="Date" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/DateContainer" unique_id=54575656]
+[node name="Date" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/DateContainer" unique_id=54575656]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_l85fw")
@@ -386,13 +387,13 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="ToContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1597123119]
+[node name="ToContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1597123119]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="ToLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/ToContainer" unique_id=91274726]
+[node name="ToLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/ToContainer" unique_id=91274726]
 custom_minimum_size = Vector2(42.86, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -405,7 +406,7 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="To" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/ToContainer" unique_id=1204915078]
+[node name="To" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/ToContainer" unique_id=1204915078]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_l85fw")
@@ -417,13 +418,13 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="CCContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=770209906]
+[node name="CCContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=770209906]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="CCLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/CCContainer" unique_id=2049658710]
+[node name="CCLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/CCContainer" unique_id=2049658710]
 custom_minimum_size = Vector2(42.86, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -436,7 +437,7 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="CC" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/CCContainer" unique_id=1124245416]
+[node name="CC" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/CCContainer" unique_id=1124245416]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_l85fw")
@@ -447,13 +448,13 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="SubjectContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1007101781]
+[node name="SubjectContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1007101781]
 custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="SubjectLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/SubjectContainer" unique_id=1203941236]
+[node name="SubjectLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/SubjectContainer" unique_id=1203941236]
 custom_minimum_size = Vector2(42.86, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -466,7 +467,7 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="Subject" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/SubjectContainer" unique_id=1685686933]
+[node name="Subject" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/SubjectContainer" unique_id=1685686933]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_l85fw")
@@ -478,18 +479,18 @@ fit_content = true
 autowrap_mode = 2
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer" unique_id=510849697]
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer" unique_id=510849697]
 layout_mode = 2
 theme_override_constants/margin_left = -3
 theme_override_constants/margin_right = -2
 
-[node name="ContentPanel" type="Panel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer2" unique_id=2022213812]
+[node name="ContentPanel" type="Panel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer2" unique_id=2022213812]
 custom_minimum_size = Vector2(218.495, 80.83)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_qgbxy")
 
-[node name="Content" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer2/ContentPanel" unique_id=1127903042]
+[node name="Content" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer2/ContentPanel" unique_id=1127903042]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -500,10 +501,19 @@ theme = ExtResource("1_l85fw")
 theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/normal_font_size = 10
 theme_override_styles/normal = SubResource("StyleBoxEmpty_7g8xo")
-text = "Tom,
-Here is an example of some text and stuff"
-fit_content = true
-scroll_active = false
+text = "Heyo,
+
+I know your shifts have been going long but we got a problem.. Our scripting system just broke in this pos mmo. We’re trying to figure out what caused it, but we need you to keep the players from finding out.
+
+We only have a small amount of players, so we’ve got everyone babysitting the players atm. We need you to use the admin tools to spawn enemies and npc’s for the players. Also careful with the NPC spawns - everytime you spawn one it’ll randomize the data you set.
+
+Make sure the npcs match the quest the player is on and the player has finished travelling to the quest hub. You can spawn enemies at your discretion, make sure you keep the player engaged - though keep in mind, the autoattack is ALSO broken, so you will need to attack for the player. Yup. 
+
+Basically if the player you are watching complains about anything just spawn it for them. Make sure you do it outside the purple box or they’ll know something is up. These players are pretty vocal so just watch the chat. 
+
+Should take us about 3 mins to push the update, we’ll send messages to the chat as we get closer.
+
+TTYL - B.Parker"
 
 [node name="Credentials" type="PanelContainer" parent="CanvasLayer" unique_id=1482448617]
 visible = false
@@ -517,6 +527,7 @@ max_pos = Vector2(640, 360)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Credentials" unique_id=964335936]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="TitleBar" type="Panel" parent="CanvasLayer/Credentials/VBoxContainer" unique_id=509422951]
@@ -553,12 +564,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_2k4rv")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow" unique_id=451036785]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -75.0
-offset_bottom = 75.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 5

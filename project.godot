@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="Project StrangePlaces"
+config/name="Places Online"
 run/main_scene="uid://kqs24a2rmblj"
 config/features=PackedStringArray("4.6", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://cycdvep8xop0"
 
 [audio]
 

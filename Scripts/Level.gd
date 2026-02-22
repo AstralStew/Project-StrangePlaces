@@ -11,6 +11,7 @@ enum CurrentLevel {Level1, Level2, Level3, Level4}
 
 @onready var level_ui_canvas : CanvasLayer = get_child(0)
 
+signal level_finished(won)
 
 
 func start_level(_levelConfig:LevelConfig) -> void:
@@ -61,9 +62,16 @@ func start_level(_levelConfig:LevelConfig) -> void:
 	
 	await get_tree().process_frame
 	
+	chat_window.level_finished.connect(on_level_finished)
+	
 	chat_window.level_start()
 	mob_manager.level_start()
 	quest_window.level_start()
 	main_character.level_start()
 	level_ui_canvas.visible = true
 	#main_character.call_deferred("level_start")
+
+func on_level_finished(won:bool):
+	level_finished.emit(won)
+	level_ui_canvas.visible = false
+	

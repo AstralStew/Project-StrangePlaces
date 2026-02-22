@@ -32,6 +32,8 @@ class_name ChatWindow extends VirtualWindow
 var amount_to_adjust : float = 0
 var new_col : Color = Color.RED
 
+signal level_finished(won)
+
 @export var user_colours : Dictionary = {
 	"MainCharacter":Color.GREEN
 }
@@ -138,7 +140,8 @@ func server_restart() -> void:
 
 
 func level_over(win:bool):
-	Engine.time_scale = 0.0
+	level_finished.emit(win)
+	#Engine.time_scale = 0.0
 
 
 

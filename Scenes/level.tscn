@@ -1723,6 +1723,7 @@ text = "main_character.char"
 position = Vector2(160, 118)
 
 [node name="ColorRect" type="ColorRect" parent="Waypoints/Rolling Hills" unique_id=949524314]
+visible = false
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
@@ -1733,6 +1734,7 @@ color = Color(0, 1, 1, 1)
 position = Vector2(208, 595)
 
 [node name="ColorRect" type="ColorRect" parent="Waypoints/Port Bayside" unique_id=2127487343]
+visible = false
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
@@ -1743,6 +1745,7 @@ color = Color(0, 1, 1, 1)
 position = Vector2(781, 217)
 
 [node name="ColorRect" type="ColorRect" parent="Waypoints/Camp Sovereign" unique_id=110049422]
+visible = false
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
@@ -1753,6 +1756,7 @@ color = Color(0, 1, 1, 1)
 position = Vector2(1201, 115)
 
 [node name="ColorRect" type="ColorRect" parent="Waypoints/Ferngully Forest" unique_id=885828864]
+visible = false
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
@@ -1763,6 +1767,7 @@ color = Color(0, 1, 1, 1)
 position = Vector2(1222, 677)
 
 [node name="ColorRect" type="ColorRect" parent="Waypoints/The Badlands" unique_id=837681537]
+visible = false
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
@@ -1773,6 +1778,7 @@ color = Color(0, 1, 1, 1)
 position = Vector2(817, 636)
 
 [node name="ColorRect" type="ColorRect" parent="Waypoints/Buckle Quarry" unique_id=2032738575]
+visible = false
 offset_left = -6.0
 offset_top = -6.0
 offset_right = 6.0
