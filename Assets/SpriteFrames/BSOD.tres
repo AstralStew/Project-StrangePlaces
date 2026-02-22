@@ -12,8 +12,17 @@
 [resource]
 animations = [{
 "frames": [{
-"duration": 60.0,
+"duration": 80.0,
 "texture": ExtResource("1_y1blj")
+}, {
+"duration": 80.0,
+"texture": ExtResource("1_y1blj")
+}, {
+"duration": 80.0,
+"texture": ExtResource("1_y1blj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0bjke")
 }, {
 "duration": 1.0,
 "texture": ExtResource("2_0bjke")
@@ -22,7 +31,16 @@ animations = [{
 "texture": ExtResource("3_1sd4t")
 }, {
 "duration": 1.0,
+"texture": ExtResource("3_1sd4t")
+}, {
+"duration": 1.0,
 "texture": ExtResource("4_hmguc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hmguc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bcx0i")
 }, {
 "duration": 1.0,
 "texture": ExtResource("5_bcx0i")
@@ -32,6 +50,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_e0l37")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_it8tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_it8tw")
 }, {
 "duration": 1.0,
 "texture": ExtResource("8_it8tw")

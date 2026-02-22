@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://dabbhgpfc36cd" path="res://Assets/Sprites/Camera.png" id="20_pnhnk"]
 [ext_resource type="SpriteFrames" uid="uid://b38x5ra632bdj" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
 [ext_resource type="PackedScene" uid="uid://cj1upoq0lhb8b" path="res://Scenes/weapon_particle.tscn" id="27_hcs0j"]
+[ext_resource type="FontFile" uid="uid://d3pkp4rxwt6xn" path="res://Assets/Fonts/W95font.otf" id="30_fq0f7"]
 [ext_resource type="AudioStream" uid="uid://bfh7isptqj7f4" path="res://Assets/Audio/TownTheme.mp3" id="31_ais7f"]
 [ext_resource type="AudioStream" uid="uid://dqaslewrw81kb" path="res://Assets/Audio/sword_randomizer.tres" id="31_dw52x"]
 [ext_resource type="AudioStream" uid="uid://qsfdm6gcx8v" path="res://Assets/Audio/npc_randomizer.tres" id="31_t205d"]
@@ -276,8 +277,8 @@ border_color = Color(1, 0, 1, 0.7411765)
 
 [node name="Level" type="Node2D" unique_id=1454608919]
 script = ExtResource("1_re0q2")
-metadata/_edit_vertical_guides_ = [0.0, 640.0, 1400.0]
-metadata/_edit_horizontal_guides_ = [800.0, 0.0, 360.0]
+metadata/_edit_vertical_guides_ = [0.0, 640.0, 1408.0]
+metadata/_edit_horizontal_guides_ = [804.0, 0.0, 360.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
 
@@ -468,10 +469,10 @@ scroll_active = false
 horizontal_alignment = 1
 
 [node name="AdminWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1626817112 groups=["AdminWindow"]]
-offset_left = 202.0
-offset_top = 93.0
-offset_right = 382.0
-offset_bottom = 313.0
+offset_left = 22.0
+offset_top = 39.0
+offset_right = 202.0
+offset_bottom = 259.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("1_0f350")
 max_pos = Vector2(640, 360)
@@ -1025,10 +1026,10 @@ autowrap_mode = 2
 clip_text = true
 
 [node name="QuestWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1469930672 groups=["QuestWindow"]]
-offset_left = 332.0
-offset_top = 154.0
-offset_right = 566.0
-offset_bottom = 296.0
+offset_left = 399.0
+offset_top = 212.0
+offset_right = 633.0
+offset_bottom = 354.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("11_0cmrb")
 max_pos = Vector2(640, 360)
@@ -1526,13 +1527,14 @@ z_as_relative = false
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("5_0f350")
+minimum_distance_to_player = 150
 
 [node name="EnemyAwakeTimer" type="Timer" parent="MobManager" unique_id=929365997]
 autostart = true
 
 [node name="MainCharacter" type="CharacterBody2D" parent="MobManager" unique_id=1131605401 groups=["MainCharacter"]]
 z_as_relative = false
-position = Vector2(610, 322)
+position = Vector2(678, 396)
 motion_mode = 1
 script = ExtResource("2_0f350")
 max_health = 100.0
@@ -1635,8 +1637,8 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 [node name="Camera2D" type="Camera2D" parent="MobManager/MainCharacter" unique_id=772863441]
 limit_left = 0
 limit_top = 0
-limit_right = 1400
-limit_bottom = 800
+limit_right = 1408
+limit_bottom = 804
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
@@ -1687,11 +1689,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nngtn")
 [node name="Sprite2D" type="Sprite2D" parent="MobManager/MainCharacter/FakeCamera" unique_id=814752966]
 modulate = Color(1, 0, 1, 0.47058824)
 texture_filter = 1
-position = Vector2(218, 222.935)
-scale = Vector2(0.3, 0.3)
+position = Vector2(221.6, 226.535)
+scale = Vector2(0.24375, 0.24375)
 texture = ExtResource("20_pnhnk")
 
-[node name="Label" type="Label" parent="MobManager/MainCharacter/FakeCamera" unique_id=1247504249]
+[node name="Location" type="Label" parent="MobManager/MainCharacter/FakeCamera" unique_id=1247504249]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.9349976
@@ -1699,6 +1701,19 @@ offset_right = 86.0
 offset_bottom = 27.934998
 theme = ExtResource("6_oqgf2")
 theme_override_colors/font_color = Color(1, 0, 1, 0.7411765)
+theme_override_fonts/font = ExtResource("4_bvt00")
+text = "location:"
+
+[node name="main_character_char" type="Label" parent="MobManager/MainCharacter/FakeCamera" unique_id=1384463820]
+layout_mode = 0
+offset_left = 133.0
+offset_top = 222.935
+offset_right = 228.0
+offset_bottom = 245.935
+theme = ExtResource("6_oqgf2")
+theme_override_colors/font_color = Color(1, 0, 1, 0.7411765)
+theme_override_fonts/font = ExtResource("30_fq0f7")
+theme_override_font_sizes/font_size = 9
 text = "main_character.char"
 
 [node name="Waypoints" type="Node" parent="." unique_id=1562425428]

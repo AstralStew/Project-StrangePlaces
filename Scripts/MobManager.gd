@@ -1,7 +1,7 @@
 class_name MobManager extends Node
 
 @onready var enemy_timer = $EnemyAwakeTimer
-@onready var main_character = get_tree().get_first_node_in_group("MainCharacter")
+@onready var main_character : MainCharacter = get_tree().get_first_node_in_group("MainCharacter")
 @onready var server_window = get_tree().get_first_node_in_group("ServerWindow") as ServerWindow
 
 @onready var slime_scene = preload("res://Scenes/slime.tscn")
@@ -13,6 +13,7 @@ class_name MobManager extends Node
 @export_category("CONTROLS")
 
 @export var number_of_start_slimes : int = 20
+@export var minimum_distance_to_player : int = 20
 
 
 @export_category("CORRUPTION TICK")
@@ -59,7 +60,10 @@ func setup() -> void:
 	print("[MobManager] Spawning ",number_of_start_slimes," slimes.")
 	for i in number_of_start_slimes:
 		var new_slime : Slime = spawn_slime()
-		new_slime.global_position = Vector2( randf_range(0,1152),randf_range(0,656) )
+		var start_pos : Vector2 = main_character.global_position
+		while start_pos.distance_to(main_character.global_position) < minimum_distance_to_player:
+			start_pos = Vector2(randf_range(0,1408),randf_range(0,656))
+		new_slime.global_position = start_pos
 		new_slime.name += " (startup)"
 		print("[MobManager] Spawned slime '",new_slime.name,"' during startup at ",new_slime.global_position)
 		await get_tree().process_frame
@@ -109,7 +113,7 @@ func passive_tick() -> void:
 			var chosen_NPC : NPC = get_tree().get_nodes_in_group("NPCs")[randi() % get_tree().get_node_count_in_group("NPCs")]
 			chosen_NPC.corrupt()
 		
-		await get_tree().create_timer(tick_rate).timeout
+		await get_tree().create_timer(maxf(tick_rate,0.05)).timeout
 		
 
 
