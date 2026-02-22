@@ -2,7 +2,11 @@ extends Node
 
 @export var level : Level
 
+@export var game_logo : TextureRect
 @export var softwareBG : Panel
+
+@onready var email_window : EmailWindow = get_tree().get_first_node_in_group("EmailWindow")
+@onready var credentials : VirtualWindow = $CanvasLayer/Credentials
 
 @export_category("CONTROLS")
 
@@ -15,12 +19,27 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	start_level(current_level)
+	preamble()
 
-func start_level(_current_level : Level.CurrentLevel) -> void:
-		
+
+func preamble() -> void:
+	await get_tree().create_timer(3).timeout
+	email_window.activate_email(current_level,EmailWindow.Type.Start)
+	await get_tree().create_timer(5).timeout
+	
+	credentials.visible = true
+
+
+func start_level() -> void:
+	
+	email_window.deactivate()
+	credentials.visible = false
+	
+	await get_tree().create_timer(1).timeout
+	game_logo.visible = true
+	
 	var _levelConfig : LevelConfig
-	match(_current_level):
+	match(current_level):
 		Level.CurrentLevel.Level1:
 			_levelConfig = level_1_config
 			GlobalVariables.level = 1
@@ -36,7 +55,6 @@ func start_level(_current_level : Level.CurrentLevel) -> void:
 		Level.CurrentLevel.Level4:
 			_levelConfig = level_4_config
 			GlobalVariables.level = 4
-	
 	
 	
 	await get_tree().create_timer(3).timeout

@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cxsrss785mj1k" path="res://Scenes/level.tscn" id="4_4wpi8"]
 [ext_resource type="Resource" uid="uid://bpxnqndjpu1pg" path="res://Assets/LevelConfigs/Level3Config.tres" id="4_ttole"]
 [ext_resource type="Resource" uid="uid://h6xcirnq8xqb" path="res://Assets/LevelConfigs/Level4Config.tres" id="5_14y01"]
+[ext_resource type="Script" uid="uid://c8gowkkf0bqd2" path="res://Scripts/EmailWindow.gd" id="9_nuvmc"]
+[ext_resource type="Script" uid="uid://r6d5lfr8t5me" path="res://Scripts/VirtualWindow.gd" id="10_ttole"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhuno"]
 bg_color = Color(0.68108356, 0.8222354, 1, 1)
@@ -25,9 +27,104 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 
-[node name="Desktop" type="Node2D" unique_id=1789117223 node_paths=PackedStringArray("level", "softwareBG")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ttole"]
+corner_detail = 3
+shadow_color = Color(0, 0, 0, 0.7137255)
+shadow_size = 1
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_14y01"]
+bg_color = Color(0.68108356, 0.8222354, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1b77t"]
+bg_color = Color(0.79684955, 0.7968497, 0.7968497, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k7nur"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.79684955, 0.7968497, 0.7968497, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qgbxy"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.17334506, 0.17334509, 0.17334491, 1)
+border_blend = true
+shadow_size = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7g8xo"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g8xo"]
+corner_detail = 3
+shadow_color = Color(0, 0, 0, 0.7137255)
+shadow_size = 1
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah65n"]
+bg_color = Color(0.68108356, 0.8222354, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2k4rv"]
+bg_color = Color(0.79684955, 0.7968497, 0.7968497, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ijvko"]
+content_margin_left = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mm4rj"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijvko"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(1, 1, 1, 1)
+shadow_size = 1
+
+[node name="Desktop" type="Node2D" unique_id=1789117223 node_paths=PackedStringArray("level", "game_logo", "softwareBG")]
 script = ExtResource("1_jw4lk")
 level = NodePath("Level")
+game_logo = NodePath("CanvasLayer/SoftwareBG/GameLogo")
 softwareBG = NodePath("CanvasLayer/SoftwareBG")
 level_1_config = ExtResource("2_jhuno")
 level_2_config = ExtResource("3_nuvmc")
@@ -95,7 +192,8 @@ mouse_filter = 2
 theme = ExtResource("1_l85fw")
 theme_override_styles/panel = SubResource("StyleBoxFlat_cpyot")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/SoftwareBG" unique_id=1843208375]
+[node name="GameLogo" type="TextureRect" parent="CanvasLayer/SoftwareBG" unique_id=1843208375]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -108,10 +206,464 @@ offset_right = 175.5
 offset_bottom = 64.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_jw4lk")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/SoftwareBG/GameLogo" unique_id=952096565]
+custom_minimum_size = Vector2(239.98, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -119.990005
+offset_top = -18.5
+offset_right = 119.98999
+offset_bottom = 21.5
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 1, 0, 1)
+text = "Logging in as Server Admin {credentials:4a6c2a9b0}"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EmailWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1031785012 groups=["EmailWindow"]]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -159.99997
+offset_right = 150.0
+offset_bottom = 23.00003
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(150, 183)
+theme_override_styles/panel = SubResource("StyleBoxFlat_ttole")
+script = ExtResource("9_nuvmc")
+move_speed = 3.5
+scale_speed = 0.049
+max_pos = Vector2(640, 360)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EmailWindow" unique_id=374215356]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TitleBar" type="Panel" parent="CanvasLayer/EmailWindow/VBoxContainer" unique_id=1277438927]
+custom_minimum_size = Vector2(300, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_14y01")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/TitleBar" unique_id=781936140]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 0
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/EmailWindow/VBoxContainer/TitleBar/MarginContainer" unique_id=1896766368]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_pneox")
+theme_override_font_sizes/font_size = 10
+text = "MailCoded - [Email Title]"
+vertical_alignment = 1
+
+[node name="QuestWindow" type="Panel" parent="CanvasLayer/EmailWindow/VBoxContainer" unique_id=1192918737]
+custom_minimum_size = Vector2(300, 163.12)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1b77t")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow" unique_id=1521175494]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -5.0
+offset_bottom = 0.0900116
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer" unique_id=1635962800]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer" unique_id=2053712922]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 11
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer" unique_id=324314199]
+layout_mode = 2
+theme = ExtResource("1_l85fw")
+theme_override_styles/panel = SubResource("StyleBoxFlat_k7nur")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer" unique_id=1298943549]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="FromContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1994823635]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="FromLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/FromContainer" unique_id=539276686]
+custom_minimum_size = Vector2(42.86, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "[b]From:[/b]"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="From" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/FromContainer" unique_id=147621692]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "Sender"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="DateContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=355401000]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="DateLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/DateContainer" unique_id=874463456]
+custom_minimum_size = Vector2(42.86, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "[b]Date:[/b]"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Date" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/DateContainer" unique_id=54575656]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "Date"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="ToContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1597123119]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="ToLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/ToContainer" unique_id=91274726]
+custom_minimum_size = Vector2(42.86, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "[b]To:[/b]"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="To" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/ToContainer" unique_id=1204915078]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "Recipient"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="CCContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=770209906]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="CCLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/CCContainer" unique_id=2049658710]
+custom_minimum_size = Vector2(42.86, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "[b]Cc:[/b]"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="CC" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/CCContainer" unique_id=1124245416]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="SubjectContainer" type="HBoxContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer" unique_id=1007101781]
+custom_minimum_size = Vector2(0, 12)
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="SubjectLabel" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/SubjectContainer" unique_id=1203941236]
+custom_minimum_size = Vector2(42.86, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/bold_font_size = 10
+bbcode_enabled = true
+text = "[b]Subject:[/b]"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Subject" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/SubjectContainer" unique_id=1685686933]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "Subject"
+fit_content = true
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer" unique_id=510849697]
+layout_mode = 2
+theme_override_constants/margin_left = -3
+theme_override_constants/margin_right = -2
+
+[node name="ContentPanel" type="Panel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer2" unique_id=2022213812]
+custom_minimum_size = Vector2(218.495, 80.83)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_qgbxy")
+
+[node name="Content" type="RichTextLabel" parent="CanvasLayer/EmailWindow/VBoxContainer/QuestWindow/MarginContainer/VBoxContainer/MarginContainer2/ContentPanel" unique_id=1127903042]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7g8xo")
+text = "Tom,
+Here is an example of some text and stuff"
+fit_content = true
+scroll_active = false
+
+[node name="Credentials" type="PanelContainer" parent="CanvasLayer" unique_id=1482448617]
+visible = false
+offset_left = 165.0
+offset_top = 131.0
+offset_right = 455.0
+offset_bottom = 241.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7g8xo")
+script = ExtResource("10_ttole")
+max_pos = Vector2(640, 360)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Credentials" unique_id=964335936]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TitleBar" type="Panel" parent="CanvasLayer/Credentials/VBoxContainer" unique_id=509422951]
+custom_minimum_size = Vector2(290, 20)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ah65n")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Credentials/VBoxContainer/TitleBar" unique_id=1223295147]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 0
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/Credentials/VBoxContainer/TitleBar/MarginContainer" unique_id=1783731808]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_pneox")
+theme_override_font_sizes/font_size = 10
+text = "Welcome to Places Online! {-backend}"
+vertical_alignment = 1
+
+[node name="ServerWindow" type="Panel" parent="CanvasLayer/Credentials/VBoxContainer" unique_id=1688343282]
+custom_minimum_size = Vector2(290, 90.07)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2k4rv")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow" unique_id=451036785]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer" unique_id=1237689745]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2" unique_id=767141170]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 6
+
+[node name="WarningLabel" type="RichTextLabel" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/VBoxContainer" unique_id=1578620598]
+custom_minimum_size = Vector2(206.36, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+bbcode_enabled = true
+text = "Type a user name and password to log on to server."
+fit_content = true
+autowrap_mode = 2
+
+[node name="UsernameContainer" type="HBoxContainer" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/VBoxContainer" unique_id=1613650472]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="UsernameLabel" type="Label" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/VBoxContainer/UsernameContainer" unique_id=433955795]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 0.57
+theme = ExtResource("1_l85fw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ijvko")
+text = "User name:"
+vertical_alignment = 1
+
+[node name="FirstField" type="LineEdit" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/VBoxContainer/UsernameContainer" unique_id=1990848470]
+custom_minimum_size = Vector2(123.01, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.7557872, 0.7557867, 0.7557867, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mm4rj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ijvko")
+text = "admin"
+max_length = 10
+caret_blink = true
+
+[node name="PasswordContainer2" type="HBoxContainer" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/VBoxContainer" unique_id=1808286164]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 7
+alignment = 1
+
+[node name="PasswordLabel" type="Label" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/VBoxContainer/PasswordContainer2" unique_id=1958974405]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_stretch_ratio = 0.57
+theme = ExtResource("1_l85fw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ijvko")
+text = "Password:"
+vertical_alignment = 1
+
+[node name="Password" type="LineEdit" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/VBoxContainer/PasswordContainer2" unique_id=752618095]
+custom_minimum_size = Vector2(123.01, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("1_l85fw")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.7557872, 0.7557867, 0.7557867, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_mm4rj")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ijvko")
+text = "password"
+max_length = 10
+caret_blink = true
+secret = true
+
+[node name="StartButton" type="Button" parent="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2" unique_id=1231546925]
+custom_minimum_size = Vector2(67.65, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.75
+theme = ExtResource("1_l85fw")
+text = "OK"
+autowrap_mode = 2
+clip_text = true
+
 [node name="Level" parent="." unique_id=1454608919 instance=ExtResource("4_4wpi8")]
 process_mode = 4
 visible = false
+
+[connection signal="gui_input" from="CanvasLayer/EmailWindow/VBoxContainer/TitleBar" to="CanvasLayer/EmailWindow" method="_on_gui_input"]
+[connection signal="gui_input" from="CanvasLayer/Credentials/VBoxContainer/TitleBar" to="CanvasLayer/Credentials" method="_on_gui_input"]
+[connection signal="pressed" from="CanvasLayer/Credentials/VBoxContainer/ServerWindow/MarginContainer/HBoxContainer2/StartButton" to="." method="start_level"]
