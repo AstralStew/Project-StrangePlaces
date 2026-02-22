@@ -28,6 +28,7 @@
 [ext_resource type="ButtonGroup" uid="uid://y8rfskre2mfk" path="res://Assets/Theme/npc_type_button_group.tres" id="14_t205d"]
 [ext_resource type="Texture2D" uid="uid://fyro5gv5sc0w" path="res://Assets/Sprites/logo.png" id="17_ais7f"]
 [ext_resource type="PackedScene" uid="uid://d0b5q4t35a5y1" path="res://Scenes/world_map.tscn" id="17_dw52x"]
+[ext_resource type="Script" uid="uid://b6jkoo6vxkvcn" path="res://change_world_map.gd" id="19_csjfj"]
 [ext_resource type="Texture2D" uid="uid://dabbhgpfc36cd" path="res://Assets/Sprites/Camera.png" id="20_pnhnk"]
 [ext_resource type="SpriteFrames" uid="uid://b38x5ra632bdj" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
 [ext_resource type="PackedScene" uid="uid://cj1upoq0lhb8b" path="res://Scenes/weapon_particle.tscn" id="27_hcs0j"]
@@ -1521,6 +1522,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="WorldMap" parent="." unique_id=578214612 instance=ExtResource("17_dw52x")]
+script = ExtResource("19_csjfj")
 
 [node name="MobManager" type="Node2D" parent="." unique_id=2041293210 groups=["MobManager"]]
 z_as_relative = false
@@ -1545,9 +1547,11 @@ npc_end_distance = 30.0
 weapon_time = 0.2
 weapon_distance = 20.0
 
-[node name="FrustrationManager" type="Node2D" parent="MobManager/MainCharacter" unique_id=1649549904]
+[node name="FrustrationManager" type="Node2D" parent="MobManager/MainCharacter" unique_id=1649549904 groups=["FrustrationManager"]]
 position = Vector2(0, -16)
 script = ExtResource("9_pa6b8")
+no_enemies_max_time = 15.0
+saw_enemy_add_to_time = 3.0
 
 [node name="ChatBubble" type="AnimatedSprite2D" parent="MobManager/MainCharacter" unique_id=1838774327]
 visible = false

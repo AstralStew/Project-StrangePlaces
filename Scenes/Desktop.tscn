@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c46bqis5ox28q" path="res://Scripts/Desktop.gd" id="1_jw4lk"]
 [ext_resource type="Theme" uid="uid://crvl6pfk0nc20" path="res://Assets/Theme/system_theme.tres" id="1_l85fw"]
+[ext_resource type="Resource" uid="uid://baavd7ec8htrd" path="res://Assets/LevelConfigs/Level1Config.tres" id="2_jhuno"]
 [ext_resource type="Texture2D" uid="uid://fyro5gv5sc0w" path="res://Assets/Sprites/logo.png" id="2_jw4lk"]
+[ext_resource type="Resource" uid="uid://dbmt7ld0dxgst" path="res://Assets/LevelConfigs/Level2Config.tres" id="3_nuvmc"]
 [ext_resource type="FontFile" uid="uid://dusa73sathccp" path="res://Assets/Fonts/W95font-Bold.otf" id="3_pneox"]
 [ext_resource type="PackedScene" uid="uid://cxsrss785mj1k" path="res://Scenes/level.tscn" id="4_4wpi8"]
+[ext_resource type="Resource" uid="uid://bpxnqndjpu1pg" path="res://Assets/LevelConfigs/Level3Config.tres" id="4_ttole"]
+[ext_resource type="Resource" uid="uid://h6xcirnq8xqb" path="res://Assets/LevelConfigs/Level4Config.tres" id="5_14y01"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhuno"]
 bg_color = Color(0.68108356, 0.8222354, 1, 1)
@@ -25,6 +29,10 @@ border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 script = ExtResource("1_jw4lk")
 level = NodePath("Level")
 softwareBG = NodePath("CanvasLayer/SoftwareBG")
+level_1_config = ExtResource("2_jhuno")
+level_2_config = ExtResource("3_nuvmc")
+level_3_config = ExtResource("4_ttole")
+level_4_config = ExtResource("5_14y01")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1075125072]
 

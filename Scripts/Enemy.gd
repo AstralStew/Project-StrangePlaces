@@ -2,6 +2,7 @@ class_name Enemy extends CharacterBody2D
 
 
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
+@onready var frustration_manager : FrustrationManager = get_tree().get_first_node_in_group("FrustrationManager")
 @onready var sprite : EnemySprite = $Sprite2D
 @onready var shadow : Sprite2D = $Sprite2D/Shadow
 @onready var body_collider : CollisionShape2D = $BodyCollider
@@ -89,6 +90,7 @@ func reset() -> void:
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if destroy_enemy_on_click && event.is_action_pressed("AdminEnemyTool"):
+		frustration_manager.saw_destroyed()
 		lose_health(health)
 
 

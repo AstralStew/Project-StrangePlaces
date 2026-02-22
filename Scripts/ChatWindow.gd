@@ -18,16 +18,16 @@ class_name ChatWindow extends VirtualWindow
 @export var adjust_speed : float = 0.15
 @export var random_fluctuations_amount : Vector2i = Vector2i(1,3)
 @export var random_fluctuations_frequency : Vector2i = Vector2i(5,10)
-@export var reduce_from_unnecessary_damage : Vector2i = Vector2i(3,7)
-@export var reduce_from_cant_find_npc : Vector2i = Vector2i(8,12)
-@export var reduce_from_enemies_missing : Vector2i = Vector2i(13,17)
-@export var reduce_from_see_spawn_in : Vector2i = Vector2i(3,7)
+@export var cost_of_no_auto_attack : Vector2i = Vector2i(3,7)
+@export var cost_of_cant_find_NPC : Vector2i = Vector2i(8,12)
+@export var cost_of_cant_find_enemies : Vector2i = Vector2i(13,17)
+@export var cost_of_see_spawn_in : Vector2i = Vector2i(3,7)
+@export var cost_of_see_destroy : Vector2i = Vector2i(3,7)
 
 @export_category("READ ONLY")
 
-@onready var mins_remaining : int = game_length_mins
-
-@onready var player_count : float = starting_player_count
+@export var mins_remaining : int = 0
+@export var player_count : float = 0
 
 var amount_to_adjust : float = 0
 var new_col : Color = Color.RED
@@ -52,6 +52,12 @@ var new_col : Color = Color.RED
 
 
 func level_start() -> void:
+	
+	mins_remaining = game_length_mins
+	player_count = starting_player_count
+	
+	update_count_gfx()
+	
 	add_server_message("Welcome to [b][i]Places Online[/i]™[/b]\n" +
 	"Thank you for joining us for our launch! :^)\n" +
 	"Please send any bugs to [i]placesonlinebugs@mailcoded.net[/i]!"
@@ -60,6 +66,7 @@ func level_start() -> void:
 	
 	random_msgs()
 	player_count_fluctuations()
+	
 
 func add_message (username:String, msg_text:String, random:bool = false):
 	
@@ -163,25 +170,29 @@ func update_count_gfx():
 
 
 func took_unnecessary_damage() -> void:
-	var amount = randi_range(reduce_from_unnecessary_damage.x,reduce_from_unnecessary_damage.y)
+	var amount = randi_range(cost_of_no_auto_attack.x,cost_of_no_auto_attack.y)
 	print("[ChatWindow] MainCharacter told chat they took unnecessary damage! Reducing player count by ",amount)
 	reduce_player_count(amount)
 	
 func cant_find_npc() -> void:
-	var amount = randi_range(reduce_from_cant_find_npc.x,reduce_from_cant_find_npc.y)
+	var amount = randi_range(cost_of_cant_find_NPC.x,cost_of_cant_find_NPC.y)
 	print("[ChatWindow] MainCharacter told chat they can't find NPC! Reducing player count by ",amount)
 	reduce_player_count(amount)
 	
 func enemies_missing() -> void:
-	var amount = randi_range(reduce_from_enemies_missing.x,reduce_from_enemies_missing.y)
+	var amount = randi_range(cost_of_cant_find_enemies.x,cost_of_cant_find_enemies.y)
 	print("[ChatWindow] MainCharacter told chat there are no enemies! Reducing player count by ",amount)
 	reduce_player_count(amount)
 	
 func see_spawn_in() -> void:
-	var amount = randi_range(reduce_from_see_spawn_in.x,reduce_from_see_spawn_in.y) 
+	var amount = randi_range(cost_of_see_spawn_in.x,cost_of_see_spawn_in.y) 
 	print("[ChatWindow] MainCharacter told chat they saw something spawn in! Reducing player count by ",amount)
 	reduce_player_count(amount)
 
+func see_destroy() -> void:
+	var amount = randi_range(cost_of_see_destroy.x,cost_of_see_destroy.y) 
+	print("[ChatWindow] MainCharacter told chat they saw something destroyed! Reducing player count by ",amount)
+	reduce_player_count(amount)
 
 
 
