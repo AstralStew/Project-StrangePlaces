@@ -23,7 +23,7 @@
 [ext_resource type="SpriteFrames" uid="uid://p2q533owys2g" path="res://Assets/SpriteFrames/Hero_Spriteframe.tres" id="12_nngtn"]
 [ext_resource type="PackedScene" uid="uid://crl06jibvlkr8" path="res://Scenes/NPC.tscn" id="12_pa6b8"]
 [ext_resource type="Texture2D" uid="uid://du1pt5lgeglws" path="res://Assets/Sprites/whitedot16.png" id="13_00k4y"]
-[ext_resource type="Script" uid="uid://uvho0c56f1ui" path="res://Scripts/CharacterSprite.gd" id="13_2klc5"]
+[ext_resource type="Script" path="res://Scripts/CharacterSprite.gd" id="13_2klc5"]
 [ext_resource type="ButtonGroup" uid="uid://dsyp6bemgst11" path="res://Assets/Theme/npc_colour_button_group.tres" id="13_hcs0j"]
 [ext_resource type="ButtonGroup" uid="uid://y8rfskre2mfk" path="res://Assets/Theme/npc_type_button_group.tres" id="14_t205d"]
 [ext_resource type="Texture2D" uid="uid://fyro5gv5sc0w" path="res://Assets/Sprites/logo.png" id="17_ais7f"]
@@ -280,7 +280,6 @@ metadata/_edit_vertical_guides_ = [0.0, 640.0, 1400.0]
 metadata/_edit_horizontal_guides_ = [800.0, 0.0, 360.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
-visible = false
 
 [node name="BSOD" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1561082258]
 visible = false

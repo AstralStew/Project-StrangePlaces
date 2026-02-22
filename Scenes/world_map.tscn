@@ -57,7 +57,37 @@ region_enabled = true
 region_rect = Rect2(303, 775, 88, 63)
 
 [node name="fire" type="Sprite2D" parent="Objects" unique_id=1543564963]
-position = Vector2(839, 209)
+position = Vector2(820, 219)
+texture = ExtResource("6_hxymy")
+region_enabled = true
+region_rect = Rect2(320, 713, 52, 41)
+
+[node name="fire2" type="Sprite2D" parent="Objects" unique_id=968554338]
+position = Vector2(219, 588)
+texture = ExtResource("6_hxymy")
+region_enabled = true
+region_rect = Rect2(320, 713, 52, 41)
+
+[node name="fire3" type="Sprite2D" parent="Objects" unique_id=1940884138]
+position = Vector2(834, 591)
+texture = ExtResource("6_hxymy")
+region_enabled = true
+region_rect = Rect2(320, 713, 52, 41)
+
+[node name="fire4" type="Sprite2D" parent="Objects" unique_id=1262691470]
+position = Vector2(1188, 116)
+texture = ExtResource("6_hxymy")
+region_enabled = true
+region_rect = Rect2(320, 713, 52, 41)
+
+[node name="fire5" type="Sprite2D" parent="Objects" unique_id=650831034]
+position = Vector2(162, 87)
+texture = ExtResource("6_hxymy")
+region_enabled = true
+region_rect = Rect2(320, 713, 52, 41)
+
+[node name="fire6" type="Sprite2D" parent="Objects" unique_id=1924076297]
+position = Vector2(1209, 690)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(320, 713, 52, 41)
@@ -87,7 +117,7 @@ region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
 
 [node name="desert rock5" type="Sprite2D" parent="Objects" unique_id=252628425]
-position = Vector2(792, 669)
+position = Vector2(645, 667)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
@@ -99,7 +129,7 @@ region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
 
 [node name="desert rock7" type="Sprite2D" parent="Objects" unique_id=904968976]
-position = Vector2(832, 587)
+position = Vector2(677, 601)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(251, 535, 36, 35)
@@ -315,7 +345,7 @@ region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
 
 [node name="plant7" type="Sprite2D" parent="Objects" unique_id=2145508337]
-position = Vector2(1184, 124)
+position = Vector2(1359, 194)
 texture = ExtResource("6_hxymy")
 region_enabled = true
 region_rect = Rect2(419, 409, 31, 27)
