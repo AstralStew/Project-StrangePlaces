@@ -100,7 +100,7 @@ func update_quest_list() -> void:
 	var _list_entry : Control = null
 	var _id_label : RichTextLabel = null
 	var _location_label : RichTextLabel = null
-	var _target_label : RichTextLabel = null
+	var _target_label : Label = null
 	var _target : NPConfig = null
 	
 	for i in tracked_quests.size():
@@ -113,8 +113,8 @@ func update_quest_list() -> void:
 		_id_label.text = tracked_quests[i].qid
 		_location_label.text = tracked_quests[i].waypoint
 		_target_label.text = (
-			((_target.first_name + " ") if _target.has_first_name else "") +
-			((_target.last_name + " ") if _target.has_first_name && _target.has_last_name else "") +
+			((_target.first_name) if _target.has_first_name else "") +
+			((" " + _target.last_name) if _target.has_first_name && _target.has_last_name else "") +
 			([" the ", ", "][randi() % 2] if (_target.has_colour || _target.has_type) && (_target.has_first_name || _target.has_last_name) else "") +
 			("any " if (_target.has_colour || _target.has_type) && (!_target.has_first_name && !_target.has_last_name) else "") +
 			(_target.str_colour + " " if _target.has_colour else "") +

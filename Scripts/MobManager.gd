@@ -74,7 +74,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			new_slime.add_to_group("Slimes")
 			new_slime.global_position = $"..".get_local_mouse_position()
 			print("[MobManager] Spawned slime '",new_slime.name,"' via mouse at ",new_slime.global_position)
-		if GlobalVariables.corruption_active: spawned_slime.emit()
+		spawned_slime.emit()
 	
 	elif spawn_NPC_on_click && event.is_action_pressed("AdminNPCTool"):
 		
@@ -90,7 +90,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			new_NPC.add_to_group("NPCs")
 			new_NPC.global_position = $"..".get_local_mouse_position()
 			print("[MobManager] Spawned NPC '",new_NPC.name,"' via mouse at ",new_NPC.global_position)
-		if GlobalVariables.corruption_active: spawned_NPC.emit()
+		
+		admin_window.reset_npc_tool()
+		
+		spawned_NPC.emit()
 
 #
 func passive_tick() -> void:

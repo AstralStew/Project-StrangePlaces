@@ -87,6 +87,23 @@ func reduce_player_count(amount:int):
 	print("[ChatWindow] Reducing player count (", floori(player_count),") by ",amount)
 	amount_to_adjust -= amount
 
+func player_count_fluctuations():
+	var fluctuation : int = 0
+	var neg : bool = false
+	while (GlobalVariables.game_running):
+		await get_tree().create_timer(randi_range(random_fluctuations_frequency.x,random_fluctuations_frequency.y)).timeout
+		
+		neg = randf() > 0.5
+		fluctuation = randi_range(random_fluctuations_amount.x,random_fluctuations_amount.y)
+		print("[ChatWindow] Random fluctuation: +",fluctuation)
+		adjust_player_count(fluctuation * (-1 if neg else 1))
+		
+		await get_tree().create_timer(randi_range(random_fluctuations_frequency.x,random_fluctuations_frequency.y)).timeout
+		
+		print("[ChatWindow] Reducing previous random fluctuation: -",fluctuation)
+		reduce_player_count(fluctuation * (-1 if neg else 1))
+
+
 
 
 func server_restart_timer() -> void:
@@ -107,32 +124,16 @@ func server_restart() -> void:
 		await get_tree().create_timer(1).timeout
 		add_server_message("[bgcolor=69696978][b]NOTE > server is restarting in 1...")
 		await get_tree().create_timer(1).timeout
-		
-
-
-func player_count_fluctuations():
-	var fluctuation : int = 0
-	var neg : bool = false
-	while (GlobalVariables.game_running):
-		await get_tree().create_timer(randi_range(random_fluctuations_frequency.x,random_fluctuations_frequency.y)).timeout
-		
-		neg = randf() > 0.5
-		fluctuation = randi_range(random_fluctuations_amount.x,random_fluctuations_amount.y)
-		print("[ChatWindow] Random fluctuation: +",fluctuation)
-		adjust_player_count(fluctuation * (-1 if neg else 1))
-		
-		await get_tree().create_timer(randi_range(random_fluctuations_frequency.x,random_fluctuations_frequency.y)).timeout
-		
-		print("[ChatWindow] Reducing previous random fluctuation: -",fluctuation)
-		reduce_player_count(fluctuation * (-1 if neg else 1))
+		print("[ChatWindow] SERVER RESTART > YOU WIN THE GAME YOU LEGEND")
+		level_over(true)
 
 
 
-
-
-func no_more_players():
-	print("[ChatWindow] NO MORE PLAYERS > YOU LOSE THE GAME YA DUNCE")
+func level_over(win:bool):
 	Engine.time_scale = 0.0
+
+
+
 
 func _physics_process(delta: float) -> void:
 	if !GlobalVariables.game_running: return
@@ -146,7 +147,8 @@ func _physics_process(delta: float) -> void:
 			player_count = max(move_toward(player_count,player_count+adjust_speed,adjust_speed),0)
 		
 		if floori(player_count) == 0:
-			no_more_players()
+			print("[ChatWindow] NO MORE PLAYERS > YOU LOSE THE GAME YA DUNCE")
+			level_over(false)
 		
 		update_count_gfx()
 

@@ -116,3 +116,9 @@ func change_npc_type(_type:Button) -> void:
 		"Merchant": selected_npc_type = Helpers.NPCTypes.MERCHANT
 		"Wizard": selected_npc_type = Helpers.NPCTypes.WIZARD
 		_: push_error("[AdminWindow] ERROR -> Bad button received for Change NPC Type! Ignoring :(")
+
+func reset_npc_tool() -> void:
+	selected_npc_firstname_field.text = ""
+	selected_npc_lastname_field.text = ""
+	selected_npc_colour_group.get_buttons()[randi() % selected_npc_colour_group.get_buttons().size()].button_pressed = true
+	selected_npc_type_group.get_buttons()[randi() % selected_npc_type_group.get_buttons().size()].button_pressed = true

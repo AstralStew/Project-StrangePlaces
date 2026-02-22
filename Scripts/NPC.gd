@@ -73,5 +73,5 @@ func complete_interaction() -> void:
 	
 	(get_tree().get_first_node_in_group("QuestWindow") as QuestWindow).finish_quest()	
 	
-	if randf() <= chance_to_disappear:
-		queue_free()
+	#if randf() <= chance_to_disappear:
+		#queue_free()

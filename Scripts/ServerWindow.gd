@@ -91,6 +91,7 @@ func tick_NPC() -> void:
 
 
 func spawn_slime() -> void:
+	if !GlobalVariables.corruption_active: return
 	print("[ServerWindow] Slime spawned, spread chance = ",spawn_slime_spread_chance," (+",bonus_spread_chance,")")
 	randf = randf()
 	if spawn_slime_spread_chance + bonus_spread_chance >= randf:
@@ -103,6 +104,7 @@ func spawn_slime() -> void:
 		
 
 func spawn_NPC() -> void:
+	if !GlobalVariables.corruption_active: return
 	print("[ServerWindow] NPC spawned, spread chance = ",spawn_NPC_spread_chance," (+",bonus_spread_chance,")")
 	randf = randf()
 	if spawn_NPC_spread_chance + bonus_spread_chance >= randf:
