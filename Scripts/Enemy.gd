@@ -90,7 +90,7 @@ func reset() -> void:
 
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if destroy_enemy_on_click && event.is_action_pressed("AdminEnemyTool"):
-		frustration_manager.saw_destroyed()
+		frustration_manager.check_destroy_position()
 		lose_health(health)
 
 

@@ -74,7 +74,7 @@ func _fake_camera_input(event: InputEvent) -> void:
 	if !GlobalVariables.game_running: return
 	
 	if event is InputEventMouseButton && event.button_index == 1:
-		print("[FrustrationManager] Clicked in fake camera! Waiting to see if something was spawned...")
+		print("[FrustrationManager] Clicked in fake camera! Waiting to see if something was spawned/destroyed...")
 		_clicked_in_fake_camera = true
 		set_deferred("_clicked_in_fake_camera", false)
 	

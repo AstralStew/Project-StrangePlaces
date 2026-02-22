@@ -7,6 +7,7 @@ enum CurrentLevel {Level1, Level2, Level3, Level4}
 @onready var mob_manager : MobManager = get_tree().get_first_node_in_group("MobManager")
 @onready var quest_window : QuestWindow = get_tree().get_first_node_in_group("QuestWindow")
 @onready var frustration_manager : FrustrationManager = get_tree().get_first_node_in_group("FrustrationManager")
+@onready var server_window : ServerWindow = get_tree().get_first_node_in_group("ServerWindow")
 
 @onready var level_ui_canvas : CanvasLayer = get_child(0)
 
@@ -76,6 +77,8 @@ func start_level(_levelConfig:LevelConfig) -> void:
 	frustration_manager.no_npc_msg_chance = _levelConfig.chance_to_msg_about_not_finding_NPC
 	
 	GlobalVariables.corruption_active = _levelConfig.corruption_active
+	server_window.visible = GlobalVariables.corruption_active
+	
 	
 	await get_tree().process_frame
 	

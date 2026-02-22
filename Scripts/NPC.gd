@@ -49,7 +49,7 @@ func setup(_npconfig:NPConfig) -> void:
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if destroy_enemy_on_click && event.is_action_pressed("AdminEnemyTool"):
-		frustration_manager.saw_destroyed()
+		frustration_manager.check_destroy_position()
 		queue_free()
 
 
