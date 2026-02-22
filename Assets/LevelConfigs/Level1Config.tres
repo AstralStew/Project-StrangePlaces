@@ -6,5 +6,4 @@
 script = ExtResource("1_wodmq")
 number_of_starting_players = 200
 mins_before_server_restart = 3
-corruption_active = true
 metadata/_custom_type_script = "uid://c3polglwy1dde"
