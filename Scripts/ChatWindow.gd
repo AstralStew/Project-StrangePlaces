@@ -49,7 +49,9 @@ var new_col : Color = Color.RED
 	"ch0wdeR",
 	]
 
-func _ready() -> void:
+
+
+func level_start() -> void:
 	add_server_message("Welcome to [b][i]Places Online[/i]™[/b]\n" +
 	"Thank you for joining us for our launch! :^)\n" +
 	"Please send any bugs to [i]placesonlinebugs@mailcoded.net[/i]!"
@@ -58,7 +60,6 @@ func _ready() -> void:
 	
 	random_msgs()
 	player_count_fluctuations()
-
 
 func add_message (username:String, msg_text:String, random:bool = false):
 	

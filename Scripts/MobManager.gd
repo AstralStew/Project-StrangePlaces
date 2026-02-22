@@ -44,8 +44,9 @@ signal spawned_NPC
 signal tick_slime
 signal tick_NPC
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+
+
+func level_start() -> void:
 	setup()
 
 func setup() -> void:
