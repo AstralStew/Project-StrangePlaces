@@ -4,4 +4,12 @@
 
 [resource]
 script = ExtResource("1_xkeom")
+number_of_starting_players = 150
+mins_before_server_restart = 3
+corruption_active = true
+cost_of_taking_damage = Vector2(10, 15)
+cost_of_spawning_in_frustrum = Vector2(9, 14)
+cost_of_destroying_in_frustrum = Vector2(9, 14)
+cost_of_no_engagement_from_lack_of_enemies = Vector2(20, 28)
+cost_of_not_finding_the_NPC = Vector2(15, 20)
 metadata/_custom_type_script = "uid://c3polglwy1dde"
