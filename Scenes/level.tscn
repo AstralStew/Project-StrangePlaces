@@ -1545,9 +1545,11 @@ npc_end_distance = 30.0
 weapon_time = 0.2
 weapon_distance = 20.0
 
-[node name="FrustrationManager" type="Node2D" parent="MobManager/MainCharacter" unique_id=1649549904]
+[node name="FrustrationManager" type="Node2D" parent="MobManager/MainCharacter" unique_id=1649549904 groups=["FrustrationManager"]]
 position = Vector2(0, -16)
 script = ExtResource("9_pa6b8")
+no_enemies_max_time = 15.0
+saw_enemy_add_to_time = 3.0
 
 [node name="ChatBubble" type="AnimatedSprite2D" parent="MobManager/MainCharacter" unique_id=1838774327]
 visible = false

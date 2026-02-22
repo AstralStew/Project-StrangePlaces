@@ -12,7 +12,9 @@ var frustration : float = 0
 @export var no_npc_msg_chance : float = 0.65
 @export var no_enemies_msg_chance : float = 1.0
 @export var saw_spawn_in_msg_chance : float = 1.0
-@export var no_enemies_time : float = 10.0
+@export var saw_destroyed_msg_chance : float = 1.0
+@export var no_enemies_max_time : float = 10.0
+@export var saw_enemy_add_to_time : float = 10.0
 
 @export_category("READ ONLY")
 @export var typing : bool = false :
@@ -28,6 +30,7 @@ signal on_took_unnecessary_damage
 signal on_cant_find_npc
 signal on_enemies_missing
 signal on_see_spawn_in
+signal on_see_destroyed
 
 
 
@@ -38,6 +41,7 @@ func _ready() -> void:
 	on_cant_find_npc.connect(chat_window.cant_find_npc)
 	on_enemies_missing.connect(chat_window.enemies_missing)
 	on_see_spawn_in.connect(chat_window.see_spawn_in)
+	on_see_destroyed.connect(chat_window.see_destroy)
 	
 	
 	mob_manager = get_tree().get_first_node_in_group("MobManager") as MobManager
@@ -57,7 +61,7 @@ func _process(delta: float) -> void:
 	
 	if !main_character.interacting:
 	
-		if no_enemies_elapsed_time >= no_enemies_time:
+		if no_enemies_elapsed_time >= no_enemies_max_time:
 			no_enemies_elapsed_time = 0
 			no_enemies()
 		else: no_enemies_elapsed_time += delta
@@ -70,13 +74,17 @@ func _fake_camera_input(event: InputEvent) -> void:
 	if !GlobalVariables.game_running: return
 	
 	if event is InputEventMouseButton && event.button_index == 1:
-		print("[FrustrationManager] Clicked in fake camera! Waiting to see if something was spawned...")
+		print("[FrustrationManager] Clicked in fake camera! Waiting to see if something was spawned/destroyed...")
 		_clicked_in_fake_camera = true
 		set_deferred("_clicked_in_fake_camera", false)
 	
 func check_spawn_position() -> void:
 	if _clicked_in_fake_camera:
 		saw_spawn_in()
+
+func check_destroy_position() -> void:
+	if _clicked_in_fake_camera:
+		saw_destroyed()
 
 func saw_spawn_in() -> void:
 	if typing:
@@ -102,6 +110,28 @@ func saw_spawn_in_message() -> String:
 		_:return "[color=red]Oops, you shouldn't see this! ;) - Sean[/color]"
 
 
+func saw_destroyed() -> void:
+	if typing:
+		print("[FrustrationManager(",main_character,")] Caught something destroyed but already typing, cancelling...")
+		return
+	
+	if randf() < saw_destroyed_msg_chance:
+		typing = true
+		await get_tree().create_timer(typing_time).timeout
+		print("[FrustrationManager(",main_character,")] Caught something destroyed + chose to msg...")
+		chat_window.add_message(get_parent().name,saw_destroyed_message())
+		typing = false
+		on_see_destroyed.emit()
+
+func saw_destroyed_message() -> String:
+	match randi() % 6:
+		0:return "wtf it just disappeared"
+		1:return "uhhh wtf happened to it?"
+		2:return "ergh disappeared of nowhere"
+		3:return "wow glitchy much"
+		4:return "... why did that just disappear??"
+		5:return "devs pls fix things things teleporting"
+		_:return "[color=red]Oops, you shouldn't see this! ;) - Sean[/color]"
 
 
 
@@ -133,7 +163,7 @@ func took_damage_message() -> String:
 
 
 func saw_enemy() -> void:
-	no_enemies_elapsed_time = 0
+	no_enemies_elapsed_time = clamp(no_enemies_elapsed_time - saw_enemy_add_to_time, 0, no_enemies_max_time)
 
 func no_enemies() -> void:
 	if typing:

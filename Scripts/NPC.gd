@@ -4,6 +4,7 @@ class_name NPC extends CharacterBody2D
 var npc_sprite : NPCSprite 
 #var npc_label : RichTextLabel
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
+@onready var frustration_manager : FrustrationManager = get_tree().get_first_node_in_group("FrustrationManager")
 
 var audio_npc_fx : AudioStreamPlayer = null
 
@@ -48,6 +49,7 @@ func setup(_npconfig:NPConfig) -> void:
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if destroy_enemy_on_click && event.is_action_pressed("AdminEnemyTool"):
+		frustration_manager.check_destroy_position()
 		queue_free()
 
 
