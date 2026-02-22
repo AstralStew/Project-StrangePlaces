@@ -13,44 +13,6 @@ enum CurrentLevel {Level1, Level2, Level3, Level4}
 
 
 
-
-#@export_category("General")
-#
-#@export var number_of_starting_players : int = 420
-#@export var mins_before_server_restart : int = 5
-#
-#
-#@export_category("Taking damage")
-#
-#@export var cost_of_taking_damage : Vector2 = Vector2(3,7)
-#@export var chance_to_msg_about_taking_damage : float = 0.65
-#
-#@export_category("Spawning in sight")
-#
-#@export var cost_of_spawning_in_frustrum : Vector2 = Vector2(3,7)
-#@export var chance_to_msg_about_seeing_spawn : float = 1.0
-#
-#
-#@export_category("Destroying in sight")
-#
-#@export var cost_of_destroying_in_frustrum : Vector2 = Vector2(3,7)
-#@export var chance_to_msg_about_destroying_in_frustrum : float = 1.0
-#
-#@export_category("Not feeling engaged")
-#
-#@export var engagement_time_added_when_seeing_new_enemy : float = 3
-#@export var engagement_time_maximum_when_seeing_new_enemies : float = 15
-#@export var cost_of_no_engagement_from_lack_of_enemies : Vector2 = Vector2(13,17)
-#@export var chance_to_msg_about_no_engagement : float = 1.0
-#
-#
-#@export_category("Not finding the NPC")
- #
-#@export var cost_of_not_finding_the_NPC : Vector2 = Vector2(8,12)
-#@export var chance_to_msg_about_not_finding_NPC : float = 0.65
-
-
-
 func start_level(_levelConfig:LevelConfig) -> void:
 	
 	print("levelconfig number of starting players = ",_levelConfig.number_of_starting_players)
@@ -78,6 +40,23 @@ func start_level(_levelConfig:LevelConfig) -> void:
 	
 	GlobalVariables.corruption_active = _levelConfig.corruption_active
 	server_window.visible = GlobalVariables.corruption_active
+	
+	
+	server_window.spawn_slime_spread_chance = _levelConfig.chance_to_spread_corruption_when_spawn_slime
+	server_window.spawn_slime_spread_amount = _levelConfig.amount_of_corruption_when_spawn_slime
+	server_window.spawn_NPC_spread_chance = _levelConfig.chance_to_spread_corruption_when_spawn_NPC
+	server_window.spawn_NPC_spread_amount = _levelConfig.amount_of_corruption_when_spawn_NPC
+
+	server_window.bonus_spread_increase =_levelConfig.cumulative_bonus_to_spread_chance_on_fail
+	server_window.bonus_spread_max =_levelConfig.max_bonus_to_spread_chance_on_fail
+
+	server_window.tick_slime_spread_amount =_levelConfig.bonus_corruption_when_a_slime_gets_corrupted
+	server_window.tick_NPC_spread_amount =_levelConfig.bonus_corruption_when_a_NPC_gets_corrupted
+
+	mob_manager.tick_rate = _levelConfig.tick_rate_to_check_whether_to_corrupt_mob
+	mob_manager.slime_tick_chance = _levelConfig.chance_to_corrupt_a_slime_on_tick
+	mob_manager.npc_tick_chance =_levelConfig.chance_to_corrupt_a_NPC_on_tick
+	
 	
 	
 	await get_tree().process_frame

@@ -30,8 +30,25 @@ var ignored_npcs : Array[NPConfig] = []
 
 func level_start() -> void:
 	
-	for i in (GlobalVariables.level):   #(1+(randi() % 1)
-		add_random_quest()
+	match (GlobalVariables.level):
+		1: add_random_quest()
+		2: 
+			add_random_quest()
+			add_random_quest()
+		3: 
+			add_random_quest()
+			add_random_quest()
+			add_random_quest()
+		4: 
+			add_random_quest()
+			add_random_quest()
+			add_random_quest()
+			add_random_quest()
+			add_random_quest()
+			add_random_quest()
+	
+	#for i in (GlobalVariables.level):   #(1+(randi() % 1)
+		#add_random_quest()
 	#update_quest_list()
 	
 	set_active_quest(random_tracked_quest())

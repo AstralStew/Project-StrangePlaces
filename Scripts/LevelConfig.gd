@@ -36,6 +36,30 @@ class_name LevelConfig extends Resource
 @export var cost_of_not_finding_the_NPC : Vector2 = Vector2(8,12)
 @export var chance_to_msg_about_not_finding_NPC : float = 0.65
 
+
+@export_category("Corruption Spread")
+@export var chance_to_spread_corruption_when_spawn_slime : float = 0.05
+@export var amount_of_corruption_when_spawn_slime : Vector2i = Vector2i(1,2)
+
+
+@export var chance_to_spread_corruption_when_spawn_NPC : float = 0.15
+@export var amount_of_corruption_when_spawn_NPC : Vector2i = Vector2i(2,4)
+
+@export var cumulative_bonus_to_spread_chance_on_fail : float = 0.06
+@export var max_bonus_to_spread_chance_on_fail : float = 0.36
+
+@export var  bonus_corruption_when_a_slime_gets_corrupted : Vector2i = Vector2i(1,1)
+@export var  bonus_corruption_when_a_NPC_gets_corrupted : Vector2i = Vector2i(1,2)
+
+
+@export_category("Corruption Effects")
+
+@export var  tick_rate_to_check_whether_to_corrupt_mob : float = 0.5
+@export var  chance_to_corrupt_a_slime_on_tick : float = 0.01
+@export var  chance_to_corrupt_a_NPC_on_tick : float = 0.02
+
+
+
 func _init() -> void:
 	number_of_starting_players = 420
 	mins_before_server_restart = 5
@@ -57,3 +81,18 @@ func _init() -> void:
 	chance_to_msg_about_not_finding_NPC = 0.65
 	
 	corruption_active = false
+	
+	chance_to_spread_corruption_when_spawn_slime = 0.05
+	amount_of_corruption_when_spawn_slime = Vector2i(1,2)
+	chance_to_spread_corruption_when_spawn_NPC = 0.15
+	amount_of_corruption_when_spawn_NPC = Vector2i(2,4)
+
+	cumulative_bonus_to_spread_chance_on_fail = 0.06
+	max_bonus_to_spread_chance_on_fail = 0.36
+
+	bonus_corruption_when_a_slime_gets_corrupted = Vector2i(1,1)
+	bonus_corruption_when_a_NPC_gets_corrupted = Vector2i(1,2)
+	
+	tick_rate_to_check_whether_to_corrupt_mob = 0.5
+	chance_to_corrupt_a_slime_on_tick = 0.01
+	chance_to_corrupt_a_NPC_on_tick = 0.02

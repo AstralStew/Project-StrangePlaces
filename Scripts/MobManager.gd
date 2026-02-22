@@ -109,7 +109,7 @@ func passive_tick() -> void:
 			var chosen_NPC : NPC = get_tree().get_nodes_in_group("NPCs")[randi() % get_tree().get_node_count_in_group("NPCs")]
 			chosen_NPC.corrupt()
 		
-		await get_tree().create_timer(tick_rate).timeout
+		await get_tree().create_timer(maxf(tick_rate,0.05)).timeout
 		
 
 

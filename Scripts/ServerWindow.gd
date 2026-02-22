@@ -16,8 +16,8 @@ class_name ServerWindow extends VirtualWindow
 @export var spawn_slime_spread_amount : Vector2i = Vector2(1,2)
 @export var spawn_NPC_spread_chance : float = 0.15
 @export var spawn_NPC_spread_amount : Vector2i  = Vector2(2,4)
-@export var tick_slime_spread_amount: int = 1
-@export var tick_NPC_spread_amount: int = 1
+@export var tick_slime_spread_amount: Vector2i  = Vector2(1,1)
+@export var tick_NPC_spread_amount: Vector2i  = Vector2(1,2)
 
 
 @export_category("READ ONLY")
@@ -59,7 +59,7 @@ func corrupt(amount:int) -> void:
 	var chosen_cube_index = -1
 	var chosen_cube : Panel = null
 	
-	if corruption + amount >= number_of_data_cubes:
+	if corruption + amount >= healthy_cubes.size():
 		game_over()
 	
 	for i in amount:
@@ -83,11 +83,11 @@ func game_over() -> void:
 
 func tick_slime() -> void:
 	print("[ServerWindow] Tick slime!")
-	corrupt(tick_slime_spread_amount)
+	corrupt(randi_range(tick_slime_spread_amount.x,tick_slime_spread_amount.y))
 
 func tick_NPC() -> void:
 	print("[ServerWindow] Tick NPC!")
-	corrupt(tick_slime_spread_amount)
+	corrupt(randi_range(tick_NPC_spread_amount.x,tick_NPC_spread_amount.y))
 
 
 func spawn_slime() -> void:
