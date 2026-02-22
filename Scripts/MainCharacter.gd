@@ -8,6 +8,7 @@ class_name MainCharacter extends CharacterBody2D
 @onready var healthbar : ProgressBar = $Healthbar
 @onready var frustration_manager : FrustrationManager = $FrustrationManager
 @onready var audio_sword_fx : AudioStreamPlayer = $"../../SwordFx"
+@onready var location_label : Label = $FakeCamera/Location
 
 @export_category("STATS")
 @export var max_health : float = 5
@@ -111,6 +112,7 @@ func travel() -> void:
 	travelling = true
 	
 	target = quest_window.waypoint.global_position
+	location_label.text = "location: travelling..."
 	
 	print("[MainCharacter] Travelling - Moving towards '",quest_window.waypoint,"' at ",target)
 	
@@ -120,6 +122,8 @@ func travel() -> void:
 	moving = false
 	
 	travelling = false
+	
+	location_label.text = "location: " + quest_window.waypoint.name
 	
 	await get_tree().physics_frame
 	
