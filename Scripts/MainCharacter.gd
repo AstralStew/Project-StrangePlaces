@@ -68,6 +68,8 @@ func level_start() -> void:
 	health = max_health
 	healthbar.value = health
 	
+	await get_tree().create_timer(3.5).timeout
+	
 	travel()
 
 

@@ -277,8 +277,8 @@ border_color = Color(1, 0, 1, 0.7411765)
 
 [node name="Level" type="Node2D" unique_id=1454608919]
 script = ExtResource("1_re0q2")
-metadata/_edit_vertical_guides_ = [0.0, 640.0, 1400.0]
-metadata/_edit_horizontal_guides_ = [800.0, 0.0, 360.0]
+metadata/_edit_vertical_guides_ = [0.0, 640.0, 1408.0]
+metadata/_edit_horizontal_guides_ = [804.0, 0.0, 360.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
 visible = false
@@ -470,10 +470,10 @@ scroll_active = false
 horizontal_alignment = 1
 
 [node name="AdminWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1626817112 groups=["AdminWindow"]]
-offset_left = 202.0
-offset_top = 93.0
-offset_right = 382.0
-offset_bottom = 313.0
+offset_left = 22.0
+offset_top = 39.0
+offset_right = 202.0
+offset_bottom = 259.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("1_0f350")
 max_pos = Vector2(640, 360)
@@ -1027,10 +1027,10 @@ autowrap_mode = 2
 clip_text = true
 
 [node name="QuestWindow" type="PanelContainer" parent="CanvasLayer" unique_id=1469930672 groups=["QuestWindow"]]
-offset_left = 332.0
-offset_top = 154.0
-offset_right = 566.0
-offset_bottom = 296.0
+offset_left = 399.0
+offset_top = 212.0
+offset_right = 633.0
+offset_bottom = 354.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_qxfql")
 script = ExtResource("11_0cmrb")
 max_pos = Vector2(640, 360)
@@ -1528,13 +1528,14 @@ z_as_relative = false
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("5_0f350")
+minimum_distance_to_player = 150
 
 [node name="EnemyAwakeTimer" type="Timer" parent="MobManager" unique_id=929365997]
 autostart = true
 
 [node name="MainCharacter" type="CharacterBody2D" parent="MobManager" unique_id=1131605401 groups=["MainCharacter"]]
 z_as_relative = false
-position = Vector2(610, 322)
+position = Vector2(678, 396)
 motion_mode = 1
 script = ExtResource("2_0f350")
 max_health = 100.0
@@ -1637,8 +1638,8 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 [node name="Camera2D" type="Camera2D" parent="MobManager/MainCharacter" unique_id=772863441]
 limit_left = 0
 limit_top = 0
-limit_right = 1400
-limit_bottom = 800
+limit_right = 1408
+limit_bottom = 804
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
