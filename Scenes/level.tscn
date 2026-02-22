@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://dylopdfu1tn04" path="res://Assets/Theme/places_theme.tres" id="1_8c0lf"]
 [ext_resource type="SpriteFrames" uid="uid://c2iltkheeo4ec" path="res://Assets/SpriteFrames/BSOD.tres" id="1_53r2q"]
 [ext_resource type="Script" uid="uid://2vupr66p2pq2" path="res://Scripts/ChatWindow.gd" id="1_ha31o"]
+[ext_resource type="Script" uid="uid://4p1c8k5mxp0v" path="res://Scripts/Level.gd" id="1_re0q2"]
 [ext_resource type="Script" uid="uid://dik7dj3oq3mn5" path="res://Scripts/MainCharacter.gd" id="2_0f350"]
 [ext_resource type="FontVariation" uid="uid://bd10vgmu4lyxc" path="res://Assets/Fonts/NotoSerif - Normal.tres" id="3_c7le1"]
 [ext_resource type="FontVariation" uid="uid://n5dju8eycpl7" path="res://Assets/Fonts/NotoSerif - Bold.tres" id="4_2klc5"]
@@ -25,6 +26,7 @@
 [ext_resource type="Script" uid="uid://uvho0c56f1ui" path="res://Scripts/CharacterSprite.gd" id="13_2klc5"]
 [ext_resource type="ButtonGroup" uid="uid://dsyp6bemgst11" path="res://Assets/Theme/npc_colour_button_group.tres" id="13_hcs0j"]
 [ext_resource type="ButtonGroup" uid="uid://y8rfskre2mfk" path="res://Assets/Theme/npc_type_button_group.tres" id="14_t205d"]
+[ext_resource type="Texture2D" uid="uid://fyro5gv5sc0w" path="res://Assets/Sprites/logo.png" id="17_ais7f"]
 [ext_resource type="PackedScene" uid="uid://d0b5q4t35a5y1" path="res://Scenes/world_map.tscn" id="17_dw52x"]
 [ext_resource type="Texture2D" uid="uid://dabbhgpfc36cd" path="res://Assets/Sprites/Camera.png" id="20_pnhnk"]
 [ext_resource type="SpriteFrames" uid="uid://b38x5ra632bdj" path="res://Assets/SpriteFrames/SpeechBubble.tres" id="21_24uko"]
@@ -33,14 +35,6 @@
 [ext_resource type="AudioStream" uid="uid://dqaslewrw81kb" path="res://Assets/Audio/sword_randomizer.tres" id="31_dw52x"]
 [ext_resource type="AudioStream" uid="uid://qsfdm6gcx8v" path="res://Assets/Audio/npc_randomizer.tres" id="31_t205d"]
 [ext_resource type="AudioStream" uid="uid://53stn4qq2q7t" path="res://Assets/Audio/slime_randomizer.tres" id="32_ais7f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqkje"]
-bg_color = Color(0.68108356, 0.8222354, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cgv8"]
 draw_center = false
@@ -95,6 +89,14 @@ corner_detail = 3
 shadow_color = Color(0, 0, 0, 0.7137255)
 shadow_size = 1
 shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wqkje"]
+bg_color = Color(0.68108356, 0.8222354, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0f350"]
 bg_color = Color(0.79684955, 0.7968497, 0.7968497, 1)
@@ -228,6 +230,13 @@ draw_center = false
 border_width_bottom = 1
 border_color = Color(0.90588236, 0.90588236, 0.90588236, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_re0q2"]
+bg_color = Color(0.40451148, 0.40451103, 0.40451136, 1)
+border_width_left = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.9137255, 0.9137255, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nngtn"]
 size = Vector2(24, 24)
 
@@ -266,10 +275,12 @@ border_width_bottom = 2
 border_color = Color(1, 0, 1, 0.7411765)
 
 [node name="Level" type="Node2D" unique_id=1454608919]
+script = ExtResource("1_re0q2")
 metadata/_edit_vertical_guides_ = [0.0, 640.0, 1400.0]
 metadata/_edit_horizontal_guides_ = [800.0, 0.0, 360.0]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=845574786]
+visible = false
 
 [node name="BSOD" type="AnimatedSprite2D" parent="CanvasLayer" unique_id=1561082258]
 visible = false
@@ -277,53 +288,6 @@ z_index = 1
 position = Vector2(323, 179)
 scale = Vector2(1.0873092, 0.9472442)
 sprite_frames = ExtResource("1_53r2q")
-
-[node name="TitleBar2" type="Panel" parent="CanvasLayer" unique_id=622135326]
-custom_minimum_size = Vector2(220, 20)
-anchors_preset = 10
-anchor_right = 1.0
-grow_horizontal = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_wqkje")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/TitleBar2" unique_id=600720396]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 0
-
-[node name="TitleLabel" type="Label" parent="CanvasLayer/TitleBar2/MarginContainer" unique_id=659164616]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("4_bvt00")
-theme_override_font_sizes/font_size = 10
-text = "Live Server View - [Places.main] ONLINE"
-vertical_alignment = 1
-
-[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=877486171]
-custom_minimum_size = Vector2(0, 7.835)
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-theme = ExtResource("6_oqgf2")
-
-[node name="Panel2" type="Panel" parent="CanvasLayer" unique_id=1264082650]
-visible = false
-custom_minimum_size = Vector2(0, 7.835)
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 19.0
-offset_bottom = 26.835
-grow_horizontal = 2
-theme = ExtResource("6_oqgf2")
 
 [node name="ChatWindow" type="PanelContainer" parent="CanvasLayer" unique_id=674060626 groups=["ChatWindow"]]
 anchors_preset = 2
@@ -1530,6 +1494,31 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_53r2q")
 vertical_alignment = 1
+
+[node name="Software" type="Panel" parent="CanvasLayer" unique_id=635894286]
+visible = false
+offset_top = 20.0
+offset_right = 640.0
+offset_bottom = 352.0
+theme = ExtResource("6_oqgf2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_re0q2")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Software" unique_id=75360850]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.0
+offset_top = -97.0
+offset_right = 175.5
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_ais7f")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="WorldMap" parent="." unique_id=578214612 instance=ExtResource("17_dw52x")]
 

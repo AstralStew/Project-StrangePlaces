@@ -60,15 +60,14 @@ signal saw_enemy
 
 @onready var quest_window : QuestWindow = get_tree().get_first_node_in_group("QuestWindow")
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+
+func level_start() -> void:
 	set_weapon(false)
 	set_sight_circle(false)
 	health = max_health
 	healthbar.value = health
 	
 	travel()
-
 
 
 func lose_health(amount:float) -> void:
