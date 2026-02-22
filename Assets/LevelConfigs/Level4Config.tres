@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_t1hlm")
+number_of_starting_players = 200
+mins_before_server_restart = 3
 metadata/_custom_type_script = "uid://c3polglwy1dde"
