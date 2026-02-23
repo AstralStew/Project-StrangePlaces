@@ -257,7 +257,7 @@ func _on_search_circle_body_entered(body: Node2D) -> void:
 		_npc.start_interaction()
 		await get_tree().create_timer(randf_range(npc_interact_time.x,npc_interact_time.y)).timeout 
 		if body != null:
-			if Helpers.compare_npcs(_npc.npconfig,quest_window.active_quest.target):
+			if !_npc.corrupted && Helpers.compare_npcs(_npc.npconfig,quest_window.active_quest.target):
 				_npc.complete_interaction()
 				print("[MainCharacter] Search Complete! - Successful interaction with NPC '",_npc,"'!")
 			else:

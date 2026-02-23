@@ -57,8 +57,12 @@ class_name LevelConfig extends Resource
 @export var  tick_rate_to_check_whether_to_corrupt_mob : float = 0.5
 @export var  chance_to_corrupt_a_slime_on_tick : float = 0.01
 @export var  chance_to_corrupt_a_NPC_on_tick : float = 0.02
+@export var  chance_to_corrupt_map_tile_on_click : float = 0.5
 
 
+@export_category("Restarting Drive")
+@export var  time_to_restart_drive : float = 10
+@export var  percentage_of_corrupt_cubes_to_recover : float = 0.9
 
 func _init() -> void:
 	number_of_starting_players = 420
@@ -96,3 +100,7 @@ func _init() -> void:
 	tick_rate_to_check_whether_to_corrupt_mob = 0.5
 	chance_to_corrupt_a_slime_on_tick = 0.01
 	chance_to_corrupt_a_NPC_on_tick = 0.02
+	chance_to_corrupt_map_tile_on_click = 0.5
+		
+	time_to_restart_drive = 10
+	percentage_of_corrupt_cubes_to_recover = 0.9

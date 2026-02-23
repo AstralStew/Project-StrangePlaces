@@ -9,6 +9,7 @@ class_name MobManager extends Node
 
 @onready var audio_slime_fx : AudioStreamPlayer = $"../SlimeFx"
 @onready var audio_npc_fx : AudioStreamPlayer = $"../NpcFx"
+@onready var audio_glitch_fx : AudioStreamPlayer = $"../GlitchFx"
 
 @export_category("CONTROLS")
 
@@ -106,12 +107,12 @@ func passive_tick() -> void:
 		if (get_tree().get_node_count_in_group("Slimes") * slime_tick_chance) > randf():
 			tick_slime.emit()
 			var chosen_slime : Slime = get_tree().get_nodes_in_group("Slimes")[randi() % get_tree().get_node_count_in_group("Slimes")]
-			chosen_slime.corrupt()
+			if !chosen_slime.corrupted && !chosen_slime.dying: chosen_slime.corrupt()
 			
 		elif (get_tree().get_node_count_in_group("NPCs") * npc_tick_chance) > randf():
 			tick_NPC.emit()
 			var chosen_NPC : NPC = get_tree().get_nodes_in_group("NPCs")[randi() % get_tree().get_node_count_in_group("NPCs")]
-			chosen_NPC.corrupt()
+			if !chosen_NPC.corrupted && !chosen_NPC.interacting: chosen_NPC.corrupt()
 		
 		await get_tree().create_timer(maxf(tick_rate,0.05)).timeout
 		
@@ -126,6 +127,7 @@ func spawn_slime() -> Slime:
 	instance.timer = enemy_timer
 	instance.main_character = main_character
 	instance.audio_enemy_fx = audio_slime_fx
+	instance.audio_glitch_fx = audio_glitch_fx
 	instance.setup()
 	add_child(instance)
 	
@@ -141,6 +143,7 @@ func spawn_NPC(_npconfig:NPConfig = NPConfig.rand()) -> NPC:
 		return null
 	
 	instance.audio_npc_fx = audio_npc_fx
+	instance.audio_glitch_fx = audio_glitch_fx
 	instance.setup(_npconfig)
 	add_child(instance)
 	

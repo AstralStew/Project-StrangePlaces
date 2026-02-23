@@ -94,6 +94,7 @@ offset_bottom = -39.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme = ExtResource("3_faxwx")
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 0
@@ -120,7 +121,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("3_faxwx")
 theme_override_styles/panel = SubResource("StyleBoxFlat_m0lvl")
+
+[node name="RedX" type="Label" parent="." unique_id=1345455399]
+visible = false
+offset_left = -19.0
+offset_top = -37.0
+offset_right = 21.0
+offset_bottom = -14.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "x"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

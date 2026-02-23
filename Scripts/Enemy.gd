@@ -6,6 +6,7 @@ class_name Enemy extends CharacterBody2D
 @onready var sprite : EnemySprite = $Sprite2D
 @onready var shadow : Sprite2D = $Sprite2D/Shadow
 @onready var body_collider : CollisionShape2D = $BodyCollider
+@onready var red_x : Label = $RedX
 
 
 @export var _debugging : bool = false
@@ -40,6 +41,7 @@ class_name Enemy extends CharacterBody2D
 @export var death_rotation_amount : float = 1.0
 @export var death_position_speed : float = 2.0
 @export var death_position_amount : Vector2 = Vector2(0,-5)
+@export var death_corrupted_modifier : float = 3
 
 @export_category("READ ONLY")
 
@@ -70,6 +72,7 @@ signal on_took_damage
 
 
 var audio_enemy_fx : AudioStreamPlayer = null
+var audio_glitch_fx : AudioStreamPlayer = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -180,9 +183,18 @@ func _on_hurtbox_area_entered(area: Area2D) -> void:
 	if _debugging: print("[Enemy(",self,")] Area entered = ", area)
 	
 	if area.name.contains("Weapon"):
-		audio_enemy_fx.play()
-		hit_by_weapon()
-	
+		if corrupted:
+			if !red_x.visible:
+				audio_glitch_fx.play()
+				show_red_x()
+		else:
+			audio_enemy_fx.play()
+			hit_by_weapon()
+
+func show_red_x() -> void:
+	red_x.visible = true
+	await get_tree().create_timer(1.5).timeout
+	red_x.visible = false
 
 
 func hit_by_weapon() -> void:
@@ -215,10 +227,19 @@ func die() -> void:
 	queue_free()
 
 func _sprite_effects_on_die(delta) -> void:
-	var new_position = sin(sprite_die_timer * death_position_speed) * death_position_amount
-	sprite.position = initial_sprite_pos + new_position
-	var new_rotation = sin(sprite_die_timer * death_rotation_speed) * death_rotation_amount
-	sprite.rotation = 0 + new_rotation
-	
-	sprite.self_modulate = initial_sprite_color.lerp(Color(Color.RED,0),sprite_die_timer/death_speed)
-	shadow.self_modulate = initial_shadow_color.lerp(Color(initial_shadow_color,0),sprite_die_timer/death_speed)
+	if corrupted:
+		var new_position = sin(sprite_die_timer * death_position_speed * death_corrupted_modifier) * death_position_amount * randf_range(1,2)
+		sprite.position = initial_sprite_pos + new_position
+		var new_rotation = sin(sprite_die_timer * death_rotation_speed * death_corrupted_modifier) * death_rotation_amount * randf_range(1,2)
+		sprite.rotation = 0 + new_rotation
+		
+		
+	else:
+		
+		var new_position = sin(sprite_die_timer * death_position_speed) * death_position_amount
+		sprite.position = initial_sprite_pos + new_position
+		var new_rotation = sin(sprite_die_timer * death_rotation_speed) * death_rotation_amount
+		sprite.rotation = 0 + new_rotation
+		
+		sprite.self_modulate = initial_sprite_color.lerp(Color(Color.RED,0),sprite_die_timer/death_speed)
+		shadow.self_modulate = initial_shadow_color.lerp(Color(initial_shadow_color,0),sprite_die_timer/death_speed)

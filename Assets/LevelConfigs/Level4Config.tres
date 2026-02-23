@@ -6,6 +6,7 @@
 script = ExtResource("1_t1hlm")
 number_of_starting_players = 150
 mins_before_server_restart = 3
+corruption_active = true
 cost_of_taking_damage = Vector2(10, 15)
 cost_of_spawning_in_frustrum = Vector2(9, 14)
 cost_of_destroying_in_frustrum = Vector2(9, 14)

@@ -2,6 +2,7 @@ class_name EmailWindow extends VirtualWindow
 
 enum Type {Start,Lose}
 
+@onready var title : Label = $VBoxContainer/TitleBar/MarginContainer/TitleLabel
 @onready var from : RichTextLabel = $VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/FromContainer/From
 @onready var date : RichTextLabel = $VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/DateContainer/Date
 @onready var to : RichTextLabel = $VBoxContainer/EmailWindow/MarginContainer/VBoxContainer/MarginContainer/PanelContainer/VBoxContainer/ToContainer/To
@@ -18,6 +19,7 @@ func populate_email(_from:String,_date:String,_to:String,_cc:String,_subject:Str
 	to.text = _to
 	cc.text = _cc
 	subject.text = _subject
+	title.text = "MailCoded - " + _subject
 	content.text = _content
 
 

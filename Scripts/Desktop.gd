@@ -1,5 +1,7 @@
 extends Node
 
+@onready var level_prefab : PackedScene =  preload("res://Scenes/level.tscn")
+
 @export var level : Level
 
 @export var game_logo : TextureRect
@@ -20,8 +22,6 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	level.level_finished.connect(end_level)
-	
 	preamble()
 
 
@@ -36,6 +36,7 @@ func preamble() -> void:
 
 
 func start_level() -> void:
+	
 	
 	email_window.deactivate_email()
 	credentials.visible = false
@@ -67,17 +68,30 @@ func start_level() -> void:
 	softwareBG.visible = false
 	game_logo.visible = false
 	
-	level.process_mode = Node.PROCESS_MODE_INHERIT
+	level = level_prefab.instantiate()
+	add_child(level)
+	
 	await get_tree().process_frame
-	level.call_deferred("start_level",_levelConfig)
-	level.set_deferred("visible",true)
+	
+	level.start_level(_levelConfig)
+	level.visible = true
+		
+	
+	level.level_finished.connect(end_level)
+	
+	#level.process_mode = Node.PROCESS_MODE_INHERIT
+	#level.call_deferred("start_level",_levelConfig)
+	#level.set_deferred("visible",true)
 
 
 func end_level(won:bool) -> void:
 	print("[Desktop] End level - we ", "won!" if won else "lost!")
 	softwareBG.visible = true
+	
 	level.visible = false
-	level.set_deferred("process_mode",Node.PROCESS_MODE_DISABLED)
+	level.queue_free()
+	
+	#level.set_deferred("process_mode",Node.PROCESS_MODE_DISABLED)
 	
 	await get_tree().create_timer(3).timeout
 	
@@ -85,7 +99,7 @@ func end_level(won:bool) -> void:
 	if won:
 		print("[Desktop] We won!")
 		if current_level != Level.CurrentLevel.Level4:
-						
+			
 			print("[Desktop] Setting current level")
 			match current_level:
 				Level.CurrentLevel.Level1:

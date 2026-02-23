@@ -2,11 +2,14 @@ class_name NPC extends CharacterBody2D
 
 
 var npc_sprite : NPCSprite 
-#var npc_label : RichTextLabel
+@onready var red_x : Label = $RedX
 @onready var admin_window : AdminWindow = get_tree().get_first_node_in_group("AdminWindow")
+@onready var server_window : ServerWindow = get_tree().get_first_node_in_group("ServerWindow")
 @onready var frustration_manager : FrustrationManager = get_tree().get_first_node_in_group("FrustrationManager")
 
 var audio_npc_fx : AudioStreamPlayer = null
+var audio_glitch_fx : AudioStreamPlayer = null
+
 
 @export_category("CONTROLS")
 
@@ -19,6 +22,7 @@ var audio_npc_fx : AudioStreamPlayer = null
 
 @export var corrupted : bool = false
 
+@export var interacting : bool = false
 
 @export var destroy_enemy_on_click : bool = false :
 	get: return (
@@ -49,8 +53,11 @@ func setup(_npconfig:NPConfig) -> void:
 
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if destroy_enemy_on_click && event.is_action_pressed("AdminEnemyTool"):
-		frustration_manager.check_destroy_position()
-		queue_free()
+		if corrupted:
+			show_red_x()
+		else:
+			frustration_manager.check_destroy_position()
+			queue_free()
 
 
 func corrupt() -> void:
@@ -59,6 +66,7 @@ func corrupt() -> void:
 		corrupted = true
 		npc_sprite.corrupted = true
 		name = name + " [corrupt]"
+		server_window.server_restart_complete.connect(queue_free)
 		return
 	
 	print("[NPC] Corrupt called again")
@@ -67,13 +75,28 @@ func corrupt() -> void:
 	
 
 
-func start_interaction() -> void:	
-	audio_npc_fx.play()
+func start_interaction() -> void:
+	interacting = true
+	if corrupted:
+		audio_glitch_fx.play()
+		if !red_x.visible: show_red_x()
+	else:
+		audio_npc_fx.play()
 
-func complete_interaction() -> void:	
-	audio_npc_fx.play()
-	
-	(get_tree().get_first_node_in_group("QuestWindow") as QuestWindow).finish_quest()	
-	
-	#if randf() <= chance_to_disappear:
-		#queue_free()
+func complete_interaction() -> void:
+	interacting = false
+	if corrupted:
+		audio_glitch_fx.play()
+		if !red_x.visible: show_red_x()
+		server_window.corrupt(1)
+	else:
+		audio_npc_fx.play()
+		(get_tree().get_first_node_in_group("QuestWindow") as QuestWindow).finish_quest()
+
+
+
+
+func show_red_x() -> void:
+	red_x.visible = true
+	await get_tree().create_timer(1.5).timeout
+	red_x.visible = false

@@ -3,7 +3,7 @@ class_name AdminWindow extends VirtualWindow
 
 
 
-enum Tabs {ATTACKING,ENEMIES,NPCS}
+enum Tabs {ATTACKING,ENEMIES,NPCS,DISABLED}
 
 enum EnemyTools {SPAWN,DESTROY}
 enum NPCTools {SPAWN,DESTROY}
@@ -57,6 +57,10 @@ func change_selected_tab(tab:Tabs) -> void:
 			print("[AdminWindow] Tabs.NPCs selected! Loading NPCTabContent...")
 			enemy_tab_content.visible = false
 			npc_tab_content.visible = true
+		Tabs.DISABLED:
+			print("[AdminWindow] Tabs disabled! Unloading content...")
+			enemy_tab_content.visible = false
+			npc_tab_content.visible = false
 		_:
 			push_error("[AdminWindowBar] ERROR -> Bad tab name! Ignoring :(")
 			return

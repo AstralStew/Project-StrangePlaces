@@ -2,19 +2,29 @@ class_name Level extends Node2D
 
 enum CurrentLevel {Level1, Level2, Level3, Level4}
 
-@onready var main_character : MainCharacter = get_tree().get_first_node_in_group("MainCharacter")
-@onready var chat_window : ChatWindow = get_tree().get_first_node_in_group("ChatWindow")
-@onready var mob_manager : MobManager = get_tree().get_first_node_in_group("MobManager")
-@onready var quest_window : QuestWindow = get_tree().get_first_node_in_group("QuestWindow")
-@onready var frustration_manager : FrustrationManager = get_tree().get_first_node_in_group("FrustrationManager")
-@onready var server_window : ServerWindow = get_tree().get_first_node_in_group("ServerWindow")
+@export var main_character : MainCharacter #= get_tree().get_first_node_in_group("MainCharacter")
+@export var chat_window : ChatWindow #= get_tree().get_first_node_in_group("ChatWindow")
+@export var mob_manager : MobManager #= get_tree().get_first_node_in_group("MobManager")
+@export var quest_window : QuestWindow #= get_tree().get_first_node_in_group("QuestWindow")
+@export var frustration_manager : FrustrationManager #= get_tree().get_first_node_in_group("FrustrationManager")
+@export var server_window : ServerWindow #= get_tree().get_first_node_in_group("ServerWindow")
+@export var world_map : WorldMap #= get_tree().get_first_node_in_group("WorldMap")
 
-@onready var level_ui_canvas : CanvasLayer = get_child(0)
+@export var level_ui_canvas : CanvasLayer #= get_child(0)
 
 signal level_finished(won)
 
 
 func start_level(_levelConfig:LevelConfig) -> void:
+	
+	main_character = get_tree().get_first_node_in_group("MainCharacter")
+	chat_window = get_tree().get_first_node_in_group("ChatWindow")
+	mob_manager = get_tree().get_first_node_in_group("MobManager")
+	quest_window = get_tree().get_first_node_in_group("QuestWindow")
+	frustration_manager = get_tree().get_first_node_in_group("FrustrationManager")
+	server_window = get_tree().get_first_node_in_group("ServerWindow")
+	world_map = get_tree().get_first_node_in_group("WorldMap")
+	level_ui_canvas = get_child(0)
 	
 	print("levelconfig number of starting players = ",_levelConfig.number_of_starting_players)
 	
@@ -58,6 +68,10 @@ func start_level(_levelConfig:LevelConfig) -> void:
 	mob_manager.slime_tick_chance = _levelConfig.chance_to_corrupt_a_slime_on_tick
 	mob_manager.npc_tick_chance =_levelConfig.chance_to_corrupt_a_NPC_on_tick
 	
+	world_map.chance_to_corrupt_map_tile = _levelConfig.chance_to_corrupt_map_tile_on_click
+	
+	server_window.time_to_restart_drive = _levelConfig.time_to_restart_drive	
+	server_window.percentage_cubes_recovered = _levelConfig.percentage_of_corrupt_cubes_to_recover
 	
 	
 	await get_tree().process_frame

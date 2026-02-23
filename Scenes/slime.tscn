@@ -77,6 +77,7 @@ offset_top = -20.0
 offset_right = 14.0
 offset_bottom = -17.0
 grow_horizontal = 2
+mouse_filter = 2
 theme = ExtResource("3_aiwxb")
 theme_override_colors/font_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -99,6 +100,17 @@ theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("4_paq7w")
 theme_override_font_sizes/font_size = 22
 text = "3 / 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RedX" type="Label" parent="." unique_id=1209467504]
+visible = false
+offset_left = -19.0
+offset_top = -21.0
+offset_right = 21.0
+offset_bottom = 2.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "x"
 horizontal_alignment = 1
 vertical_alignment = 1
 

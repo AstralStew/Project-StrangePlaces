@@ -1,0 +1,14 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://d0c8fby8psk80"]
+
+[ext_resource type="AudioStream" uid="uid://bjb2qfe12jvp2" path="res://Assets/Audio/glitches/invalid.wav" id="1_dchsj"]
+[ext_resource type="AudioStream" uid="uid://c4pqvd86lnns4" path="res://Assets/Audio/glitches/lose sound 2 - 1_0.wav" id="2_gv30i"]
+[ext_resource type="AudioStream" uid="uid://xdd6wkk6b3u" path="res://Assets/Audio/glitches/lose sound 2 - 2.wav" id="3_ejorq"]
+[ext_resource type="AudioStream" uid="uid://c787allkd83mn" path="res://Assets/Audio/glitches/select_blip_error1.wav" id="4_gcrji"]
+
+[resource]
+random_pitch = 1.1892071
+streams_count = 4
+stream_0/stream = ExtResource("1_dchsj")
+stream_1/stream = ExtResource("2_gv30i")
+stream_2/stream = ExtResource("3_ejorq")
+stream_3/stream = ExtResource("4_gcrji")

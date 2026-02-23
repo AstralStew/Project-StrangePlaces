@@ -17,4 +17,7 @@ amount_of_corruption_when_spawn_NPC = Vector2i(3, 5)
 bonus_corruption_when_a_slime_gets_corrupted = Vector2i(2, 2)
 bonus_corruption_when_a_NPC_gets_corrupted = Vector2i(2, 2)
 tick_rate_to_check_whether_to_corrupt_mob = 2.0
+chance_to_corrupt_a_slime_on_tick = 0.05
+chance_to_corrupt_a_NPC_on_tick = 0.05
+chance_to_corrupt_map_tile = 0.25
 metadata/_custom_type_script = "uid://c3polglwy1dde"
