@@ -10,8 +10,9 @@ class_name MainCharacter extends CharacterBody2D
 @onready var audio_sword_fx : AudioStreamPlayer = $"../../SwordFx"
 @onready var location_label : Label = $FakeCamera/Location
 
-@export_category("STATS")
+@export_category("GENERAL")
 @export var max_health : float = 5
+@export var check_for_enemies_frequency : float = 0.5
 @export_category("TRAVELLING")
 @export var speed : float = 5
 @export var travel_end_distance : float = 4
@@ -46,6 +47,7 @@ class_name MainCharacter extends CharacterBody2D
 
 var wander_target_reached : bool = false
 
+var enemies_seen : Array[Slime] = []
 
 signal target_reached
 signal npc_not_found
@@ -81,6 +83,11 @@ func lose_health(amount:float) -> void:
 	took_damage.emit()
 
 
+func enemy_sighted(_enemy:Enemy) -> void:
+	enemies_seen.append(_enemy)
+	saw_enemy.emit()
+	
+
 func _physics_process(delta: float) -> void:
 	
 	if moving:
@@ -102,8 +109,25 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity = direction.normalized() * speed 
 			move_and_slide()
+	
+	
 
-
+func check_if_enemies_close() -> void:
+	
+	while (GlobalVariables.game_running):
+		if enemies_seen.size() > 0:
+			var filtered_array = enemies_seen.filter(
+				func(_enemy): return _enemy != null
+			)
+			enemies_seen = filtered_array
+		
+		var enemy_close : bool = false
+		for enemy in enemies_seen:
+			if enemy.near_player():
+				saw_enemy.emit()
+				break
+		
+		await get_tree().create_timer(check_for_enemies_frequency).timeout
 
 
 

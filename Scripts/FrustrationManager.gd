@@ -25,6 +25,8 @@ var frustration : float = 0
 
 @export var no_enemies_elapsed_time : float = 0.0
 
+@export var no_enemies_real_elapsed_time : float = 0.0
+
 
 signal on_took_unnecessary_damage
 signal on_cant_find_npc
@@ -56,7 +58,7 @@ func _ready() -> void:
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if !GlobalVariables.game_running: return
 	
 	if !main_character.interacting:
@@ -65,6 +67,8 @@ func _process(delta: float) -> void:
 			no_enemies_elapsed_time = 0
 			no_enemies()
 		else: no_enemies_elapsed_time += delta
+	
+	no_enemies_real_elapsed_time += delta
 
 
 
@@ -164,6 +168,7 @@ func took_damage_message() -> String:
 
 func saw_enemy() -> void:
 	no_enemies_elapsed_time = clamp(no_enemies_elapsed_time - saw_enemy_add_to_time, 0, no_enemies_max_time)
+	no_enemies_real_elapsed_time = 0
 
 func no_enemies() -> void:
 	if typing:

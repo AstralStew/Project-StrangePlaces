@@ -142,11 +142,13 @@ func find_player() -> void:
 			reached_character()
 	
 	# Wake up if player is in range
-	if !awake && dir.length_squared() < (activation_distance ** 2):
+	if !awake && near_player():
 		wake_up()
-		main_character.saw_enemy.emit()
+		main_character.enemy_sighted(self)
 	
 
+func near_player() -> bool:
+	return dir.length_squared() < (activation_distance ** 2)
 
 
 func wake_up() -> void:

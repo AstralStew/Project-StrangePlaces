@@ -579,7 +579,62 @@ tab_0/title = "Attacking"
 tab_1/title = "  Enemies  "
 tab_2/title = "   NPCs  "
 
+[node name="AttackTabContent" type="PanelContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2" unique_id=1458941304]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("6_oqgf2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_luodc")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/AttackTabContent" unique_id=1733988331]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 5
+
+[node name="CurrentTool" type="HBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/AttackTabContent/VBoxContainer" unique_id=1571441595]
+layout_mode = 2
+size_flags_vertical = 2
+size_flags_stretch_ratio = 0.28
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/AttackTabContent/VBoxContainer/CurrentTool" unique_id=1181376188]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_oqgf2")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Auto-attack:"
+
+[node name="Label2" type="Label" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/AttackTabContent/VBoxContainer/CurrentTool" unique_id=1704112376]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_oqgf2")
+theme_override_colors/font_color = Color(0.3647059, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_bvt00")
+text = "Disconnected"
+
+[node name="HelpBox" type="RichTextLabel" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/AttackTabContent/VBoxContainer" unique_id=108325658]
+custom_minimum_size = Vector2(153.565, 40.575)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme = ExtResource("6_oqgf2")
+theme_override_colors/default_color = Color(0.4088756, 0.40887517, 0.40887523, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_constants/line_separation = 1
+theme_override_constants/paragraph_separation = 2
+theme_override_constants/shadow_outline_size = 0
+theme_override_font_sizes/normal_font_size = 9
+theme_override_font_sizes/bold_font_size = 9
+theme_override_styles/normal = SubResource("StyleBoxFlat_idpk0")
+bbcode_enabled = true
+text = "[b]Manual attack:[/b]
+Click the map to trigger the player's  auto-attack in the direction of the mouse"
+scroll_active = false
+
 [node name="EnemyTabContent" type="PanelContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2" unique_id=259627891]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("6_oqgf2")
@@ -616,7 +671,7 @@ popup/item_1/text = "Destroy"
 popup/item_1/id = 1
 
 [node name="HelpBox" type="RichTextLabel" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/EnemyTabContent/VBoxContainer" unique_id=1992784503]
-custom_minimum_size = Vector2(153.565, 74.355)
+custom_minimum_size = Vector2(153.565, 40.575)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -631,13 +686,32 @@ theme_override_font_sizes/bold_font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_idpk0")
 bbcode_enabled = true
 text = "[b]Spawn mode:[/b]
-Click the map to spawn an enemy of the chosen type at the mouse
-[b]Destroy mode:[/b]
-Click the map to destroy an enemy of the chosen type at the mouse"
+Click the map to spawn an Enemy at the mouse"
 scroll_active = false
 
+[node name="CurrentTool2" type="HBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/EnemyTabContent/VBoxContainer" unique_id=846149247]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 9
+alignment = 1
+
+[node name="LastEnemyLabel" type="Label" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/EnemyTabContent/VBoxContainer/CurrentTool2" unique_id=1700476320]
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_oqgf2")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Last enemy:"
+
+[node name="LastEnemy" type="RichTextLabel" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/EnemyTabContent/VBoxContainer/CurrentTool2" unique_id=1615132682]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("6_oqgf2")
+bbcode_enabled = true
+text = "[color=009900] 0 seconds ago"
+
 [node name="NPCTabContent" type="PanelContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2" unique_id=1832549376]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("6_oqgf2")
@@ -691,7 +765,7 @@ theme_override_font_sizes/bold_font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_idpk0")
 bbcode_enabled = true
 text = "[b]Spawn mode:[/b]
-Click the map to spawn an NPC of the chosen type and colour at the mouse"
+Click the map to spawn an NPC at the mouse with the settings chosen below "
 scroll_active = false
 
 [node name="NamesContainer" type="HBoxContainer" parent="CanvasLayer/AdminWindow/VBoxContainer/AdminWindow/MarginContainer/VBoxContainer2/NPCTabContent/VBoxContainer" unique_id=133113898]
